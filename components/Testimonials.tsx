@@ -46,7 +46,7 @@ const testimonials = [
     name: 'Alexandre D.',
     car: 'Renault Clio 5',
     rating: 5,
-    text: "Confier une Ferrari demande une confiance absolue. AR Protect l'a méritée. Soin méticuleux, produits premium, résultat irréprochable. Ma F8 n'a jamais été aussi belle depuis sa sortie d'usine.",
+    text: "Confier une voiture demande une confiance absolue. AR Protect l'a méritée. Soin méticuleux, produits premium, résultat irréprochable. Ma clio 5 n'a jamais été aussi belle depuis sa sortie d'usine.",
     date: 'Décembre 2025',
     service: 'Correction de Peinture + Céramique',
   },

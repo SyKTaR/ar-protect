@@ -5,6 +5,21 @@ import { motion, useInView } from 'framer-motion'
 import { ChevronsLeftRight } from 'lucide-react'
 import Image from 'next/image'
 
+type ViewType = 'exterieur' | 'interieur'
+
+const views: Record<ViewType, { before: string; after: string; label: string }> = {
+  exterieur: {
+    before: '/avant.png',
+    after: '/apres.png',
+    label: 'Extérieur',
+  },
+  interieur: {
+    before: '/avant_interieur.png',
+    after: '/apres_interieur.png',
+    label: 'Intérieur',
+  },
+}
+
 export default function BeforeAfterSlider() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
@@ -12,6 +27,7 @@ export default function BeforeAfterSlider() {
 
   const [position, setPosition] = useState(50)
   const [isDragging, setIsDragging] = useState(false)
+  const [activeView, setActiveView] = useState<ViewType>('exterieur')
 
   const updatePosition = useCallback((clientX: number) => {
     if (!sliderRef.current) return
@@ -102,7 +118,7 @@ export default function BeforeAfterSlider() {
             {/* AFTER — base layer (right side / full) */}
             <div className="absolute inset-0 w-full h-full">
               <Image
-                src="/apres.png"
+                src={views[activeView].after}
                 alt="Après traitement AR Protect"
                 fill
                 className="object-cover pointer-events-none"
@@ -125,7 +141,7 @@ export default function BeforeAfterSlider() {
                 style={{ width: `${100 / (position / 100)}%` }}
               >
                 <Image
-                  src="/avant.png"
+                  src={views[activeView].before}
                   alt="Avant traitement AR Protect"
                   fill
                   className="object-cover pointer-events-none"
@@ -163,6 +179,27 @@ export default function BeforeAfterSlider() {
           <p className="text-center text-white/30 text-xs uppercase tracking-widest mt-6">
             Faites glisser le curseur pour comparer
           </p>
+
+          {/* View selector */}
+          <div className="flex justify-center gap-3 mt-6">
+            {(Object.keys(views) as ViewType[]).map((view) => (
+              <button
+                type="button"
+                key={view}
+                onClick={() => {
+                  setActiveView(view)
+                  setPosition(50)
+                }}
+                className={`px-6 py-2 text-xs uppercase tracking-widest font-semibold border rounded-full transition-all duration-200 ${
+                  activeView === view
+                    ? 'bg-ar-red border-ar-red text-white'
+                    : 'bg-transparent border-ar-border text-white/50 hover:border-white/40 hover:text-white/80'
+                }`}
+              >
+                {views[view].label}
+              </button>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
