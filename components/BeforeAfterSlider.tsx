@@ -3,6 +3,7 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ChevronsLeftRight } from 'lucide-react'
+import Image from 'next/image'
 
 export default function BeforeAfterSlider() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -100,39 +101,17 @@ export default function BeforeAfterSlider() {
           >
             {/* AFTER — base layer (right side / full) */}
             <div className="absolute inset-0 w-full h-full">
-              <div
-                className="w-full h-full flex items-center justify-center"
-                style={{
-                  background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
-                }}
-              >
-                {/* Simulated "after" car shine */}
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        'radial-gradient(ellipse 70% 50% at 50% 60%, rgba(255,255,255,0.08) 0%, transparent 70%), linear-gradient(160deg, #0d1b2a 0%, #1b263b 40%, #0d1b2a 100%)',
-                    }}
-                  />
-                  <div className="relative text-center">
-                    <div className="text-6xl mb-4">🚗</div>
-                    <div className="font-display font-black text-xl text-white uppercase tracking-widest">Après</div>
-                    <div className="text-white/50 text-sm mt-1">Traitement AR Protect</div>
-                  </div>
-                  {/* Shine effect */}
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background:
-                        'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%)',
-                    }}
-                  />
-                </div>
-                {/* After label */}
-                <div className="absolute bottom-4 right-4 bg-ar-red px-3 py-1.5 text-white text-xs font-bold uppercase tracking-widest">
-                  Après
-                </div>
+              <Image
+                src="/apres.png"
+                alt="Après traitement AR Protect"
+                fill
+                className="object-cover pointer-events-none"
+                draggable={false}
+                priority
+              />
+              {/* After label */}
+              <div className="absolute bottom-4 right-4 bg-ar-red px-3 py-1.5 text-white text-xs font-bold uppercase tracking-widest z-10">
+                Après
               </div>
             </div>
 
@@ -142,41 +121,20 @@ export default function BeforeAfterSlider() {
               style={{ width: `${position}%` }}
             >
               <div
-                className="absolute inset-0 flex items-center justify-center"
+                className="absolute inset-0"
                 style={{ width: `${100 / (position / 100)}%` }}
               >
-                <div
-                  className="w-full h-full flex items-center justify-center"
-                  style={{
-                    background: 'linear-gradient(135deg, #2d1b00, #3d2805, #1a1000)',
-                  }}
-                >
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background:
-                          'linear-gradient(160deg, #1a0a00 0%, #2d1b00 40%, #1a0a00 100%)',
-                      }}
-                    />
-                    {/* Dust/dirt overlay */}
-                    <div
-                      className="absolute inset-0 opacity-40"
-                      style={{
-                        backgroundImage:
-                          'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3CfeColorMatrix type=\'saturate\' values=\'0\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")',
-                      }}
-                    />
-                    <div className="relative text-center z-10">
-                      <div className="text-6xl mb-4 grayscale opacity-60">🚗</div>
-                      <div className="font-display font-black text-xl text-white/50 uppercase tracking-widest">Avant</div>
-                      <div className="text-white/30 text-sm mt-1">Sans protection</div>
-                    </div>
-                  </div>
-                  {/* Before label */}
-                  <div className="absolute bottom-4 left-4 bg-white/10 border border-white/20 px-3 py-1.5 text-white text-xs font-bold uppercase tracking-widest">
-                    Avant
-                  </div>
+                <Image
+                  src="/avant.png"
+                  alt="Avant traitement AR Protect"
+                  fill
+                  className="object-cover pointer-events-none"
+                  draggable={false}
+                  priority
+                />
+                {/* Before label */}
+                <div className="absolute bottom-4 left-4 bg-white/10 border border-white/20 px-3 py-1.5 text-white text-xs font-bold uppercase tracking-widest z-10">
+                  Avant
                 </div>
               </div>
             </div>
