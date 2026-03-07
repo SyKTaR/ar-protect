@@ -2,93 +2,184 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Droplets, Sparkles, CircleDot, Shield, ArrowUpRight, X, Check, Clock, ChevronRight } from 'lucide-react'
+import { Droplets, Sparkles, Layers, Gem, Lightbulb, Wind, ArrowUpRight, X, Check, ChevronRight, ChevronLeft } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
-const services = [
+interface ProcessStep {
+  step: string
+  label: string
+  desc: string
+}
+
+interface PricingRow {
+  label: string
+  prices: string[]
+  savings?: string[]
+}
+
+interface PricingTable {
+  title?: string
+  headers: string[]
+  rows: PricingRow[]
+  note?: string
+}
+
+interface SimplePrice {
+  label: string
+  price: string
+}
+
+interface Service {
+  id: string
+  icon: LucideIcon
+  title: string
+  subtitle: string
+  description: string
+  features: string[]
+  price: string
+  highlight?: boolean
+  modalDescription: string
+  process: ProcessStep[]
+  pricingTable?: PricingTable
+  simplePricing?: SimplePrice[]
+  includes?: string[]
+}
+
+const services: Service[] = [
   {
     id: 'interieur',
     icon: Droplets,
-    title: 'Nettoyage Intérieur',
-    subtitle: 'Deep Clean',
+    title: 'HABITACLE & SOIN',
+    subtitle: 'DEEP CLEAN',
     description:
-      "Aspiration complète, traitement des surfaces, nettoyage des sièges et moquettes, désinfection et déodorisation pour un habitacle immaculé.",
-    detailedDescription:
-      "Notre service de nettoyage intérieur est une prestation complète qui redonne vie à votre habitacle. Nous utilisons des équipements professionnels et des produits adaptés à chaque matière (cuir, alcantara, tissu, plastique) pour garantir un résultat impeccable sans abîmer les surfaces.",
-    features: ['Aspiration complète', 'Traitement cuir', 'Désinfection UV', 'Déodorisation'],
+      "Une remise à neuf profonde de votre intérieur. Nous proposons 4 niveaux de finition pour répondre exactement à vos besoins de propreté et d'hygiène.",
+    features: ['4 Formules (Essentiel à Signature)', 'Aspiration & Dépoussiérage', 'Shampoing sièges & moquettes', 'Traitement anti-UV'],
+    price: 'Dès 99€ TTC',
+    modalDescription:
+      "Une remise à neuf méticuleuse de votre habitacle adaptée à votre type de véhicule. Nous utilisons des techniques d'extraction et de traitement vapeur pour un résultat professionnel.",
+    pricingTable: {
+      headers: ['Formule', 'Citadine', 'Berline', 'SUV / Prestige'],
+      rows: [
+        { label: '(1) Essentiel', prices: ['99€', '109€', '119€'] },
+        { label: '(2) Confort', prices: ['129€', '139€', '149€'] },
+        { label: '(3) Premium', prices: ['159€', '169€', '179€'] },
+        { label: '(4) Signature', prices: ['219€', '229€', '239€'] },
+      ],
+      note: "Utilitaire sur devis. Supplément de 10€ TTC si le véhicule n'est pas vidé.",
+    },
     process: [
-      { step: '1', label: 'Aspiration intégrale', desc: 'Sièges, moquettes, coffre, coins et recoins avec un aspirateur industriel.' },
-      { step: '2', label: 'Nettoyage des surfaces', desc: 'Tableau de bord, portes, console centrale et plastiques traités avec des produits adaptés.' },
-      { step: '3', label: 'Traitement des sièges', desc: 'Cuir nourri et protégé, tissu shampouiné en profondeur et séché correctement.' },
-      { step: '4', label: 'Désinfection & déodorisation', desc: 'Traitement UV antibactérien et désodorisation ozono ou spray premium.' },
+      { step: '1', label: 'Aspiration & Dépoussiérage', desc: "Aspiration complète de l'habitacle et dépoussiérage minutieux." },
+      { step: '2', label: 'Nettoyage Technique', desc: 'Plastiques, surfaces et vitres intérieures nettoyés et dégraissés.' },
+      { step: '3', label: 'Traitement Profond', desc: 'Shampoing des sièges et moquettes (selon formule choisie).' },
+      { step: '4', label: 'Finition & Protection', desc: 'Nettoyage des seuils, spray parfumé et traitement anti-UV (Formule Signature).' },
     ],
-    duration: 'À partir de 3h',
-    price: 'Dès 120€',
-    accentPosition: 'top-left',
   },
   {
     id: 'exterieur',
     icon: Sparkles,
-    title: 'Nettoyage Extérieur',
-    subtitle: 'Full Detail',
+    title: 'ÉCLAT EXTÉRIEUR',
+    subtitle: 'EXTERIOR CARE',
     description:
-      "Lavage à la main, décontamination de la carrosserie, traitement des jantes, protection des plastiques extérieurs et finition à l'huile de cire.",
-    detailedDescription:
-      "Le lavage à la main est la méthode la plus douce et la plus respectueuse de votre peinture. Contrairement aux stations de lavage automatiques, notre technique élimine les risques de micro-rayures et assure une finition uniforme sur toute la carrosserie.",
-    features: ['Lavage main', 'Décontamination', 'Jantes & vitres', 'Cire protectrice'],
-    process: [
-      { step: '1', label: 'Pré-rinçage & dégraissage', desc: 'Mousse active appliquée sur l\'ensemble du véhicule pour décoller les salissures.' },
-      { step: '2', label: 'Lavage à la main', desc: 'Gants microfibres et savon pH neutre pour préserver la peinture.' },
-      { step: '3', label: 'Jantes & pneumatiques', desc: 'Nettoyage des jantes, traitement des étriers et nourrissage des pneus.' },
-      { step: '4', label: 'Séchage & finition cire', desc: 'Séchage microfibres et application d\'une cire de protection pour la brillance.' },
+      "Un nettoyage manuel méticuleux pour redonner de l'éclat à votre carrosserie tout en protégeant les éléments sensibles comme les joints et les plastiques.",
+    features: ['Prélavage mousse active', 'Lavage carrosserie à la main', 'Nettoyage jantes & passages de roues', 'Dressing plastiques et pneus'],
+    price: 'Dès 89€ TTC',
+    modalDescription:
+      "Un lavage manuel haute précision pour purifier votre carrosserie et redonner de l'éclat aux éléments extérieurs sans risque de micro-rayures.",
+    simplePricing: [
+      { label: 'Citadine', price: '89€ TTC' },
+      { label: 'Berline', price: '99€ TTC' },
+      { label: 'SUV / Prestige', price: '109€ TTC' },
+      { label: 'Utilitaire', price: 'Sur Devis' },
     ],
-    duration: 'À partir de 2h',
-    price: 'Dès 80€',
-    accentPosition: 'top-right',
+    process: [
+      { step: '1', label: 'Prélavage & Décontamination', desc: 'Mousse active et nettoyage des jantes, garde-boue et bas de caisse.' },
+      { step: '2', label: 'Lavage à la Main', desc: 'Nettoyage minutieux de la carrosserie, des joints, plastiques et logos.' },
+      { step: '3', label: 'Séchage & Vitres', desc: 'Séchage manuel complet de la carrosserie et nettoyage des vitres extérieures.' },
+      { step: '4', label: 'Finition Brillance', desc: 'Nettoyage des seuils de porte et dressing des plastiques et pneus.' },
+    ],
   },
   {
-    id: 'polissage',
-    icon: CircleDot,
-    title: 'Polissage Expert',
-    subtitle: 'Paint Correction',
+    id: 'pack',
+    icon: Layers,
+    title: 'PACK INT + EXT',
+    subtitle: 'BEST SELLER',
     description:
-      "Correction de peinture par étapes avec des machines à orbite professionnelles. Élimination des micro-rayures, swirl marks et oxydations.",
-    detailedDescription:
-      "Le polissage est l'étape incontournable avant toute protection. Nos techniciens utilisent des machines à orbite double action de dernière génération pour corriger la peinture en douceur, sans risque de brûlure, et révéler tout l'éclat de votre carrosserie.",
-    features: ['Correction 1 étape', 'Correction 2 étapes', 'Anti-hologramme', 'Finition gloss'],
-    process: [
-      { step: '1', label: 'Décontamination chimique & mécanique', desc: 'Iron remover et clay bar pour éliminer toutes les particules incrustées.' },
-      { step: '2', label: 'Inspection paint gauge', desc: 'Mesure de l\'épaisseur de peinture pour déterminer le protocole de correction adapté.' },
-      { step: '3', label: 'Correction par étapes', desc: 'Polissage en 1 ou 2 passes selon la sévérité des défauts, avec composés abrasifs calibrés.' },
-      { step: '4', label: 'Finition anti-hologramme', desc: 'Passe finale avec polish finisseur pour un résultat gloss parfait, exempt de tout défaut.' },
-    ],
-    duration: 'À partir de 6h',
-    price: 'Dès 280€',
-    accentPosition: 'bottom-left',
-  },
-  {
-    id: 'ceramique',
-    icon: Shield,
-    title: 'Protection Céramique',
-    subtitle: 'Ceramic Coating',
-    description:
-      "Application de revêtements céramiques professionnels pour une protection durable jusqu'à 5 ans. Hydrophobie maximale et brillance incomparable.",
-    detailedDescription:
-      "Le revêtement céramique est la protection ultime pour votre véhicule. Il crée une couche nano-cristalline qui fusionne avec la peinture, offrant une résistance exceptionnelle aux agressions chimiques, UV, rayures légères et salissures. Un investissement qui préserve la valeur de votre véhicule.",
-    features: ['Céramique 1 couche', 'Céramique 2+ couches', 'Protection 5 ans', 'Garantie offerte'],
-    process: [
-      { step: '1', label: 'Paint correction préalable', desc: 'Polissage complet de la peinture obligatoire pour sceller une surface parfaite.' },
-      { step: '2', label: 'Dégraissage IPA', desc: 'Nettoyage à l\'alcool isopropylique pour éliminer toute trace de gras ou de silicone.' },
-      { step: '3', label: 'Application céramique', desc: 'Application en panneau par panneau dans un environnement contrôlé et sans poussière.' },
-      { step: '4', label: 'Nano-cuisson & inspection', desc: 'Temps de réticulation suivi, inspection finale sous éclairage LED et certificat de garantie.' },
-    ],
-    duration: 'À partir de 8h',
-    price: 'Dès 450€',
-    accentPosition: 'bottom-right',
+      "La solution complète AR Protect. Profitez d'un tarif avantageux en combinant le nettoyage intérieur et extérieur pour une métamorphose totale de votre véhicule.",
+    features: ['Formules "Plus" optimisées', 'Nettoyage complet manuel', 'Économie immédiate incluse', 'Idéal pour la revente'],
+    price: 'Dès 149€ TTC',
     highlight: true,
+    modalDescription:
+      'La métamorphose complète. Profitez de nos formules combinées pour offrir à votre véhicule un aspect "sortie de showroom" intérieur comme extérieur à prix réduit.',
+    pricingTable: {
+      title: 'Avantage Pack — Tarifs combinés',
+      headers: ['Formule', 'Citadine', 'Berline', 'SUV / Prestige'],
+      rows: [
+        { label: 'Essentiel+', prices: ['149€', '169€', '189€'], savings: ['au lieu de 188€', 'au lieu de 208€', 'au lieu de 228€'] },
+        { label: 'Confort+',   prices: ['169€', '189€', '209€'], savings: ['au lieu de 218€', 'au lieu de 238€', 'au lieu de 258€'] },
+        { label: 'Premium+',   prices: ['199€', '209€', '229€'], savings: ['au lieu de 248€', 'au lieu de 268€', 'au lieu de 288€'] },
+        { label: 'Signature+', prices: ['249€', '259€', '279€'], savings: ['au lieu de 308€', 'au lieu de 328€', 'au lieu de 348€'] },
+      ],
+    },
+    process: [],
+  },
+  {
+    id: 'cuirs',
+    icon: Gem,
+    title: 'SOIN DES CUIRS',
+    subtitle: 'LUXURY CARE',
+    description:
+      "Un traitement spécifique pour redonner éclat et souplesse à vos selleries. Idéal pour les cuirs ternes, secs ou encrassés.",
+    features: ['Nettoyage intégral des cuirs', "Application d'un nourrissant", 'Traitement anti-UV protecteur', 'Aspiration minutieuse'],
+    price: '179€ TTC',
+    modalDescription:
+      'Un traitement de prestige pour les selleries cuir. Idéal pour redonner souplesse et éclat aux cuirs ternis par le temps.',
+    includes: [
+      'Aspiration détaillée des cuirs',
+      'Nettoyage intégral en profondeur',
+      "Application d'un lait nourrissant protecteur",
+      'Traitement spécifique anti-UV pour prévenir les craquelures',
+    ],
+    process: [],
+  },
+  {
+    id: 'optiques',
+    icon: Lightbulb,
+    title: 'OPTIQUES DE PHARES',
+    subtitle: 'SAFETY & STYLE',
+    description:
+      "Retrouvez une visibilité optimale et un aspect neuf pour vos phares. Une étape cruciale pour la sécurité et le passage au contrôle technique.",
+    features: ['Ponçage des optiques', 'Polissage haute brillance', 'Protection Céramique anti-UV', "Option à l'unité ou par paire"],
+    price: 'Dès 49€ TTC',
+    modalDescription:
+      'Restaurez la clarté de vos phares pour améliorer votre visibilité nocturne et garantir le passage au contrôle technique.',
+    simplePricing: [
+      { label: "L'unité", price: '49€ TTC' },
+      { label: 'La paire', price: '79€ TTC' },
+    ],
+    process: [
+      { step: '1', label: 'Ponçage', desc: "Élimination de la couche d'oxydation jaune des optiques." },
+      { step: '2', label: 'Polissage', desc: 'Restauration de la transparence et de la brillance.' },
+      { step: '3', label: 'Protection', desc: "Application d'une céramique protectrice anti-UV longue durée." },
+    ],
+  },
+  {
+    id: 'shampoing',
+    icon: Wind,
+    title: 'SHAMPOING SIÈGES',
+    subtitle: 'HYGIÈNE PLUS',
+    description:
+      "Élimine les taches tenaces, les odeurs et les bactéries. Redonnez de la fraîcheur et une hygiène saine à vos tissus de sièges.",
+    features: ['Application mousse active', 'Lessivage en profondeur', 'Traitement vapeur antibactérien', 'Élimination des odeurs'],
+    price: '69€ TTC',
+    modalDescription:
+      'Une intervention ciblée sur vos tissus pour éliminer les taches tenaces et les odeurs persistantes.',
+    process: [
+      { step: '1', label: 'Aspiration & Mousse', desc: "Aspiration des sièges et application d'une mousse active." },
+      { step: '2', label: 'Lessivage Mécanique', desc: 'Lessivage mécanique des fibres.' },
+      { step: '3', label: 'Traitement Vapeur', desc: 'Traitement vapeur antibactérien pour une fraîcheur durable.' },
+    ],
   },
 ]
-
-type Service = typeof services[0]
 
 function ServiceModal({ service, onClose }: { service: Service; onClose: () => void }) {
   const Icon = service.icon
@@ -151,64 +242,129 @@ function ServiceModal({ service, onClose }: { service: Service; onClose: () => v
           <div className="h-px bg-ar-border/40 mx-7" />
 
           {/* Body */}
-          <div className="p-7 space-y-8">
+          <div className="p-7 space-y-7">
             {/* Description */}
             <p className="text-white/60 text-sm leading-relaxed">
-              {service.detailedDescription}
+              {service.modalDescription}
             </p>
 
-            {/* Features */}
-            <div>
-              <h4 className="text-white/30 text-[10px] uppercase tracking-[0.3em] font-semibold mb-3">
-                Inclus dans la prestation
-              </h4>
-              <div className="grid grid-cols-2 gap-2">
-                {service.features.map((feat) => (
-                  <div key={feat} className="flex items-center gap-2.5 text-sm text-white/70">
-                    <Check size={13} className="text-ar-red flex-shrink-0" strokeWidth={2.5} />
-                    {feat}
-                  </div>
-                ))}
+            {/* Pricing Table (Intérieur, Pack) */}
+            {service.pricingTable && (
+              <div>
+                <h4 className="text-white/30 text-[10px] uppercase tracking-[0.3em] font-semibold mb-3">
+                  {service.pricingTable.title ?? 'Grille tarifaire'}
+                </h4>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs border-collapse">
+                    <thead>
+                      <tr className="border-b border-ar-border/40">
+                        {service.pricingTable.headers.map((h, i) => (
+                          <th
+                            key={h}
+                            className={`pb-2.5 font-semibold text-white/30 uppercase tracking-wider text-[10px] ${i === 0 ? 'text-left pr-4' : 'text-center px-2'}`}
+                          >
+                            {h}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {service.pricingTable.rows.map((row) => (
+                        <tr key={row.label} className="border-b border-ar-border/20 last:border-0">
+                          <td className="py-2.5 pr-4 text-white/70 font-medium whitespace-nowrap">{row.label}</td>
+                          {row.prices.map((price, pi) => (
+                            <td key={pi} className="py-2.5 px-2 text-center">
+                              <span className="text-white font-bold">{price}</span>
+                              {row.savings?.[pi] && (
+                                <span className="block text-white/30 line-through text-[10px] mt-0.5">
+                                  {row.savings[pi]}
+                                </span>
+                              )}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                {service.pricingTable.note && (
+                  <p className="text-white/35 text-[11px] mt-3 italic">
+                    * {service.pricingTable.note}
+                  </p>
+                )}
               </div>
-            </div>
+            )}
+
+            {/* Simple Pricing (Extérieur, Optiques) */}
+            {service.simplePricing && (
+              <div>
+                <h4 className="text-white/30 text-[10px] uppercase tracking-[0.3em] font-semibold mb-3">
+                  Tarifs
+                </h4>
+                <div className="space-y-0">
+                  {service.simplePricing.map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center justify-between py-2.5 border-b border-ar-border/20 last:border-0"
+                    >
+                      <span className="text-white/60 text-sm">{item.label}</span>
+                      <span className="text-white font-bold text-sm">{item.price}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Includes (Cuirs — no process steps) */}
+            {service.includes && (
+              <div>
+                <h4 className="text-white/30 text-[10px] uppercase tracking-[0.3em] font-semibold mb-3">
+                  Inclus dans la prestation
+                </h4>
+                <div className="space-y-2">
+                  {service.includes.map((item) => (
+                    <div key={item} className="flex items-start gap-2.5 text-sm text-white/70">
+                      <Check size={13} className="text-ar-red flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Process */}
-            <div>
-              <h4 className="text-white/30 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4">
-                Notre processus
-              </h4>
-              <div className="space-y-3">
-                {service.process.map((step) => (
-                  <div key={step.step} className="flex gap-4">
-                    <div className="w-7 h-7 flex items-center justify-center bg-ar-red/10 border border-ar-red/30 text-ar-red text-xs font-bold flex-shrink-0 mt-0.5">
-                      {step.step}
+            {service.process.length > 0 && (
+              <div>
+                <h4 className="text-white/30 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4">
+                  Notre processus
+                </h4>
+                <div className="space-y-3">
+                  {service.process.map((step) => (
+                    <div key={step.step} className="flex gap-4">
+                      <div className="w-7 h-7 flex items-center justify-center bg-ar-red/10 border border-ar-red/30 text-ar-red text-xs font-bold flex-shrink-0 mt-0.5">
+                        {step.step}
+                      </div>
+                      <div>
+                        <p className="text-white text-sm font-semibold mb-0.5">{step.label}</p>
+                        <p className="text-white/45 text-xs leading-relaxed">{step.desc}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-white text-sm font-semibold mb-0.5">{step.label}</p>
-                      <p className="text-white/45 text-xs leading-relaxed">{step.desc}</p>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Footer */}
           <div className="px-7 pb-7">
-            <div className="h-px bg-ar-border/40 mb-5" />
+            <div className="h-px bg-ar-border/40 mb-4" />
+            <p className="text-white/25 text-[10px] mb-4 italic">
+              * Déplacement inclus en Île-de-France à partir de 99€ TTC de prestation.
+            </p>
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-5">
-                <div>
-                  <span className="text-white/30 text-[10px] uppercase tracking-widest block mb-0.5">Durée</span>
-                  <span className="text-white/70 text-sm flex items-center gap-1.5">
-                    <Clock size={12} className="text-ar-red" />
-                    {service.duration}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-white/30 text-[10px] uppercase tracking-widest block mb-0.5">Tarif</span>
-                  <span className="text-white font-bold text-sm">{service.price}</span>
-                </div>
+              <div>
+                <span className="text-white/30 text-[10px] uppercase tracking-widest block mb-0.5">Tarif</span>
+                <span className="text-white font-bold text-sm">{service.price}</span>
               </div>
               <a
                 href="#contact"
@@ -226,10 +382,124 @@ function ServiceModal({ service, onClose }: { service: Service; onClose: () => v
   )
 }
 
+function ServiceCard({
+  service,
+  index,
+  isInView,
+  onDetails,
+}: {
+  service: Service
+  index: number
+  isInView: boolean
+  onDetails: (s: Service) => void
+}) {
+  const Icon = service.icon
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: Math.min(index * 0.1, 0.4) }}
+      className="group relative card-base p-6 md:p-7 hover:border-ar-red/50 hover:-translate-y-1 transition-all duration-500 overflow-hidden flex flex-col h-full"
+      style={{
+        background: service.highlight
+          ? 'linear-gradient(135deg, #1a0000 0%, #0f0000 100%)'
+          : undefined,
+      }}
+    >
+      {/* Top accent line */}
+      <div className={`absolute top-0 left-0 right-0 h-px transition-all duration-500 ${service.highlight ? 'bg-ar-red' : 'bg-ar-border group-hover:bg-ar-red/60'}`} />
+
+      {/* Hover glow */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(220,38,38,0.06) 0%, transparent 70%)',
+        }}
+      />
+
+      {/* Badge */}
+      {service.highlight && (
+        <div className="absolute top-4 right-4 bg-ar-red px-2 py-0.5 text-white text-[10px] font-bold uppercase tracking-widest">
+          Best Seller
+        </div>
+      )}
+
+      {/* Icon */}
+      <div className={`w-12 h-12 flex items-center justify-center mb-6 transition-colors duration-300 ${service.highlight ? 'text-ar-red' : 'text-white/40 group-hover:text-ar-red'}`}>
+        <Icon size={28} strokeWidth={1.5} />
+      </div>
+
+      {/* Subtitle / tag */}
+      <span className="text-ar-red/70 text-[10px] uppercase tracking-[0.25em] font-semibold mb-2 block">
+        {service.subtitle}
+      </span>
+
+      {/* Title */}
+      <h3 className="font-display font-black text-lg md:text-xl uppercase text-white mb-3 tracking-tight leading-tight">
+        {service.title}
+      </h3>
+
+      {/* Description */}
+      <p className="text-white/50 text-sm leading-relaxed mb-5 flex-1">
+        {service.description}
+      </p>
+
+      {/* Features */}
+      <ul className="space-y-1.5 mb-5">
+        {service.features.map((feat) => (
+          <li key={feat} className="flex items-center gap-2 text-xs text-white/60">
+            <span className="w-1 h-1 rounded-full bg-ar-red flex-shrink-0" />
+            {feat}
+          </li>
+        ))}
+      </ul>
+
+      {/* Price */}
+      <div className="mb-4">
+        <span className="text-white font-bold text-sm">{service.price}</span>
+      </div>
+
+      {/* Footer */}
+      <div className="flex items-center justify-between pt-4 border-t border-ar-border/50">
+        <button
+          type="button"
+          aria-label={`Voir les détails de ${service.title}`}
+          onClick={() => onDetails(service)}
+          className="text-white/40 hover:text-white text-xs uppercase tracking-wider transition-colors duration-200 border border-ar-border/40 hover:border-white/30 px-3 py-1.5 rounded-md"
+        >
+          Détails
+        </button>
+        <a
+          href="#contact"
+          className="flex items-center gap-1 text-ar-red text-xs font-semibold uppercase tracking-wider group-hover:gap-2 transition-all duration-300"
+        >
+          Réserver
+          <ArrowUpRight size={12} />
+        </a>
+      </div>
+    </motion.div>
+  )
+}
+
 export default function Services() {
   const ref = useRef<HTMLDivElement>(null)
+  const carouselRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const [selectedService, setSelectedService] = useState<Service | null>(null)
+  const [carouselIndex, setCarouselIndex] = useState(0)
+
+  const visibleOnDesktop = 4
+  const totalExtra = services.length - visibleOnDesktop // 2
+  const maxIndex = totalExtra // can scroll up to 2 positions
+
+  function scrollCarousel(dir: 1 | -1) {
+    const next = Math.max(0, Math.min(maxIndex, carouselIndex + dir))
+    setCarouselIndex(next)
+    if (carouselRef.current) {
+      const cardWidth = carouselRef.current.scrollWidth / services.length
+      carouselRef.current.scrollTo({ left: next * cardWidth, behavior: 'smooth' })
+    }
+  }
 
   return (
     <>
@@ -263,98 +533,80 @@ export default function Services() {
               Nos <br className="hidden md:block" />
               <span className="text-gradient-red">Services</span>
             </h2>
-            <p className="text-white/50 max-w-sm text-sm leading-relaxed">
-              Chaque prestation est réalisée avec des produits professionnels et des techniques
-              éprouvées pour des résultats irréprochables.
-            </p>
+            <div className="flex flex-col gap-4 items-start md:items-end">
+              <p className="text-white/50 max-w-sm text-sm leading-relaxed">
+                Chaque prestation est réalisée avec des produits professionnels et des techniques
+                éprouvées pour des résultats irréprochables.
+              </p>
+              {/* Carousel navigation — desktop only */}
+              <div className="hidden lg:flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => scrollCarousel(-1)}
+                  disabled={carouselIndex === 0}
+                  className="w-9 h-9 flex items-center justify-center border border-ar-border/50 text-white/40 hover:text-white hover:border-white/30 disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200"
+                  aria-label="Précédent"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollCarousel(1)}
+                  disabled={carouselIndex >= maxIndex}
+                  className="w-9 h-9 flex items-center justify-center border border-ar-border/50 text-white/40 hover:text-white hover:border-white/30 disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200"
+                  aria-label="Suivant"
+                >
+                  <ChevronRight size={16} />
+                </button>
+                <span className="text-white/30 text-xs ml-2 tabular-nums">
+                  {carouselIndex + 1} / {maxIndex + 1}
+                </span>
+              </div>
+            </div>
           </div>
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {services.map((service, i) => {
-            const Icon = service.icon
-            return (
-              <motion.div
+        {/* Carousel — desktop: shows 4, scrolls to reveal 2 more — mobile: all scroll */}
+        <div className="relative">
+          {/* Desktop: overflow hidden wrapper */}
+          <div
+            ref={carouselRef}
+            className="
+              flex gap-4 md:gap-6
+              overflow-x-auto scroll-smooth
+              snap-x snap-mandatory
+              lg:overflow-x-hidden
+              pb-2 lg:pb-0
+              [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+            "
+          >
+            {services.map((service, i) => (
+              <div
                 key={service.id}
-                initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="group relative card-base p-6 md:p-7 hover:border-ar-red/50 hover:-translate-y-1 transition-all duration-500 overflow-hidden flex flex-col"
-                style={{
-                  background: service.highlight
-                    ? 'linear-gradient(135deg, #1a0000 0%, #0f0000 100%)'
-                    : undefined,
-                }}
+                className="
+                  snap-start flex-shrink-0
+                  w-[80vw] sm:w-[45vw] lg:w-[calc(25%-18px)]
+                "
               >
-                {/* Top accent line */}
-                <div className={`absolute top-0 left-0 right-0 h-px transition-all duration-500 ${service.highlight ? 'bg-ar-red' : 'bg-ar-border group-hover:bg-ar-red/60'}`} />
-
-                {/* Hover glow */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{
-                    background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(220,38,38,0.06) 0%, transparent 70%)',
-                  }}
+                <ServiceCard
+                  service={service}
+                  index={i}
+                  isInView={isInView}
+                  onDetails={setSelectedService}
                 />
+              </div>
+            ))}
+          </div>
 
-                {/* Badge */}
-                {service.highlight && (
-                  <div className="absolute top-4 right-4 bg-ar-red px-2 py-0.5 text-white text-[10px] font-bold uppercase tracking-widest">
-                    Premium
-                  </div>
-                )}
-
-                {/* Icon */}
-                <div className={`w-12 h-12 flex items-center justify-center mb-6 transition-colors duration-300 ${service.highlight ? 'text-ar-red' : 'text-white/40 group-hover:text-ar-red'}`}>
-                  <Icon size={28} strokeWidth={1.5} />
-                </div>
-
-                {/* Subtitle */}
-                <span className="text-ar-red/70 text-[10px] uppercase tracking-[0.25em] font-semibold mb-2 block">
-                  {service.subtitle}
-                </span>
-
-                {/* Title */}
-                <h3 className="font-display font-black text-lg md:text-xl uppercase text-white mb-3 tracking-tight leading-tight">
-                  {service.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-white/50 text-sm leading-relaxed mb-5 flex-1">
-                  {service.description}
-                </p>
-
-                {/* Features */}
-                <ul className="space-y-1.5 mb-6">
-                  {service.features.map((feat) => (
-                    <li key={feat} className="flex items-center gap-2 text-xs text-white/60">
-                      <span className="w-1 h-1 rounded-full bg-ar-red flex-shrink-0" />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Footer */}
-                <div className="flex items-center justify-between pt-4 border-t border-ar-border/50">
-                  <button
-                    type="button"
-                    aria-label={`Voir les détails de ${service.title}`}
-                    onClick={() => setSelectedService(service)}
-                    className="text-white/40 hover:text-white text-xs uppercase tracking-wider transition-colors duration-200 border border-ar-border/40 hover:border-white/30 px-3 py-1.5 rounded-md"
-                  >
-                    Détails
-                  </button>
-                  <a
-                    href="#contact"
-                    className="flex items-center gap-1 text-ar-red text-xs font-semibold uppercase tracking-wider group-hover:gap-2 transition-all duration-300"
-                  >
-                    Réserver
-                    <ArrowUpRight size={12} />
-                  </a>
-                </div>
-              </motion.div>
-            )
-          })}
+          {/* Mobile scroll dots */}
+          <div className="flex lg:hidden justify-center gap-1.5 mt-5">
+            {services.map((_, i) => (
+              <span
+                key={i}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-ar-red w-4' : 'bg-white/20'}`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Bottom CTA */}
