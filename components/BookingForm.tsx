@@ -13,12 +13,13 @@ const vehicleTypes = [
 ]
 
 const serviceOptions = [
-  { id: 'interieur', label: 'Nettoyage Intérieur', price: 'Dès 80€' },
-  { id: 'exterieur', label: 'Nettoyage Extérieur', price: 'Dès 60€' },
-  { id: 'full', label: 'Full Detail (Int. + Ext.)', price: 'Dès 140€' },
-  { id: 'polissage', label: 'Polissage', price: 'Dès 200€' },
-  { id: 'ceramique', label: 'Protection Céramique', price: 'Dès 400€' },
-  { id: 'devis', label: 'Demande de devis personnalisé', price: 'Gratuit' },
+  { id: 'interieur', label: 'Nettoyage Intérieur', price: 'Dès 80€ TTC' },
+  { id: 'exterieur', label: 'Nettoyage Extérieur', price: 'Dès 60€ TTC' },
+  { id: 'full', label: 'Full Detail (Int + Ext.)', price: 'Dès 140€ TTC' },
+  { id: 'optiques', label: 'Optiques de phares', price: 'Dès 49€ TTC' },
+  { id: 'shampoing', label: 'Shampoing des sièges', price: 'Dès 69€ TTC' },
+  { id: 'cuirs', label: 'Soin des cuirs', price: 'Sur devis' },
+  { id: 'lustrage', label: 'Lustrage', price: 'Sur devis' },
 ]
 
 const steps = [

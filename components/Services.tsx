@@ -501,6 +501,13 @@ export default function Services() {
     }
   }
 
+  function handleScroll() {
+    if (!carouselRef.current) return
+    const cardWidth = carouselRef.current.scrollWidth / services.length
+    const index = Math.round(carouselRef.current.scrollLeft / cardWidth)
+    setCarouselIndex(Math.min(index, maxIndex))
+  }
+
   return (
     <>
     {selectedService && (
@@ -517,7 +524,7 @@ export default function Services() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -538,39 +545,38 @@ export default function Services() {
                 Chaque prestation est réalisée avec des produits professionnels et des techniques
                 éprouvées pour des résultats irréprochables.
               </p>
-              {/* Carousel navigation — desktop only */}
-              <div className="hidden lg:flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => scrollCarousel(-1)}
-                  disabled={carouselIndex === 0}
-                  className="w-9 h-9 flex items-center justify-center border border-ar-border/50 text-white/40 hover:text-white hover:border-white/30 disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200"
-                  aria-label="Précédent"
-                >
-                  <ChevronLeft size={16} />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => scrollCarousel(1)}
-                  disabled={carouselIndex >= maxIndex}
-                  className="w-9 h-9 flex items-center justify-center border border-ar-border/50 text-white/40 hover:text-white hover:border-white/30 disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200"
-                  aria-label="Suivant"
-                >
-                  <ChevronRight size={16} />
-                </button>
-                <span className="text-white/30 text-xs ml-2 tabular-nums">
-                  {carouselIndex + 1} / {maxIndex + 1}
-                </span>
-              </div>
             </div>
           </div>
         </motion.div>
 
         {/* Carousel — desktop: shows 4, scrolls to reveal 2 more — mobile: all scroll */}
         <div className="relative">
-          {/* Desktop: overflow hidden wrapper */}
+          {/* Left arrow — desktop only */}
+          <button
+            type="button"
+            onClick={() => scrollCarousel(-1)}
+            disabled={carouselIndex === 0}
+            className="hidden lg:flex absolute -left-12 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center border border-ar-border/50 bg-ar-black text-white/40 hover:text-white hover:border-white/30 disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200 z-10"
+            aria-label="Précédent"
+          >
+            <ChevronLeft size={16} />
+          </button>
+
+          {/* Right arrow — desktop only */}
+          <button
+            type="button"
+            onClick={() => scrollCarousel(1)}
+            disabled={carouselIndex >= maxIndex}
+            className="hidden lg:flex absolute -right-12 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center border border-ar-border/50 bg-ar-black text-white/40 hover:text-white hover:border-white/30 disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200 z-10"
+            aria-label="Suivant"
+          >
+            <ChevronRight size={16} />
+          </button>
+
+          {/* Carousel scrollable */}
           <div
             ref={carouselRef}
+            onScroll={handleScroll}
             className="
               flex gap-4 md:gap-6
               overflow-x-auto scroll-smooth
@@ -603,7 +609,7 @@ export default function Services() {
             {services.map((_, i) => (
               <span
                 key={i}
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-ar-red w-4' : 'bg-white/20'}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${i === carouselIndex ? 'bg-ar-red w-4' : 'bg-white/20 w-1.5'}`}
               />
             ))}
           </div>
