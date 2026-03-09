@@ -126,7 +126,9 @@ export default function BeforeAfterSlider() {
                 priority
               />
               {/* After label */}
-              <div className="absolute bottom-4 right-4 bg-ar-red px-3 py-1.5 text-white text-xs font-bold uppercase tracking-widest z-10">
+              <div
+                className={`absolute bottom-4 right-4 bg-ar-red px-3 py-1.5 text-white text-xs font-bold uppercase tracking-widest z-10 transition-opacity duration-150 ${position >= 95 ? 'opacity-0' : 'opacity-100'}`}
+              >
                 Après
               </div>
             </div>

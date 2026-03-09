@@ -115,11 +115,9 @@ export default function Footer() {
                   <span className="text-sm">arprotect@gmail.com</span>
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-white/50">
+              <li className="flex items-start gap-3 text-white/50 hover:text-white transition-colors duration-200">
                 <MapPin size={14} className="mt-0.5 text-ar-red flex-shrink-0" />
-                <span className="text-sm">
-                  Chervry Cossigny (77173)
-                </span>
+                <span className="text-sm">Chervry Cossigny (77173)</span>
               </li>
             </ul>
 
