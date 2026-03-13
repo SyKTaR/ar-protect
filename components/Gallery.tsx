@@ -34,7 +34,7 @@ const galleryItems: GalleryItem[] = [
     label: 'Audi S3',
     aspect: 'wide',
     gradient: 'linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)',
-    category: 'polissage',
+    category: 'full',
     images: [
       '/gallery/audi-s3/image1.jpeg',
       '/gallery/audi-s3/image2.jpeg',
@@ -60,7 +60,7 @@ const galleryItems: GalleryItem[] = [
     label: 'Mercedes CLA',
     aspect: 'tall',
     gradient: 'linear-gradient(135deg, #200122, #6f0000)',
-    category: 'polissage',
+    category: 'full',
     images: [
       '/gallery/mercedes-cla/image1.jpeg',
       '/gallery/mercedes-cla/image2.jpeg',
@@ -74,7 +74,7 @@ const galleryItems: GalleryItem[] = [
     label: 'Peugeot 308',
     aspect: 'normal',
     gradient: 'linear-gradient(135deg, #0d0d0d, #1a1a1a, #2d2d2d)',
-    category: 'interieur',
+    category: 'full',
     images: [
       '/gallery/peugeot-308/image3.jpeg',
       '/gallery/peugeot-308/image2.jpeg',
@@ -101,7 +101,7 @@ const galleryItems: GalleryItem[] = [
     label: 'Tesla Model 3',
     aspect: 'normal',
     gradient: 'linear-gradient(135deg, #1a0a00, #4a1500, #1a0a00)',
-    category: 'ceramique',
+    category: 'full',
     images: [
       '/gallery/tesla-model3/image1.jpeg',
       '/gallery/tesla-model3/image2.jpeg',
@@ -115,7 +115,7 @@ const galleryItems: GalleryItem[] = [
     label: 'Mercedes CLA 35 AMG',
     aspect: 'tall',
     gradient: 'linear-gradient(135deg, #001f3f, #0074d9, #001f3f)',
-    category: 'polissage',
+    category: 'full',
     images: [
       '/gallery/mercedes-cla35/image1.jpeg',
       '/gallery/mercedes-cla35/image2.jpeg',
@@ -135,6 +135,16 @@ const galleryItems: GalleryItem[] = [
       '/gallery/bentley-continental/image1.jpeg',
     ],
   },
+  {
+    id: 10,
+    label: 'Honda Civic',
+    aspect: 'normal',
+    gradient: 'linear-gradient(135deg, #0d0d0d, #1a1a1a, #2d2d2d)',
+    category: 'full',
+    images: [
+      '/gallery/honda-civic/image1.jpeg', 
+    ]
+  }
 ]
 
 const categories = [

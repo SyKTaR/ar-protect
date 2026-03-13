@@ -133,3 +133,7 @@ body {
   pointer-events: none;
   opacity: 0.04;
 }
+
+.hero-radial-glow {
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(220,38,38,0.08) 0%, transparent 70%);
+}

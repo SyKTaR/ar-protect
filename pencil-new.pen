@@ -1,0 +1,5224 @@
+{
+  "version": "2.8",
+  "children": [
+    {
+      "type": "frame",
+      "id": "G10nM",
+      "x": -5,
+      "y": -225,
+      "name": "Nos Services",
+      "width": 1440,
+      "fill": "#0a0a0a",
+      "layout": "vertical",
+      "gap": 64,
+      "padding": 80,
+      "children": [
+        {
+          "type": "frame",
+          "id": "M4KiU",
+          "name": "Header",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 20,
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "XJgRq",
+              "name": "Label",
+              "fill": "#DC2626",
+              "content": "Nos expertises",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 4
+            },
+            {
+              "type": "frame",
+              "id": "HETm5",
+              "name": "Title Row",
+              "width": "fill_container",
+              "gap": 40,
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "spTFm",
+                  "name": "Title Block",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "1txFh",
+                      "name": "titleLine1",
+                      "fill": "#FFFFFF",
+                      "content": "Nos",
+                      "fontFamily": "Inter",
+                      "fontSize": 64,
+                      "fontWeight": "900",
+                      "letterSpacing": -2
+                    },
+                    {
+                      "type": "text",
+                      "id": "7HV9l",
+                      "name": "titleLine2",
+                      "fill": "#DC2626",
+                      "content": "Services",
+                      "fontFamily": "Inter",
+                      "fontSize": 64,
+                      "fontWeight": "900",
+                      "letterSpacing": -2
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "G4hwg",
+                  "name": "Description",
+                  "fill": "#FFFFFF80",
+                  "textGrowth": "fixed-width",
+                  "width": 300,
+                  "content": "Chaque prestation est réalisée avec des produits professionnels et des techniques éprouvées pour des résultats irréprochables.",
+                  "lineHeight": 1.6,
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "tbePc",
+          "name": "Cards Grid",
+          "width": "fill_container",
+          "gap": 24,
+          "children": [
+            {
+              "type": "frame",
+              "id": "yPVwP",
+              "name": "Card - Intérieur",
+              "width": "fill_container",
+              "fill": "#111111",
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "#1f1f1f"
+              },
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 28,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "id": "odVaW",
+                  "name": "Accent",
+                  "fill": "#1f1f1f",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "AFoGJ",
+                  "name": "Icon",
+                  "width": 48,
+                  "height": 56,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "niDhS",
+                      "name": "iconDrop",
+                      "width": 28,
+                      "height": 28,
+                      "iconFontName": "droplets",
+                      "iconFontFamily": "lucide",
+                      "fill": "#FFFFFF66"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "y9zsZ",
+                  "name": "subtitle1",
+                  "fill": "#DC262699",
+                  "content": "Deep Clean",
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "700",
+                  "letterSpacing": 3
+                },
+                {
+                  "type": "text",
+                  "id": "8Ucxj",
+                  "name": "title1",
+                  "fill": "#FFFFFF",
+                  "content": "Nettoyage Intérieur",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "900",
+                  "letterSpacing": -0.5
+                },
+                {
+                  "type": "text",
+                  "id": "imiEy",
+                  "name": "desc1",
+                  "fill": "#FFFFFF80",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Aspiration complète, traitement des surfaces, nettoyage des sièges et moquettes, désinfection et déodorisation pour un habitacle immaculé.",
+                  "lineHeight": 1.6,
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "xwu2P",
+                  "name": "Features",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "I9eIu",
+                      "name": "feat1a",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "J10Yp",
+                          "name": "dot1a",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "mbV6N",
+                          "name": "ftxt1a",
+                          "fill": "#FFFFFF99",
+                          "content": "Aspiration complète",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "oSkty",
+                      "name": "feat1b",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "MGNj5",
+                          "name": "dot1b",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "hQ7vI",
+                          "name": "ftxt1b",
+                          "fill": "#FFFFFF99",
+                          "content": "Traitement cuir",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "WlmHK",
+                      "name": "feat1c",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "EmJlz",
+                          "name": "dot1c",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "V0uTD",
+                          "name": "ftxt1c",
+                          "fill": "#FFFFFF99",
+                          "content": "Désinfection UV",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "YNFea",
+                      "name": "feat1d",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "2dl0F",
+                          "name": "dot1d",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "1PFO5",
+                          "name": "ftxt1d",
+                          "fill": "#FFFFFF99",
+                          "content": "Déodorisation",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Zj27A",
+                  "name": "Footer",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "VFE5h",
+                      "name": "detailsBtn1",
+                      "cornerRadius": 4,
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#2a2a2a"
+                      },
+                      "padding": [
+                        6,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "2vlIX",
+                          "name": "detailsTxt1",
+                          "fill": "#FFFFFF66",
+                          "content": "Détails",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "IozqB",
+                      "name": "reserverLink1",
+                      "gap": 4,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "MzQit",
+                          "name": "reserverTxt1",
+                          "fill": "#DC2626",
+                          "content": "Réserver",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "rectangle",
+                  "id": "paOXk",
+                  "name": "Separator",
+                  "fill": "#1f1f1f",
+                  "width": "fill_container",
+                  "height": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "yQSEW",
+              "name": "Card - Extérieur",
+              "width": "fill_container",
+              "fill": "#111111",
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "#1f1f1f"
+              },
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 28,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "id": "5YlPs",
+                  "name": "Accent",
+                  "fill": "#1f1f1f",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "DQ2Yy",
+                  "name": "Icon",
+                  "width": 48,
+                  "height": 56,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "RvTLj",
+                      "name": "iconDrop",
+                      "width": 28,
+                      "height": 28,
+                      "iconFontName": "sparkles",
+                      "iconFontFamily": "lucide",
+                      "fill": "#FFFFFF66"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "aUBIa",
+                  "name": "subtitle1",
+                  "fill": "#DC262699",
+                  "content": "Full Detail",
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "700",
+                  "letterSpacing": 3
+                },
+                {
+                  "type": "text",
+                  "id": "W6zl7",
+                  "name": "title1",
+                  "fill": "#FFFFFF",
+                  "content": "Nettoyage Extérieur",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "900",
+                  "letterSpacing": -0.5
+                },
+                {
+                  "type": "text",
+                  "id": "3NPiR",
+                  "name": "desc1",
+                  "fill": "#FFFFFF80",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Lavage à la main, décontamination de la carrosserie, traitement des jantes, protection des plastiques extérieurs et finition à l'huile de cire.",
+                  "lineHeight": 1.6,
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "ysHPX",
+                  "name": "Features",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "WtBvL",
+                      "name": "feat1a",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "LJNPC",
+                          "name": "dot1a",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "qT1k3",
+                          "name": "ftxt1a",
+                          "fill": "#FFFFFF99",
+                          "content": "Lavage main",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "OB77p",
+                      "name": "feat1b",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "kykPt",
+                          "name": "dot1b",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "0Nczd",
+                          "name": "ftxt1b",
+                          "fill": "#FFFFFF99",
+                          "content": "Décontamination",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "klWzL",
+                      "name": "feat1c",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "LolD6",
+                          "name": "dot1c",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "JJYod",
+                          "name": "ftxt1c",
+                          "fill": "#FFFFFF99",
+                          "content": "Jantes & vitres",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "mq9ua",
+                      "name": "feat1d",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "FfBar",
+                          "name": "dot1d",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "DBX8x",
+                          "name": "ftxt1d",
+                          "fill": "#FFFFFF99",
+                          "content": "Cire protectrice",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "rectangle",
+                  "id": "YkQV2",
+                  "name": "Separator",
+                  "fill": "#1f1f1f",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "CL0I7",
+                  "name": "Footer",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Fgy4w",
+                      "name": "detailsBtn1",
+                      "cornerRadius": 4,
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#2a2a2a"
+                      },
+                      "padding": [
+                        6,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "CsZdk",
+                          "name": "detailsTxt1",
+                          "fill": "#FFFFFF66",
+                          "content": "Détails",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Tu2lx",
+                      "name": "reserverLink1",
+                      "gap": 4,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "cjjb2",
+                          "name": "reserverTxt1",
+                          "fill": "#DC2626",
+                          "content": "Réserver",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "vpOM3",
+              "name": "Card - Polissage",
+              "width": "fill_container",
+              "fill": "#111111",
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "#1f1f1f"
+              },
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 28,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "id": "4t0jR",
+                  "name": "Accent",
+                  "fill": "#1f1f1f",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "l62WY",
+                  "name": "Icon",
+                  "width": 48,
+                  "height": 56,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "lfFLO",
+                      "name": "iconDrop",
+                      "width": 28,
+                      "height": 28,
+                      "iconFontName": "circle-dot",
+                      "iconFontFamily": "lucide",
+                      "fill": "#FFFFFF66"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "2eHBg",
+                  "name": "subtitle1",
+                  "fill": "#DC262699",
+                  "content": "Paint Correction",
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "700",
+                  "letterSpacing": 3
+                },
+                {
+                  "type": "text",
+                  "id": "IjCR0",
+                  "name": "title1",
+                  "fill": "#FFFFFF",
+                  "content": "Polissage Expert",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "900",
+                  "letterSpacing": -0.5
+                },
+                {
+                  "type": "text",
+                  "id": "8ijGg",
+                  "name": "desc1",
+                  "fill": "#FFFFFF80",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Correction de peinture par étapes avec des machines à orbite professionnelles. Élimination des micro-rayures, swirl marks et oxydations.",
+                  "lineHeight": 1.6,
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "fjUcY",
+                  "name": "Features",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "RXXiD",
+                      "name": "feat1a",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "v29mH",
+                          "name": "dot1a",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "FJkLE",
+                          "name": "ftxt1a",
+                          "fill": "#FFFFFF99",
+                          "content": "Correction 1 étape",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ftn4j",
+                      "name": "feat1b",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "Ezdlh",
+                          "name": "dot1b",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "CADW6",
+                          "name": "ftxt1b",
+                          "fill": "#FFFFFF99",
+                          "content": "Correction 2 étapes",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QCIAq",
+                      "name": "feat1c",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "yl5v3",
+                          "name": "dot1c",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "ThBc6",
+                          "name": "ftxt1c",
+                          "fill": "#FFFFFF99",
+                          "content": "Anti-hologramme",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "r2ev0",
+                      "name": "feat1d",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "TJgp2",
+                          "name": "dot1d",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "7SWHa",
+                          "name": "ftxt1d",
+                          "fill": "#FFFFFF99",
+                          "content": "Finition gloss",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "rectangle",
+                  "id": "OMVy9",
+                  "name": "Separator",
+                  "fill": "#1f1f1f",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "VXk8J",
+                  "name": "Footer",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "fP78x",
+                      "name": "detailsBtn1",
+                      "cornerRadius": 4,
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#2a2a2a"
+                      },
+                      "padding": [
+                        6,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "F2Dam",
+                          "name": "detailsTxt1",
+                          "fill": "#FFFFFF66",
+                          "content": "Détails",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zxtpQ",
+                      "name": "reserverLink1",
+                      "gap": 4,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "JdmeA",
+                          "name": "reserverTxt1",
+                          "fill": "#DC2626",
+                          "content": "Réserver",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ismIh",
+              "name": "Card - Céramique",
+              "width": "fill_container",
+              "fill": {
+                "type": "gradient",
+                "gradientType": "linear",
+                "enabled": true,
+                "rotation": 135,
+                "size": {
+                  "height": 1
+                },
+                "colors": [
+                  {
+                    "color": "#1a0000",
+                    "position": 0
+                  },
+                  {
+                    "color": "#0f0000",
+                    "position": 1
+                  }
+                ]
+              },
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "#1f1f1f"
+              },
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 28,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "aTRTe",
+                  "name": "Premium Badge",
+                  "fill": "#DC2626",
+                  "padding": [
+                    3,
+                    8
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "kJtj8",
+                      "name": "badgeTxt",
+                      "fill": "#FFFFFF",
+                      "content": "PREMIUM",
+                      "fontFamily": "Inter",
+                      "fontSize": 9,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    }
+                  ]
+                },
+                {
+                  "type": "rectangle",
+                  "id": "t6XAh",
+                  "name": "Accent",
+                  "fill": "#DC2626",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "ePLwp",
+                  "name": "Icon",
+                  "width": 48,
+                  "height": 56,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "TwQ72",
+                      "name": "iconDrop",
+                      "width": 28,
+                      "height": 28,
+                      "iconFontName": "shield",
+                      "iconFontFamily": "lucide",
+                      "fill": "#DC2626"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "NZAYl",
+                  "name": "subtitle1",
+                  "fill": "#DC262699",
+                  "content": "Ceramic Coating",
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "700",
+                  "letterSpacing": 3
+                },
+                {
+                  "type": "text",
+                  "id": "B592C",
+                  "name": "title1",
+                  "fill": "#FFFFFF",
+                  "content": "Protection Céramique",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "900",
+                  "letterSpacing": -0.5
+                },
+                {
+                  "type": "text",
+                  "id": "ruBdD",
+                  "name": "desc1",
+                  "fill": "#FFFFFF80",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Application de revêtements céramiques professionnels pour une protection durable jusqu'à 5 ans. Hydrophobie maximale et brillance incomparable.",
+                  "lineHeight": 1.6,
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "xnhxr",
+                  "name": "Features",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Tu3FW",
+                      "name": "feat1a",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "0hSiP",
+                          "name": "dot1a",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "GMdMc",
+                          "name": "ftxt1a",
+                          "fill": "#FFFFFF99",
+                          "content": "Céramique 1 couche",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ZT40w",
+                      "name": "feat1b",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "JIOxt",
+                          "name": "dot1b",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "AKDf5",
+                          "name": "ftxt1b",
+                          "fill": "#FFFFFF99",
+                          "content": "Céramique 2+ couches",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "PKfH7",
+                      "name": "feat1c",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "kgI2V",
+                          "name": "dot1c",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "2ozHc",
+                          "name": "ftxt1c",
+                          "fill": "#FFFFFF99",
+                          "content": "Protection 5 ans",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "jCfcw",
+                      "name": "feat1d",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "lavmX",
+                          "name": "dot1d",
+                          "fill": "#DC2626",
+                          "width": 5,
+                          "height": 5
+                        },
+                        {
+                          "type": "text",
+                          "id": "6KHfH",
+                          "name": "ftxt1d",
+                          "fill": "#FFFFFF99",
+                          "content": "Garantie offerte",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "rectangle",
+                  "id": "nu6YB",
+                  "name": "Separator",
+                  "fill": "#1f1f1f",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "AELl1",
+                  "name": "Footer",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "kIbQQ",
+                      "name": "detailsBtn1",
+                      "cornerRadius": 4,
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#2a2a2a"
+                      },
+                      "padding": [
+                        6,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "cw7kV",
+                          "name": "detailsTxt1",
+                          "fill": "#FFFFFF66",
+                          "content": "Détails",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qb1nY",
+                      "name": "reserverLink1",
+                      "gap": 4,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "1qXwg",
+                          "name": "reserverTxt1",
+                          "fill": "#DC2626",
+                          "content": "Réserver",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "bwpYF",
+          "name": "CTA Row",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "j1kE8",
+              "name": "ctaText",
+              "fill": "#FFFFFF66",
+              "content": "Vous ne savez pas quelle prestation choisir ?",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "poxES",
+              "name": "CTA Button",
+              "cornerRadius": 4,
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "#DC2626"
+              },
+              "padding": [
+                12,
+                28
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "XYdaD",
+                  "name": "ctaBtnTxt",
+                  "fill": "#FFFFFF",
+                  "content": "Obtenir un devis gratuit",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "700",
+                  "letterSpacing": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "2CDjF",
+      "x": 318,
+      "y": 2563,
+      "name": "Modal - Détails Service",
+      "width": 640,
+      "fill": {
+        "type": "gradient",
+        "gradientType": "linear",
+        "enabled": true,
+        "rotation": 135,
+        "size": {
+          "height": 1
+        },
+        "colors": [
+          {
+            "color": "#1a0000",
+            "position": 0
+          },
+          {
+            "color": "#0a0000",
+            "position": 1
+          }
+        ]
+      },
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "#1f1f1f"
+      },
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "rectangle",
+          "id": "E8LCa",
+          "name": "Top Accent",
+          "fill": "#DC2626",
+          "width": "fill_container",
+          "height": 2
+        },
+        {
+          "type": "frame",
+          "id": "skYKX",
+          "name": "Header",
+          "width": "fill_container",
+          "padding": [
+            28,
+            28,
+            20,
+            28
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "m2ARk",
+              "name": "Header Left",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "dduDI",
+                  "name": "Icon Box",
+                  "width": 56,
+                  "height": 56,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "#2a2a2a"
+                  },
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "cQZVa",
+                      "name": "iconShield",
+                      "width": 30,
+                      "height": 30,
+                      "iconFontName": "shield",
+                      "iconFontFamily": "lucide",
+                      "fill": "#DC2626"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "7xKrs",
+                  "name": "Titles",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "jJlTy",
+                      "name": "serviceSubtitle",
+                      "fill": "#DC262699",
+                      "content": "Ceramic Coating",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 3
+                    },
+                    {
+                      "type": "text",
+                      "id": "4rbsu",
+                      "name": "serviceTitle",
+                      "fill": "#FFFFFF",
+                      "content": "Protection Céramique",
+                      "fontFamily": "Inter",
+                      "fontSize": 26,
+                      "fontWeight": "900",
+                      "letterSpacing": -1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "kEtCt",
+              "name": "Close Btn",
+              "width": 32,
+              "height": 32,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "X5BrO",
+                  "name": "closeIcon",
+                  "width": 20,
+                  "height": 20,
+                  "iconFontName": "x",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF66"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "6B7IZ",
+          "name": "Divider",
+          "opacity": 0.6,
+          "fill": "#1f1f1f",
+          "width": "fill_container",
+          "height": 1
+        },
+        {
+          "type": "frame",
+          "id": "YdQ9J",
+          "name": "Body",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": 28,
+          "children": [
+            {
+              "type": "text",
+              "id": "SxQlL",
+              "name": "Detailed Desc",
+              "fill": "#FFFFFF99",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Le revêtement céramique est la protection ultime pour votre véhicule. Il crée une couche nano-cristalline qui fusionne avec la peinture, offrant une résistance exceptionnelle aux agressions chimiques, UV, rayures légères et salissures. Un investissement qui préserve la valeur de votre véhicule.",
+              "lineHeight": 1.7,
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "k12gR",
+              "name": "Features Section",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "d68WP",
+                  "name": "featuresLabel",
+                  "fill": "#FFFFFF4D",
+                  "content": "Inclus dans la prestation",
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "700",
+                  "letterSpacing": 3
+                },
+                {
+                  "type": "frame",
+                  "id": "qRTg0",
+                  "name": "Features Grid",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "1dmQe",
+                      "name": "featCol1",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "zez0D",
+                          "name": "feat1",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "K0CqS",
+                              "name": "check1",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "lhEtu",
+                              "name": "ftxt1",
+                              "fill": "#FFFFFFB3",
+                              "content": "Céramique 1 couche",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "gDmjT",
+                          "name": "feat2",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "Zr7qs",
+                              "name": "check2",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "bWTvH",
+                              "name": "ftxt2",
+                              "fill": "#FFFFFFB3",
+                              "content": "Céramique 2+ couches",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Ghiz5",
+                      "name": "featCol2",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "G1cxL",
+                          "name": "feat3",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "Vc1Xe",
+                              "name": "check3",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "kjovZ",
+                              "name": "ftxt3",
+                              "fill": "#FFFFFFB3",
+                              "content": "Protection 5 ans",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "mIgc7",
+                          "name": "feat4",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "n7lkA",
+                              "name": "check4",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "dfoZ2",
+                              "name": "ftxt4",
+                              "fill": "#FFFFFFB3",
+                              "content": "Garantie offerte",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "aM7YD",
+              "name": "Process Section",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "rOX3F",
+                  "name": "processLabel",
+                  "fill": "#FFFFFF4D",
+                  "content": "Notre processus",
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "700",
+                  "letterSpacing": 3
+                },
+                {
+                  "type": "frame",
+                  "id": "h2zVR",
+                  "name": "step1",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "K9hGb",
+                      "name": "step1num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "0lLAX",
+                          "name": "step1numTxt",
+                          "fill": "#DC2626",
+                          "content": "1",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ZPbRL",
+                      "name": "step1content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Obpr5",
+                          "name": "step1label",
+                          "fill": "#FFFFFF",
+                          "content": "Paint correction préalable",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "jB8lD",
+                          "name": "step1desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Polissage complet de la peinture obligatoire pour sceller une surface parfaite.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "RoSrF",
+                  "name": "step2",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "QMdfb",
+                      "name": "step2num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "mYAcQ",
+                          "name": "step2numTxt",
+                          "fill": "#DC2626",
+                          "content": "2",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "5xQ9h",
+                      "name": "step2content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Vs943",
+                          "name": "step2label",
+                          "fill": "#FFFFFF",
+                          "content": "Dégraissage IPA",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "hdK8v",
+                          "name": "step2desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Nettoyage à l'alcool isopropylique pour éliminer toute trace de gras ou de silicone.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "3Qh5n",
+                  "name": "step3",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "q1ZkL",
+                      "name": "step3num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "WMzqy",
+                          "name": "step3numTxt",
+                          "fill": "#DC2626",
+                          "content": "3",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Za0bE",
+                      "name": "step3content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "iFUDP",
+                          "name": "step3label",
+                          "fill": "#FFFFFF",
+                          "content": "Application céramique",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "V7mKe",
+                          "name": "step3desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Application en panneau par panneau dans un environnement contrôlé et sans poussière.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "clTxB",
+                  "name": "step4",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "P7Jud",
+                      "name": "step4num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "5tIcy",
+                          "name": "step4numTxt",
+                          "fill": "#DC2626",
+                          "content": "4",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "wwANf",
+                      "name": "step4content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "3JbLb",
+                          "name": "step4label",
+                          "fill": "#FFFFFF",
+                          "content": "Nano-cuisson & inspection",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "GR7MA",
+                          "name": "step4desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Temps de réticulation suivi, inspection finale sous éclairage LED et certificat de garantie.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "TVFdV",
+          "name": "Footer Divider",
+          "opacity": 0.6,
+          "fill": "#1f1f1f",
+          "width": "fill_container",
+          "height": 1
+        },
+        {
+          "type": "frame",
+          "id": "F6NWf",
+          "name": "Footer",
+          "width": "fill_container",
+          "padding": [
+            20,
+            28,
+            28,
+            28
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "dR3av",
+              "name": "footerLeft",
+              "gap": 28,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "CdAhW",
+                  "name": "durationBlock",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "qMQTQ",
+                      "name": "durationLabel",
+                      "fill": "#FFFFFF4D",
+                      "content": "Durée",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Xq59U",
+                      "name": "durationValue",
+                      "gap": 6,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "ZQZEf",
+                          "name": "clockIcon",
+                          "width": 12,
+                          "height": 12,
+                          "iconFontName": "timer",
+                          "iconFontFamily": "lucide",
+                          "fill": "#DC2626"
+                        },
+                        {
+                          "type": "text",
+                          "id": "MMf3L",
+                          "name": "durationTxt",
+                          "fill": "#FFFFFFB3",
+                          "content": "À partir de 8h",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "9q1JN",
+                  "name": "priceBlock",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "PCmft",
+                      "name": "priceLabel",
+                      "fill": "#FFFFFF4D",
+                      "content": "Tarif",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "kuegq",
+                      "name": "priceTxt",
+                      "fill": "#FFFFFF",
+                      "content": "Dès 450€",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "BJIB0",
+              "name": "Réserver Button",
+              "fill": "#DC2626",
+              "cornerRadius": 4,
+              "gap": 8,
+              "padding": [
+                12,
+                20
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "MoHj3",
+                  "name": "reserverBtnTxt",
+                  "fill": "#FFFFFF",
+                  "content": "Réserver",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "700",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "icon_font",
+                  "id": "RCa5r",
+                  "name": "chevronIcon",
+                  "width": 14,
+                  "height": 14,
+                  "iconFontName": "chevron-right",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "9T3sP",
+      "x": -1026,
+      "y": 1935,
+      "name": "Cards Grid",
+      "width": "fill_container(2110)",
+      "height": "fit_content(425)",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "obgFo",
+          "x": 0,
+          "y": 0,
+          "name": "Card - Intérieur",
+          "width": "fill_container(302)",
+          "fill": "#111111",
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "#1f1f1f"
+          },
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 28,
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "JgWn3",
+              "name": "Accent",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "v1TwR",
+              "name": "Icon",
+              "width": 48,
+              "height": 56,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "m1Sn9",
+                  "name": "iconDrop",
+                  "width": 28,
+                  "height": 28,
+                  "iconFontName": "droplets",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF66"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "ssAUj",
+              "name": "subtitle1",
+              "fill": "#DC262699",
+              "content": "Deep Clean",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "700",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "F2Fh4",
+              "name": "title1",
+              "fill": "#FFFFFF",
+              "content": "HABITACLE & \nSOIN",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "900",
+              "letterSpacing": -0.5
+            },
+            {
+              "type": "text",
+              "id": "1hY69",
+              "name": "desc1",
+              "fill": "#FFFFFF80",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Une remise à neuf profonde de votre intérieur. Nous proposons 4 niveaux de finition pour répondre exactement à vos besoins de propreté et d'hygiène.",
+              "lineHeight": 1.6,
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "aZBYX",
+              "name": "Features",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "AjeH7",
+                  "name": "feat1a",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "GFrX1",
+                      "name": "dot1a",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "oRs2n",
+                      "name": "ftxt1a",
+                      "fill": "#FFFFFF99",
+                      "content": "4 Formules (Essentiel à Signature)",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "3lu0E",
+                  "name": "feat1b",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "HTYrO",
+                      "name": "dot1b",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "gaqQI",
+                      "name": "ftxt1b",
+                      "fill": "#FFFFFF99",
+                      "content": "Aspiration & Dépoussiérage",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "fAWC1",
+                  "name": "feat1c",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "y77HU",
+                      "name": "dot1c",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "biAdM",
+                      "name": "ftxt1c",
+                      "fill": "#FFFFFF99",
+                      "content": "Shampoing sièges & moquettes",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "wLibf",
+                  "name": "feat1d",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "7Z8g1",
+                      "name": "dot1d",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "jiW2g",
+                      "name": "ftxt1d",
+                      "fill": "#FFFFFF99",
+                      "content": "Traitement anti-UV",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "rectangle",
+              "id": "wQ8pT",
+              "name": "Separator",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "mqSEU",
+              "name": "Footer",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "uvi2q",
+                  "name": "detailsBtn1",
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "#2a2a2a"
+                  },
+                  "padding": [
+                    6,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "AYkSM",
+                      "name": "detailsTxt1",
+                      "fill": "#FFFFFF66",
+                      "content": "Détails",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "0ywwW",
+                  "name": "reserverLink1",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wKkjK",
+                      "name": "reserverTxt1",
+                      "fill": "#DC2626",
+                      "content": "Réserver",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "n20Zp",
+          "x": 326,
+          "y": 0,
+          "name": "Card - Extérieur",
+          "width": "fill_container(302)",
+          "fill": "#111111",
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "#1f1f1f"
+          },
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 28,
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "AfCir",
+              "name": "Accent",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "98SqU",
+              "name": "Icon",
+              "width": 48,
+              "height": 56,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "ScjfK",
+                  "name": "iconDrop",
+                  "width": 28,
+                  "height": 28,
+                  "iconFontName": "sparkles",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF66"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "7cbO7",
+              "name": "subtitle1",
+              "fill": "#DC262699",
+              "content": "EXTERIOR CARE",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "700",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "4tO2w",
+              "name": "title1",
+              "fill": "#FFFFFF",
+              "content": "ÉCLAT\nEXTÉRIEUR",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "900",
+              "letterSpacing": -0.5
+            },
+            {
+              "type": "text",
+              "id": "xer6k",
+              "name": "desc1",
+              "fill": "#FFFFFF80",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Un nettoyage manuel méticuleux pour redonner de l'éclat à votre carrosserie tout en protégeant les éléments sensibles comme les joints et les plastiques.",
+              "lineHeight": 1.6,
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "LHcHa",
+              "name": "Features",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "jYj0H",
+                  "name": "feat1a",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "X1sP5",
+                      "name": "dot1a",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "UspI7",
+                      "name": "ftxt1a",
+                      "fill": "#FFFFFF99",
+                      "content": "Prélavage mousse active",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "IxLHt",
+                  "name": "feat1b",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "RfG0Z",
+                      "name": "dot1b",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "l79QE",
+                      "name": "ftxt1b",
+                      "fill": "#FFFFFF99",
+                      "content": "Lavage carrosserie à la main",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "VcTcv",
+                  "name": "feat1c",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "FUi8Q",
+                      "name": "dot1c",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "LTSHD",
+                      "name": "ftxt1c",
+                      "fill": "#FFFFFF99",
+                      "content": "Nettoyage jantes & passages de roues",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "IDD1h",
+                  "name": "feat1d",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "av7Xc",
+                      "name": "dot1d",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "M1jLV",
+                      "name": "ftxt1d",
+                      "fill": "#FFFFFF99",
+                      "content": "Dressing plastiques et pneus",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "rectangle",
+              "id": "o6xiy",
+              "name": "Separator",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "Hi4PM",
+              "name": "Footer",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "R6Zro",
+                  "name": "detailsBtn1",
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "#2a2a2a"
+                  },
+                  "padding": [
+                    6,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "bsnon",
+                      "name": "detailsTxt1",
+                      "fill": "#FFFFFF66",
+                      "content": "Détails",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "zAfz8",
+                  "name": "reserverLink1",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "NXWnR",
+                      "name": "reserverTxt1",
+                      "fill": "#DC2626",
+                      "content": "Réserver",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "lOIXr",
+          "x": 652,
+          "y": 0,
+          "name": "Card - Céramique",
+          "width": "fill_container(302)",
+          "fill": {
+            "type": "gradient",
+            "gradientType": "linear",
+            "enabled": true,
+            "rotation": 135,
+            "size": {
+              "height": 1
+            },
+            "colors": [
+              {
+                "color": "#1a0000",
+                "position": 0
+              },
+              {
+                "color": "#0f0000",
+                "position": 1
+              }
+            ]
+          },
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "#1f1f1f"
+          },
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 28,
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "in2Q8",
+              "name": "Accent",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "Kd7ty",
+              "name": "Icon",
+              "width": 48,
+              "height": 56,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "I2Das",
+                  "name": "iconDrop",
+                  "width": 28,
+                  "height": 28,
+                  "iconFontName": "shield",
+                  "iconFontFamily": "lucide",
+                  "fill": "#DC2626"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "UXTey",
+              "name": "subtitle1",
+              "fill": "#DC262699",
+              "content": "BEST SELLER",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "700",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "P1fvR",
+              "name": "title1",
+              "fill": "#FFFFFF",
+              "content": "PACK INTÉRIEUR\n + EXTÉRIEUR",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "900",
+              "letterSpacing": -0.5
+            },
+            {
+              "type": "text",
+              "id": "jmdd0",
+              "name": "desc1",
+              "fill": "#FFFFFF80",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "La solution complète AR Protect. Profitez d'un tarif avantageux en combinant le nettoyage intérieur et extérieur pour une métamorphose totale de votre véhicule.",
+              "lineHeight": 1.6,
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "re9dl",
+              "name": "Features",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "nKEbW",
+                  "name": "feat1a",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "J6JBh",
+                      "name": "dot1a",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "KcxSB",
+                      "name": "ftxt1a",
+                      "fill": "#FFFFFF99",
+                      "content": "Formules \"Plus\" optimisées",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "2d3N8",
+                  "name": "feat1b",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "Lqu4N",
+                      "name": "dot1b",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "R3S2P",
+                      "name": "ftxt1b",
+                      "fill": "#FFFFFF99",
+                      "content": "Nettoyage complet manuel",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ubqSm",
+                  "name": "feat1c",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "LdqoT",
+                      "name": "dot1c",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "2OSOz",
+                      "name": "ftxt1c",
+                      "fill": "#FFFFFF99",
+                      "content": "Économie immédiate incluse",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "2UbOO",
+                  "name": "feat1d",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "pBEqM",
+                      "name": "dot1d",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "xLNay",
+                      "name": "ftxt1d",
+                      "fill": "#FFFFFF99",
+                      "content": "Idéal pour la revente",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "rectangle",
+              "id": "rF98e",
+              "name": "Separator",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "zufnl",
+              "name": "Footer",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "gVhVl",
+                  "name": "detailsBtn1",
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "#2a2a2a"
+                  },
+                  "padding": [
+                    6,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "n5zgs",
+                      "name": "detailsTxt1",
+                      "fill": "#FFFFFF66",
+                      "content": "Détails",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "PakWm",
+                  "name": "reserverLink1",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "G7eS7",
+                      "name": "reserverTxt1",
+                      "fill": "#DC2626",
+                      "content": "Réserver",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "vxdHD",
+          "x": 1306,
+          "y": 0,
+          "name": "Card - Polissage",
+          "width": "fill_container(302)",
+          "fill": "#111111",
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "#1f1f1f"
+          },
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 28,
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "ojA4r",
+              "name": "Accent",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "a6GOx",
+              "name": "Icon",
+              "width": 48,
+              "height": 56,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "psnWB",
+                  "name": "iconDrop",
+                  "width": 28,
+                  "height": 28,
+                  "iconFontName": "circle-dot",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF66"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "pqG9x",
+              "name": "subtitle1",
+              "fill": "#DC262699",
+              "content": "SAFETY & STYLE",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "700",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "IF66b",
+              "name": "title1",
+              "fill": "#FFFFFF",
+              "content": "OPTIQUES DE\nPHARES",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "900",
+              "letterSpacing": -0.5
+            },
+            {
+              "type": "text",
+              "id": "iKqxM",
+              "name": "desc1",
+              "fill": "#FFFFFF80",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Retrouvez une visibilité optimale et un aspect neuf pour vos phares. Une étape cruciale pour la sécurité et le passage au contrôle technique.",
+              "lineHeight": 1.6,
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "8GAIB",
+              "name": "Features",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "SRAaG",
+                  "name": "feat1a",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "w3mpo",
+                      "name": "dot1a",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "BNF21",
+                      "name": "ftxt1a",
+                      "fill": "#FFFFFF99",
+                      "content": "Ponçage des optiques",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "lTfW2",
+                  "name": "feat1b",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "VqrV6",
+                      "name": "dot1b",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "tU5sB",
+                      "name": "ftxt1b",
+                      "fill": "#FFFFFF99",
+                      "content": "Polissage haute brillance",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "qS6xH",
+                  "name": "feat1c",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "kFEQl",
+                      "name": "dot1c",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "PJ2JR",
+                      "name": "ftxt1c",
+                      "fill": "#FFFFFF99",
+                      "content": "Protection Céramique anti-UV",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "CdGhV",
+                  "name": "feat1d",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "LmkVZ",
+                      "name": "dot1d",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "7dGOx",
+                      "name": "ftxt1d",
+                      "fill": "#FFFFFF99",
+                      "content": "Option à l'unité ou par paire",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "rectangle",
+              "id": "nNUfy",
+              "name": "Separator",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "jZImJ",
+              "name": "Footer",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "kNPrO",
+                  "name": "detailsBtn1",
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "#2a2a2a"
+                  },
+                  "padding": [
+                    6,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ryW9f",
+                      "name": "detailsTxt1",
+                      "fill": "#FFFFFF66",
+                      "content": "Détails",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "4ZLBf",
+                  "name": "reserverLink1",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Nthiy",
+                      "name": "reserverTxt1",
+                      "fill": "#DC2626",
+                      "content": "Réserver",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "VNCOO",
+          "x": 978,
+          "y": 0,
+          "name": "Card - Polissage",
+          "width": "fill_container(302)",
+          "fill": "#111111",
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "#1f1f1f"
+          },
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 28,
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "MtWvn",
+              "name": "Accent",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "NBAHn",
+              "name": "Icon",
+              "width": 48,
+              "height": 56,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "fxMkz",
+                  "name": "iconDrop",
+                  "width": 28,
+                  "height": 28,
+                  "iconFontName": "circle-dot",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF66"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "HZhSc",
+              "name": "subtitle1",
+              "fill": "#DC262699",
+              "content": "LUXURY CARE",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "700",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "oDcQM",
+              "name": "title1",
+              "fill": "#FFFFFF",
+              "content": "SOIN DES\nCUIRS",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "900",
+              "letterSpacing": -0.5
+            },
+            {
+              "type": "text",
+              "id": "RucDu",
+              "name": "desc1",
+              "fill": "#FFFFFF80",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Un traitement spécifique pour redonner éclat et souplesse à vos selleries. Idéal pour les cuirs ternes, secs ou encrassés.\n",
+              "lineHeight": 1.6,
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "IUQDY",
+              "name": "Features",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "1jk12",
+                  "name": "feat1a",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "wHNL0",
+                      "name": "dot1a",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "BLazM",
+                      "name": "ftxt1a",
+                      "fill": "#FFFFFF99",
+                      "content": "Nettoyage intégral des cuirs",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "5bDOu",
+                  "name": "feat1b",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "Wd6U6",
+                      "name": "dot1b",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "TC6kM",
+                      "name": "ftxt1b",
+                      "fill": "#FFFFFF99",
+                      "content": "Application d'un nourrissant",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "JTXZy",
+                  "name": "feat1c",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "smXdM",
+                      "name": "dot1c",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "2kTya",
+                      "name": "ftxt1c",
+                      "fill": "#FFFFFF99",
+                      "content": "Traitement anti-UV protecteur",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "tJZC8",
+                  "name": "feat1d",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "WLhTB",
+                      "name": "dot1d",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "uuFue",
+                      "name": "ftxt1d",
+                      "fill": "#FFFFFF99",
+                      "content": "Aspiration minutieuse",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "rectangle",
+              "id": "pi3wz",
+              "name": "Separator",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "dCWsw",
+              "name": "Footer",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "xZU4h",
+                  "name": "detailsBtn1",
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "#2a2a2a"
+                  },
+                  "padding": [
+                    6,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "uku8N",
+                      "name": "detailsTxt1",
+                      "fill": "#FFFFFF66",
+                      "content": "Détails",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "M98pT",
+                  "name": "reserverLink1",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "O9d6Q",
+                      "name": "reserverTxt1",
+                      "fill": "#DC2626",
+                      "content": "Réserver",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Qri3C",
+          "x": 1638,
+          "y": 0,
+          "name": "Card - Polissage",
+          "width": "fill_container(302)",
+          "fill": "#111111",
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "#1f1f1f"
+          },
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 28,
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "R0N3V",
+              "name": "Accent",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "ew9P7",
+              "name": "Icon",
+              "width": 48,
+              "height": 56,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "CRMG1",
+                  "name": "iconDrop",
+                  "width": 28,
+                  "height": 28,
+                  "iconFontName": "circle-dot",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF66"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "8Jm0G",
+              "name": "subtitle1",
+              "fill": "#DC262699",
+              "content": "Hygiène plus",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "700",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "jaEXR",
+              "name": "title1",
+              "fill": "#FFFFFF",
+              "content": "SHAMPOING\nSIÈGES",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "900",
+              "letterSpacing": -0.5
+            },
+            {
+              "type": "text",
+              "id": "xXGlm",
+              "name": "desc1",
+              "fill": "#FFFFFF80",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Élimine les taches tenaces, les odeurs et les bactéries. Redonnez de la fraîcheur et une hygiène saine à vos tissus de sièges.\n",
+              "lineHeight": 1.6,
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "aUs89",
+              "name": "Features",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "qqLMx",
+                  "name": "feat1a",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "IIIOg",
+                      "name": "dot1a",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "DCxTi",
+                      "name": "ftxt1a",
+                      "fill": "#FFFFFF99",
+                      "content": "Application mousse active",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ApRrf",
+                  "name": "feat1b",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "S3RWZ",
+                      "name": "dot1b",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "X9abF",
+                      "name": "ftxt1b",
+                      "fill": "#FFFFFF99",
+                      "content": "Lessivage en profondeur",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "bGJii",
+                  "name": "feat1c",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "Kk2Sa",
+                      "name": "dot1c",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "FXQNu",
+                      "name": "ftxt1c",
+                      "fill": "#FFFFFF99",
+                      "content": "Traitement vapeur antibactérien",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "s9rBo",
+                  "name": "feat1d",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "yOM18",
+                      "name": "dot1d",
+                      "fill": "#DC2626",
+                      "width": 5,
+                      "height": 5
+                    },
+                    {
+                      "type": "text",
+                      "id": "8kj50",
+                      "name": "ftxt1d",
+                      "fill": "#FFFFFF99",
+                      "content": "Élimination des odeurs",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "rectangle",
+              "id": "g1bWz",
+              "name": "Separator",
+              "fill": "#1f1f1f",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "mLakI",
+              "name": "Footer",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "z5Oj0",
+                  "name": "detailsBtn1",
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "#2a2a2a"
+                  },
+                  "padding": [
+                    6,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "fAAI5",
+                      "name": "detailsTxt1",
+                      "fill": "#FFFFFF66",
+                      "content": "Détails",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "qJxSo",
+                  "name": "reserverLink1",
+                  "gap": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ZMw60",
+                      "name": "reserverTxt1",
+                      "fill": "#DC2626",
+                      "content": "Réserver",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "HaA76",
+      "x": -1026,
+      "y": 2563,
+      "name": "Modal - Habitacle & Soin",
+      "width": 640,
+      "fill": "#111111",
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "#1f1f1f"
+      },
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "rectangle",
+          "id": "PzrBD",
+          "name": "Top Accent",
+          "fill": "#DC2626",
+          "width": "fill_container",
+          "height": 2
+        },
+        {
+          "type": "frame",
+          "id": "PnovM",
+          "name": "Header",
+          "width": "fill_container",
+          "padding": [
+            28,
+            28,
+            20,
+            28
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "gYkNq",
+              "name": "Header Left",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "opRUd",
+                  "name": "Icon Box",
+                  "width": 56,
+                  "height": 56,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "#2a2a2a"
+                  },
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "deWt0",
+                      "name": "iconShield",
+                      "width": 30,
+                      "height": 30,
+                      "iconFontName": "droplets",
+                      "iconFontFamily": "lucide",
+                      "fill": "#FFFFFF66"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Kv6fA",
+                  "name": "Titles",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "2T6vL",
+                      "name": "serviceSubtitle",
+                      "fill": "#DC262699",
+                      "content": "Deep Clean",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 3
+                    },
+                    {
+                      "type": "text",
+                      "id": "q4VXG",
+                      "name": "serviceTitle",
+                      "fill": "#FFFFFF",
+                      "content": "HABITACLE & SOIN",
+                      "fontFamily": "Inter",
+                      "fontSize": 26,
+                      "fontWeight": "900",
+                      "letterSpacing": -1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "SSsHy",
+              "name": "Close Btn",
+              "width": 32,
+              "height": 32,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "Qq8TQ",
+                  "name": "closeIcon",
+                  "width": 20,
+                  "height": 20,
+                  "iconFontName": "x",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF66"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "KXiU7",
+          "name": "Divider",
+          "opacity": 0.6,
+          "fill": "#1f1f1f",
+          "width": "fill_container",
+          "height": 1
+        },
+        {
+          "type": "frame",
+          "id": "SHrTE",
+          "name": "Body",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": 28,
+          "children": [
+            {
+              "type": "text",
+              "id": "2omDF",
+              "name": "Detailed Desc",
+              "fill": "#FFFFFF99",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Un habitacle propre est essentiel pour votre confort et votre santé. Notre prestation Deep Clean traite en profondeur chaque surface intérieure, éliminant bactéries, allergènes et odeurs indésirables pour une expérience de conduite irréprochable.",
+              "lineHeight": 1.7,
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "BUF9S",
+              "name": "Features Section",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "rLW6L",
+                  "name": "featuresLabel",
+                  "fill": "#FFFFFF4D",
+                  "content": "Inclus dans la prestation",
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "700",
+                  "letterSpacing": 3
+                },
+                {
+                  "type": "frame",
+                  "id": "pCOd2",
+                  "name": "Features Grid",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "3CXy1",
+                      "name": "featCol1",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "9zO0k",
+                          "name": "feat1",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "Ftmdc",
+                              "name": "check1",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "kmq4a",
+                              "name": "ftxt1",
+                              "fill": "#FFFFFFB3",
+                              "content": "Aspiration complète",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "tU1ra",
+                          "name": "feat2",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "amToM",
+                              "name": "check2",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "KwVjI",
+                              "name": "ftxt2",
+                              "fill": "#FFFFFFB3",
+                              "content": "Nettoyage des plastiques",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ygJU4",
+                      "name": "featCol2",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "25jab",
+                          "name": "feat3",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "a2xmg",
+                              "name": "check3",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "Zddoh",
+                              "name": "ftxt3",
+                              "fill": "#FFFFFFB3",
+                              "content": "Lavage sièges & moquettes",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "UZ01i",
+                          "name": "feat4",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "AuKLY",
+                              "name": "check4",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "0MEM3",
+                              "name": "ftxt4",
+                              "fill": "#FFFFFFB3",
+                              "content": "Désinfection & déodorisation",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "iQQjF",
+              "name": "Process Section",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "uttW3",
+                  "name": "processLabel",
+                  "fill": "#FFFFFF4D",
+                  "content": "Notre processus",
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "700",
+                  "letterSpacing": 3
+                },
+                {
+                  "type": "frame",
+                  "id": "LkXr5",
+                  "name": "step1",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "3XGW7",
+                      "name": "step1num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Bq7i3",
+                          "name": "step1numTxt",
+                          "fill": "#DC2626",
+                          "content": "1",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "MgHZF",
+                      "name": "step1content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "zLbs3",
+                          "name": "step1label",
+                          "fill": "#FFFFFF",
+                          "content": "Aspiration profonde",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "rOqxd",
+                          "name": "step1desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Aspiration minutieuse de toutes les surfaces, recoins, moquettes et coffre de bagages.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "YaOtA",
+                  "name": "step2",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "nLrgU",
+                      "name": "step2num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "y1h2M",
+                          "name": "step2numTxt",
+                          "fill": "#DC2626",
+                          "content": "2",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "7llcC",
+                      "name": "step2content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "gz4qU",
+                          "name": "step2label",
+                          "fill": "#FFFFFF",
+                          "content": "Traitement des surfaces",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "g6Tvd",
+                          "name": "step2desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Nettoyage et conditionnement de tous les plastiques, tableau de bord et garnitures intérieures.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "v6z0b",
+                  "name": "step3",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "yZ3ys",
+                      "name": "step3num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "VjPBY",
+                          "name": "step3numTxt",
+                          "fill": "#DC2626",
+                          "content": "3",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "IiFzk",
+                      "name": "step3content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "H8yru",
+                          "name": "step3label",
+                          "fill": "#FFFFFF",
+                          "content": "Lavage des textiles",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "hGLIi",
+                          "name": "step3desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Shampooing professionnel des sièges, moquettes et tapis avec extraction à vapeur.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "jmJxX",
+                  "name": "step4",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "1Rhr0",
+                      "name": "step4num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "KK8Pw",
+                          "name": "step4numTxt",
+                          "fill": "#DC2626",
+                          "content": "4",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "yTuHr",
+                      "name": "step4content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "TnoAU",
+                          "name": "step4label",
+                          "fill": "#FFFFFF",
+                          "content": "Désinfection & finition",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "WO8qQ",
+                          "name": "step4desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Traitement bactéricide, désodorisation et finition des plastiques pour un habitacle sain.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "9xU7F",
+          "name": "Footer Divider",
+          "opacity": 0.6,
+          "fill": "#1f1f1f",
+          "width": "fill_container",
+          "height": 1
+        },
+        {
+          "type": "frame",
+          "id": "HZER8",
+          "name": "Footer",
+          "width": "fill_container",
+          "padding": [
+            20,
+            28,
+            28,
+            28
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "bzRpz",
+              "name": "footerLeft",
+              "gap": 28,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "iLP1w",
+                  "name": "durationBlock",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wSUhq",
+                      "name": "durationLabel",
+                      "fill": "#FFFFFF4D",
+                      "content": "Durée",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "frame",
+                      "id": "EE692",
+                      "name": "durationValue",
+                      "gap": 6,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "irILd",
+                          "name": "clockIcon",
+                          "width": 12,
+                          "height": 12,
+                          "iconFontName": "timer",
+                          "iconFontFamily": "lucide",
+                          "fill": "#DC2626"
+                        },
+                        {
+                          "type": "text",
+                          "id": "B69ZI",
+                          "name": "durationTxt",
+                          "fill": "#FFFFFFB3",
+                          "content": "À partir de 3h",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "o9sbJ",
+                  "name": "priceBlock",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "MOjX4",
+                      "name": "priceLabel",
+                      "fill": "#FFFFFF4D",
+                      "content": "Tarif",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "yEy0m",
+                      "name": "priceTxt",
+                      "fill": "#FFFFFF",
+                      "content": "Dès 80€",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "sQiZB",
+              "name": "Réserver Button",
+              "fill": "#DC2626",
+              "cornerRadius": 4,
+              "gap": 8,
+              "padding": [
+                12,
+                20
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "MxiKa",
+                  "name": "reserverBtnTxt",
+                  "fill": "#FFFFFF",
+                  "content": "Réserver",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "700",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "icon_font",
+                  "id": "z5DAn",
+                  "name": "chevronIcon",
+                  "width": 14,
+                  "height": 14,
+                  "iconFontName": "chevron-right",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "6YMnU",
+      "x": -354,
+      "y": 2563,
+      "name": "Modal - Habitacle & Soin",
+      "width": 640,
+      "fill": "#111111",
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "#1f1f1f"
+      },
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "rectangle",
+          "id": "3VSHL",
+          "name": "Top Accent",
+          "fill": "#DC2626",
+          "width": "fill_container",
+          "height": 2
+        },
+        {
+          "type": "frame",
+          "id": "X64i7",
+          "name": "Header",
+          "width": "fill_container",
+          "padding": [
+            28,
+            28,
+            20,
+            28
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "cMdg1",
+              "name": "Header Left",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "l6RVS",
+                  "name": "Icon Box",
+                  "width": 56,
+                  "height": 56,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "#2a2a2a"
+                  },
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "7LFpy",
+                      "name": "iconShield",
+                      "width": 30,
+                      "height": 30,
+                      "iconFontName": "droplets",
+                      "iconFontFamily": "lucide",
+                      "fill": "#FFFFFF66"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "A1EsZ",
+                  "name": "Titles",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "fN7Jj",
+                      "name": "serviceSubtitle",
+                      "fill": "#DC262699",
+                      "content": "Deep Clean",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 3
+                    },
+                    {
+                      "type": "text",
+                      "id": "7MhE1",
+                      "name": "serviceTitle",
+                      "fill": "#FFFFFF",
+                      "content": "HABITACLE & SOIN",
+                      "fontFamily": "Inter",
+                      "fontSize": 26,
+                      "fontWeight": "900",
+                      "letterSpacing": -1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "uSjDE",
+              "name": "Close Btn",
+              "width": 32,
+              "height": 32,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "A7w57",
+                  "name": "closeIcon",
+                  "width": 20,
+                  "height": 20,
+                  "iconFontName": "x",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF66"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "hWasE",
+          "name": "Divider",
+          "opacity": 0.6,
+          "fill": "#1f1f1f",
+          "width": "fill_container",
+          "height": 1
+        },
+        {
+          "type": "frame",
+          "id": "ypwM0",
+          "name": "Body",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": 28,
+          "children": [
+            {
+              "type": "text",
+              "id": "YgZvk",
+              "name": "Detailed Desc",
+              "fill": "#FFFFFF99",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Un habitacle propre est essentiel pour votre confort et votre santé. Notre prestation Deep Clean traite en profondeur chaque surface intérieure, éliminant bactéries, allergènes et odeurs indésirables pour une expérience de conduite irréprochable.",
+              "lineHeight": 1.7,
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "V2KiR",
+              "name": "Features Section",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "UUcPX",
+                  "name": "featuresLabel",
+                  "fill": "#FFFFFF4D",
+                  "content": "Inclus dans la prestation",
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "700",
+                  "letterSpacing": 3
+                },
+                {
+                  "type": "frame",
+                  "id": "f6FJU",
+                  "name": "Features Grid",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "dEIyH",
+                      "name": "featCol1",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "2YbrS",
+                          "name": "feat1",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "QFGyS",
+                              "name": "check1",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "JZFTy",
+                              "name": "ftxt1",
+                              "fill": "#FFFFFFB3",
+                              "content": "Aspiration complète",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "DmONk",
+                          "name": "feat2",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "O2dxR",
+                              "name": "check2",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "X4Oka",
+                              "name": "ftxt2",
+                              "fill": "#FFFFFFB3",
+                              "content": "Nettoyage des plastiques",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "7A3kL",
+                      "name": "featCol2",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Nnrsr",
+                          "name": "feat3",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "SUPO0",
+                              "name": "check3",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "NbxIf",
+                              "name": "ftxt3",
+                              "fill": "#FFFFFFB3",
+                              "content": "Lavage sièges & moquettes",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "KOwlR",
+                          "name": "feat4",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "j6UnB",
+                              "name": "check4",
+                              "width": 13,
+                              "height": 13,
+                              "iconFontName": "check",
+                              "iconFontFamily": "lucide",
+                              "fill": "#DC2626"
+                            },
+                            {
+                              "type": "text",
+                              "id": "0jIBX",
+                              "name": "ftxt4",
+                              "fill": "#FFFFFFB3",
+                              "content": "Désinfection & déodorisation",
+                              "fontFamily": "Inter",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "iNvIz",
+              "name": "Process Section",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "L0Huj",
+                  "name": "processLabel",
+                  "fill": "#FFFFFF4D",
+                  "content": "Notre processus",
+                  "fontFamily": "Inter",
+                  "fontSize": 10,
+                  "fontWeight": "700",
+                  "letterSpacing": 3
+                },
+                {
+                  "type": "frame",
+                  "id": "SWrL0",
+                  "name": "step1",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "jZwB5",
+                      "name": "step1num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "XfB9J",
+                          "name": "step1numTxt",
+                          "fill": "#DC2626",
+                          "content": "1",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "7KR28",
+                      "name": "step1content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "iqjpp",
+                          "name": "step1label",
+                          "fill": "#FFFFFF",
+                          "content": "Aspiration profonde",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "BYZ9q",
+                          "name": "step1desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Aspiration minutieuse de toutes les surfaces, recoins, moquettes et coffre de bagages.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "axBsy",
+                  "name": "step2",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "TjNpU",
+                      "name": "step2num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "m8oh8",
+                          "name": "step2numTxt",
+                          "fill": "#DC2626",
+                          "content": "2",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ZfBcC",
+                      "name": "step2content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "mNlYc",
+                          "name": "step2label",
+                          "fill": "#FFFFFF",
+                          "content": "Traitement des surfaces",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "XXpTS",
+                          "name": "step2desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Nettoyage et conditionnement de tous les plastiques, tableau de bord et garnitures intérieures.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "lo6r5",
+                  "name": "step3",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "8PgVE",
+                      "name": "step3num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "bxkFW",
+                          "name": "step3numTxt",
+                          "fill": "#DC2626",
+                          "content": "3",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "jcWDH",
+                      "name": "step3content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "6F0FF",
+                          "name": "step3label",
+                          "fill": "#FFFFFF",
+                          "content": "Lavage des textiles",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "3PIqX",
+                          "name": "step3desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Shampooing professionnel des sièges, moquettes et tapis avec extraction à vapeur.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "TZJte",
+                  "name": "step4",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "C77Af",
+                      "name": "step4num",
+                      "width": 28,
+                      "height": 28,
+                      "fill": "#DC262619",
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#DC262640"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "1zC3Y",
+                          "name": "step4numTxt",
+                          "fill": "#DC2626",
+                          "content": "4",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "uoACh",
+                      "name": "step4content",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "iPIDe",
+                          "name": "step4label",
+                          "fill": "#FFFFFF",
+                          "content": "Désinfection & finition",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "9k8RV",
+                          "name": "step4desc",
+                          "fill": "#FFFFFF73",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Traitement bactéricide, désodorisation et finition des plastiques pour un habitacle sain.",
+                          "lineHeight": 1.6,
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "ISdeF",
+          "name": "Footer Divider",
+          "opacity": 0.6,
+          "fill": "#1f1f1f",
+          "width": "fill_container",
+          "height": 1
+        },
+        {
+          "type": "frame",
+          "id": "5qL7i",
+          "name": "Footer",
+          "width": "fill_container",
+          "padding": [
+            20,
+            28,
+            28,
+            28
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "yMCPF",
+              "name": "footerLeft",
+              "gap": 28,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "rREQc",
+                  "name": "durationBlock",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "JiJMb",
+                      "name": "durationLabel",
+                      "fill": "#FFFFFF4D",
+                      "content": "Durée",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "frame",
+                      "id": "AThPx",
+                      "name": "durationValue",
+                      "gap": 6,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "JTcA8",
+                          "name": "clockIcon",
+                          "width": 12,
+                          "height": 12,
+                          "iconFontName": "timer",
+                          "iconFontFamily": "lucide",
+                          "fill": "#DC2626"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Sfqoc",
+                          "name": "durationTxt",
+                          "fill": "#FFFFFFB3",
+                          "content": "À partir de 3h",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "jkd2H",
+                  "name": "priceBlock",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "BWgRD",
+                      "name": "priceLabel",
+                      "fill": "#FFFFFF4D",
+                      "content": "Tarif",
+                      "fontFamily": "Inter",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "qutXx",
+                      "name": "priceTxt",
+                      "fill": "#FFFFFF",
+                      "content": "Dès 80€",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "aiG6L",
+              "name": "Réserver Button",
+              "fill": "#DC2626",
+              "cornerRadius": 4,
+              "gap": 8,
+              "padding": [
+                12,
+                20
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "2p51C",
+                  "name": "reserverBtnTxt",
+                  "fill": "#FFFFFF",
+                  "content": "Réserver",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "700",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "icon_font",
+                  "id": "jDlp6",
+                  "name": "chevronIcon",
+                  "width": 14,
+                  "height": 14,
+                  "iconFontName": "chevron-right",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-ar-black">
       <Header />
-      <Hero />
+      <Hero videoSrc="/videolandingpage.mp4" />
       <Brand />
       <BeforeAfterSlider />
       <Services />

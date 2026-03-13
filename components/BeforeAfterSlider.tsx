@@ -14,8 +14,8 @@ const views: Record<ViewType, { before: string; after: string; label: string }> 
     label: 'Extérieur',
   },
   interieur: {
-    before: '/avant_interieur.png',
-    after: '/apres_interieur.png',
+    before: '/AVANT_int.png',
+    after: '/APRES_int.png',
     label: 'Intérieur',
   },
 }

@@ -12,36 +12,46 @@ const fadeUp = {
   }),
 }
 
-export default function Hero() {
+interface HeroProps {
+  videoSrc?: string
+}
+
+export default function Hero({ videoSrc }: HeroProps = {}) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video background placeholder */}
+      {/* Background */}
       <div className="absolute inset-0 z-0">
-        {/* Replace this div with <video> tag when you have the actual video */}
-        <div className="w-full h-full bg-gradient-to-br from-neutral-900 via-ar-black to-neutral-950 flex items-center justify-center">
-          {/* Decorative geometric lines */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-1/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ar-red to-transparent" />
-            <div className="absolute top-3/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-30" />
-            <div className="absolute top-0 bottom-0 left-1/4 w-px bg-gradient-to-b from-transparent via-ar-red to-transparent" />
-            <div className="absolute top-0 bottom-0 right-1/4 w-px bg-gradient-to-b from-transparent via-white to-transparent opacity-20" />
-          </div>
-
-          {/* Video placeholder visual */}
-          <div className="relative flex flex-col items-center gap-4 opacity-20">
-            <div className="w-24 h-24 rounded-full border-2 border-white/30 flex items-center justify-center">
-              <Play size={32} className="text-white ml-1" />
-            </div>
-            <span className="text-white/50 text-xs uppercase tracking-widest">Slow-motion video</span>
-          </div>
-
-          {/* Radial glow */}
-          <div className="absolute inset-0 bg-radial-gradient pointer-events-none"
-            style={{
-              background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(220,38,38,0.08) 0%, transparent 70%)'
-            }}
+        {videoSrc ? (
+          <video
+            src={videoSrc}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
           />
-        </div>
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-neutral-900 via-ar-black to-neutral-950 flex items-center justify-center">
+            {/* Decorative geometric lines */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-1/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ar-red to-transparent" />
+              <div className="absolute top-3/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-30" />
+              <div className="absolute top-0 bottom-0 left-1/4 w-px bg-gradient-to-b from-transparent via-ar-red to-transparent" />
+              <div className="absolute top-0 bottom-0 right-1/4 w-px bg-gradient-to-b from-transparent via-white to-transparent opacity-20" />
+            </div>
+
+            {/* Video placeholder visual */}
+            <div className="relative flex flex-col items-center gap-4 opacity-20">
+              <div className="w-24 h-24 rounded-full border-2 border-white/30 flex items-center justify-center">
+                <Play size={32} className="text-white ml-1" />
+              </div>
+              <span className="text-white/50 text-xs uppercase tracking-widest">Slow-motion video</span>
+            </div>
+
+            {/* Radial glow */}
+            <div className="absolute inset-0 pointer-events-none hero-radial-glow" />
+          </div>
+        )}
 
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-ar-black/60" />
