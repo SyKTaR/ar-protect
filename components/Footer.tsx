@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { Instagram, Facebook, Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react'
 
 const links = {
@@ -141,12 +142,15 @@ export default function Footer() {
             © {currentYear} AR Protect. Tous droits réservés.
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-white/30 text-xs hover:text-white/60 transition-colors">
+            <Link href="/mentions-legales" className="text-white/30 text-xs hover:text-white/60 transition-colors">
               Mentions légales
-            </a>
-            <a href="#" className="text-white/30 text-xs hover:text-white/60 transition-colors">
-              Politique de confidentialité
-            </a>
+            </Link>
+            <Link href="/politique-de-confidentialite" className="text-white/30 text-xs hover:text-white/60 transition-colors">
+              Confidentialité
+            </Link>
+            <Link href="/conditions-generales-utilisation" className="text-white/30 text-xs hover:text-white/60 transition-colors">
+              CGU / CGV
+            </Link>
           </div>
         </div>
       </div>

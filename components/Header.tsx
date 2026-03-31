@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { Menu, X, Phone } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 const navLinks = [
   { label: 'Notre ADN', href: '#notre-adn' },
@@ -16,6 +17,10 @@ const navLinks = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const pathname = usePathname()
+  const isSubPage = pathname !== '/'
+
+  const resolveHref = (anchor: string) => isSubPage ? `/${anchor}` : anchor
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -38,7 +43,7 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <a href="#" className="flex items-center gap-3 group">
+            <a href={resolveHref('#')} className="flex items-center gap-3 group">
               <div className="relative w-12 h-12 transition-transform duration-300 group-hover:scale-105">
                 <Image
                   src="/arprotect_logo.jpg"
@@ -55,7 +60,7 @@ export default function Header() {
               {navLinks.map((link) => (
                 <a
                   key={link.href}
-                  href={link.href}
+                  href={resolveHref(link.href)}
                   className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 uppercase tracking-widest relative group"
                 >
                   {link.label}
@@ -74,7 +79,7 @@ export default function Header() {
                 <span className="font-medium">06 36 23 08 07</span>
               </a>
               <a
-                href="#contact"
+                href={resolveHref('#contact')}
                 className="btn-primary text-xs"
               >
                 Réserver
@@ -107,7 +112,7 @@ export default function Header() {
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
-                  href={link.href}
+                  href={resolveHref(link.href)}
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.08 }}
@@ -124,7 +129,7 @@ export default function Header() {
               transition={{ delay: 0.4 }}
               className="mt-auto mb-12"
             >
-              <a href="#contact" onClick={() => setMobileOpen(false)} className="btn-primary block text-center">
+              <a href={resolveHref('#contact')} onClick={() => setMobileOpen(false)} className="btn-primary block text-center">
                 Réserver mon diagnostic
               </a>
             </motion.div>

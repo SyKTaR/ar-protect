@@ -144,6 +144,67 @@ const galleryItems: GalleryItem[] = [
     images: [
       '/gallery/honda-civic/image1.jpeg', 
     ]
+  },
+  {
+    id: 11,
+    label: 'Bmw X1 MSport',
+    aspect: 'normal',
+    gradient: 'linear-gradient(135deg, #0d0d0d, #1a1a1a, #2d2d2d)',
+    category: 'full',
+    images: [
+      '/gallery/bmw-x1-msport/image1.jpeg', 
+      '/gallery/bmw-x1-msport/image2.jpeg',
+      '/gallery/bmw-x1-msport/image3.jpeg',
+      '/gallery/bmw-x1-msport/image4.jpeg',
+      '/gallery/bmw-x1-msport/image5.jpeg',
+      '/gallery/bmw-x1-msport/image6.jpeg',
+    ]
+  },
+  {
+    id: 12,
+    label: 'Ferrari SF90 Stradale',
+    aspect: 'normal',
+    gradient: 'linear-gradient(135deg, #0d0d0d, #1a1a1a, #2d2d2d)',
+    category: 'full',
+    images: [
+      '/gallery/ferrari-sf90-stradale/image1.jpeg', 
+      '/gallery/ferrari-sf90-stradale/image2.jpeg',
+      '/gallery/ferrari-sf90-stradale/image3.jpeg',
+      '/gallery/ferrari-sf90-stradale/image4.jpeg',
+    ]
+  },
+  {
+    id: 13,
+    label: 'Hyundai Tucson',
+    aspect: 'normal',
+    gradient: 'linear-gradient(135deg, #0d0d0d, #1a1a1a, #2d2d2d)',
+    category: 'full',
+    images: [
+      '/gallery/hyundai-tucson/image1.jpeg', 
+      '/gallery/hyundai-tucson/image2.jpeg',
+      '/gallery/hyundai-tucson/image3.jpeg',
+      '/gallery/hyundai-tucson/image4.jpeg',
+      '/gallery/hyundai-tucson/image5.jpeg',
+    ]
+  },
+  {
+    id: 14,
+    label: 'Mercdes Classe S',
+    aspect: 'normal',
+    gradient: 'linear-gradient(135deg, #0d0d0d, #1a1a1a, #2d2d2d)',
+    category: 'full',
+    images: [
+      '/gallery/mercedes-classe-s/image1.jpeg', 
+      '/gallery/mercedes-classe-s/image2.jpeg',
+      '/gallery/mercedes-classe-s/image3.jpeg',
+      '/gallery/mercedes-classe-s/image4.jpeg',
+      '/gallery/mercedes-classe-s/image5.jpeg',
+      '/gallery/mercedes-classe-s/image6.jpeg',
+      '/gallery/mercedes-classe-s/image7.jpeg',
+      '/gallery/mercedes-classe-s/image8.jpeg',
+      '/gallery/mercedes-classe-s/image9.jpeg',
+      '/gallery/mercedes-classe-s/image10.jpeg',
+    ]
   }
 ]
 
