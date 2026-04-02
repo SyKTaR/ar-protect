@@ -49,21 +49,18 @@ export default function Footer() {
             {/* Social */}
             <div className="flex items-center gap-3">
               <a
-                href="#"
+                href="https://www.instagram.com/arprotect/"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="w-10 h-10 border border-ar-border flex items-center justify-center text-white/50 hover:text-white hover:border-ar-red transition-all duration-300"
               >
                 <Instagram size={16} />
               </a>
               <a
-                href="#"
-                aria-label="Facebook"
-                className="w-10 h-10 border border-ar-border flex items-center justify-center text-white/50 hover:text-white hover:border-ar-red transition-all duration-300"
-              >
-                <Facebook size={16} />
-              </a>
-              <a
-                href="#"
+                href="https://www.tiktok.com/@ar.protect?lang=fr"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="TikTok"
                 className="w-10 h-10 border border-ar-border flex items-center justify-center text-white/50 hover:text-white hover:border-ar-red transition-all duration-300"
               >
