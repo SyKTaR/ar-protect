@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Car, Wrench, User, CheckCircle, ChevronRight, ChevronLeft, FileText, X, Edit2 } from 'lucide-react'
+import { Car, Wrench, User, CheckCircle, ChevronRight, ChevronLeft, FileText, X, Edit2, ClipboardList } from 'lucide-react'
 
 const vehicleTypes = [
   { id: 'citadine', label: 'Citadine', desc: 'Clio, 208, Fiesta...' },
@@ -23,12 +23,6 @@ const serviceOptions = [
   { id: 'devis', label: 'Demande de devis personnalisé', price: 'Sur devis' },
 ]
 
-const steps = [
-  { id: 1, label: 'Véhicule', icon: Car },
-  { id: 2, label: 'Service', icon: Wrench },
-  { id: 3, label: 'Contact', icon: User },
-  { id: 4, label: 'Récapitulatif', icon: FileText },
-]
 
 type FormData = {
   vehicle: string
@@ -70,13 +64,27 @@ export default function BookingForm() {
   const [sending, setSending] = useState(false)
   const [error, setError] = useState(false)
   const [formData, setFormData] = useState<FormData>(emptyForm)
+  const [interiorSubStep, setInteriorSubStep] = useState(0)
 
-  const currentStep = showSummary ? 4 : step
+  const dynamicSteps = [
+    { id: 1, label: 'Véhicule', icon: Car },
+    { id: 2, label: 'Service', icon: Wrench },
+    ...(formData.service === 'interieur' ? [{ id: 2.5, label: 'Intérieur', icon: ClipboardList }] : []),
+    { id: 3, label: 'Contact', icon: User },
+    { id: 4, label: 'Récapitulatif', icon: FileText },
+  ]
+
+  const currentStep = showSummary ? 4 : interiorSubStep > 0 ? 2.5 : step
+
+  const interiorFieldForSubStep: (keyof FormData)[] = [
+    'interiorCondition', 'seatShampoing', 'carpetShampoing', 'exteriorWash', 'vehicleEmptied',
+  ]
 
   const canNext =
     (step === 1 && formData.vehicle !== '') ||
-    (step === 2 && formData.service !== '') ||
-    step === 3
+    (step === 2 && interiorSubStep === 0 && formData.service !== '') ||
+    (interiorSubStep > 0 && formData[interiorFieldForSubStep[interiorSubStep - 1]] !== '') ||
+    (step === 3 && interiorSubStep === 0)
 
   const canGoToSummary = !!(formData.name && formData.phone && formData.email)
 
@@ -103,6 +111,7 @@ export default function BookingForm() {
   const handleReset = () => {
     setFormData(emptyForm)
     setStep(1)
+    setInteriorSubStep(0)
     setShowSummary(false)
     setError(false)
     setShowWhatsAppModal(true)
@@ -110,7 +119,38 @@ export default function BookingForm() {
 
   const goEditStep = (s: number) => {
     setShowSummary(false)
+    setInteriorSubStep(0)
     setStep(s)
+  }
+
+  const handleNext = () => {
+    if (interiorSubStep > 0) {
+      if (interiorSubStep < 5) {
+        setInteriorSubStep(interiorSubStep + 1)
+      } else {
+        setInteriorSubStep(0)
+        setStep(3)
+      }
+    } else if (step === 2 && formData.service === 'interieur') {
+      setInteriorSubStep(1)
+    } else if (step < 3) {
+      setStep(step + 1)
+    } else if (step === 3 && canGoToSummary) {
+      setShowSummary(true)
+    }
+  }
+
+  const handleBack = () => {
+    if (interiorSubStep === 1) {
+      setInteriorSubStep(0)
+      setStep(2)
+    } else if (interiorSubStep > 1) {
+      setInteriorSubStep(interiorSubStep - 1)
+    } else if (step === 3 && formData.service === 'interieur') {
+      setInteriorSubStep(5)
+    } else if (step > 1) {
+      setStep(step - 1)
+    }
   }
 
   // Labels for summary
@@ -316,18 +356,18 @@ export default function BookingForm() {
                     </p>
                   </motion.div>
                 ) : (
-                  <motion.div key="form" className="bg-ar-card border border-ar-border p-6 md:p-8">
+                  <motion.div key="form" className="bg-ar-card border border-ar-border p-4 sm:p-6 md:p-8">
                     {/* Steps indicator */}
-                    <div className="flex items-center gap-0 mb-8">
-                      {steps.map((s, i) => {
+                    <div className="flex items-center gap-0 mb-6 sm:mb-8">
+                      {dynamicSteps.map((s, i) => {
                         const Icon = s.icon
                         const isActive = s.id === currentStep
                         const isDone = s.id < currentStep
                         return (
-                          <div key={s.id} className="flex items-center flex-1">
-                            <div className="flex flex-col items-center gap-1.5">
+                          <div key={s.id} className="flex items-center flex-1 min-w-0">
+                            <div className="flex flex-col items-center gap-1 flex-shrink-0">
                               <div
-                                className={`w-9 h-9 flex items-center justify-center transition-all duration-300 ${
+                                className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center transition-all duration-300 ${
                                   isActive
                                     ? 'bg-ar-red text-white'
                                     : isDone
@@ -336,22 +376,22 @@ export default function BookingForm() {
                                 }`}
                               >
                                 {isDone ? (
-                                  <CheckCircle size={16} />
+                                  <CheckCircle size={13} />
                                 ) : (
-                                  <Icon size={16} />
+                                  <Icon size={13} />
                                 )}
                               </div>
                               <span
-                                className={`text-[10px] uppercase tracking-widest ${
+                                className={`hidden sm:block text-[9px] sm:text-[10px] uppercase tracking-wide sm:tracking-widest whitespace-nowrap ${
                                   isActive ? 'text-white' : isDone ? 'text-ar-red/70' : 'text-white/20'
                                 }`}
                               >
                                 {s.label}
                               </span>
                             </div>
-                            {i < steps.length - 1 && (
+                            {i < dynamicSteps.length - 1 && (
                               <div
-                                className={`flex-1 h-px mx-2 mb-5 transition-colors duration-500 ${
+                                className={`flex-1 h-px mx-1 sm:mx-2 sm:mb-5 transition-colors duration-500 ${
                                   currentStep > s.id ? 'bg-ar-red/50' : 'bg-ar-border'
                                 }`}
                               />
@@ -496,21 +536,21 @@ export default function BookingForm() {
                               Erreur lors de l&apos;envoi. Veuillez réessayer.
                             </p>
                           )}
-                          <div className="flex items-center gap-3 mt-5 pt-4 border-t border-ar-border">
-                            <button
-                              type="button"
-                              onClick={handleReset}
-                              className="flex-1 border border-ar-border text-white/50 hover:text-white hover:border-white/40 text-xs font-semibold px-4 py-3 transition-all duration-200 uppercase tracking-widest"
-                            >
-                              Recommencer
-                            </button>
+                          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-5 pt-4 border-t border-ar-border">
                             <button
                               type="button"
                               onClick={handleSubmit}
                               disabled={sending}
-                              className="flex-1 btn-primary text-xs disabled:opacity-50"
+                              className="order-1 sm:order-2 flex-1 btn-primary !px-4 !py-3 text-xs disabled:opacity-50"
                             >
                               {sending ? 'Envoi...' : 'Envoyer la demande'}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleReset}
+                              className="order-2 sm:order-1 flex-1 border border-ar-border text-white/50 hover:text-white hover:border-white/40 text-xs font-semibold px-4 py-3 transition-all duration-200 uppercase tracking-widest"
+                            >
+                              Recommencer
                             </button>
                           </div>
                         </motion.div>
@@ -578,7 +618,7 @@ export default function BookingForm() {
                             )}
 
                             {/* Step 2 — Service */}
-                            {step === 2 && (
+                            {step === 2 && interiorSubStep === 0 && (
                               <motion.div
                                 key="step2"
                                 initial={{ opacity: 0, x: 30 }}
@@ -596,13 +636,13 @@ export default function BookingForm() {
                                   {serviceOptions.map((s) => (
                                     <label
                                       key={s.id}
-                                      className={`flex items-center justify-between p-3.5 border cursor-pointer transition-all duration-200 ${
+                                      className={`flex items-center justify-between gap-2 p-3 sm:p-3.5 border cursor-pointer transition-all duration-200 ${
                                         formData.service === s.id
                                           ? 'border-ar-red bg-ar-red/10'
                                           : 'border-ar-border hover:border-white/30'
                                       }`}
                                     >
-                                      <div className="flex items-center gap-3">
+                                      <div className="flex items-center gap-3 min-w-0">
                                         <input
                                           type="radio"
                                           name="service"
@@ -621,129 +661,115 @@ export default function BookingForm() {
                                             <div className="w-2 h-2 rounded-full bg-ar-red" />
                                           )}
                                         </div>
-                                        <span className="text-white text-sm">{s.label}</span>
+                                        <span className="text-white text-sm leading-tight">{s.label}</span>
                                       </div>
-                                      <span className="text-ar-red text-xs font-semibold">{s.price}</span>
+                                      <span className="text-ar-red text-xs font-semibold flex-shrink-0">{s.price}</span>
                                     </label>
                                   ))}
                                 </div>
 
-                                {/* Conditional questions for Nettoyage Intérieur */}
-                                {formData.service === 'interieur' && (
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="mt-5 space-y-5 border-t border-ar-border pt-5"
-                                  >
-                                    <p className="text-ar-red/80 text-[10px] uppercase tracking-[0.25em] font-semibold">
-                                      Précisez votre besoin
-                                    </p>
-
-                                    {/* État général */}
-                                    <div>
-                                      <p className="text-white/60 text-xs mb-2">Comment considérez-vous l&apos;état général de votre véhicule ?</p>
-                                      <div className="space-y-1.5">
-                                        {[
-                                          { value: 'propre', label: 'Propre' },
-                                          { value: 'sale', label: 'Sale' },
-                                          { value: 'tres_sale', label: 'Très sale' },
-                                        ].map((opt) => (
-                                          <label key={opt.value} className={`flex items-center gap-3 p-2.5 border cursor-pointer transition-all duration-200 ${formData.interiorCondition === opt.value ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
-                                            <input type="radio" name="interiorCondition" value={opt.value} className="sr-only" onChange={() => setFormData((f) => ({ ...f, interiorCondition: opt.value }))} />
-                                            <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center flex-shrink-0 ${formData.interiorCondition === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
-                                              {formData.interiorCondition === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
-                                            </div>
-                                            <span className="text-white/80 text-sm">{opt.label}</span>
-                                          </label>
-                                        ))}
-                                      </div>
-                                    </div>
-
-                                    {/* Shampoing sièges */}
-                                    <div>
-                                      <p className="text-white/60 text-xs mb-2">Avez-vous besoin d&apos;un shampoing des sièges ?</p>
-                                      <div className="space-y-1.5">
-                                        {[
-                                          { value: 'non', label: 'Non, pas de tâches' },
-                                          { value: 'quelques', label: 'Oui, quelques tâches' },
-                                          { value: 'encrassees', label: 'Oui, tâches encrassées' },
-                                        ].map((opt) => (
-                                          <label key={opt.value} className={`flex items-center gap-3 p-2.5 border cursor-pointer transition-all duration-200 ${formData.seatShampoing === opt.value ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
-                                            <input type="radio" name="seatShampoing" value={opt.value} className="sr-only" onChange={() => setFormData((f) => ({ ...f, seatShampoing: opt.value }))} />
-                                            <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center flex-shrink-0 ${formData.seatShampoing === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
-                                              {formData.seatShampoing === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
-                                            </div>
-                                            <span className="text-white/80 text-sm">{opt.label}</span>
-                                          </label>
-                                        ))}
-                                      </div>
-                                    </div>
-
-                                    {/* Shampoing moquettes */}
-                                    <div>
-                                      <p className="text-white/60 text-xs mb-2">Avez-vous besoin d&apos;un shampoing des tapis et moquettes ?</p>
-                                      <div className="space-y-1.5">
-                                        {[
-                                          { value: 'non', label: 'Non, pas de tâches' },
-                                          { value: 'quelques', label: 'Oui, quelques tâches' },
-                                          { value: 'encrassees', label: 'Oui, tâches encrassées' },
-                                        ].map((opt) => (
-                                          <label key={opt.value} className={`flex items-center gap-3 p-2.5 border cursor-pointer transition-all duration-200 ${formData.carpetShampoing === opt.value ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
-                                            <input type="radio" name="carpetShampoing" value={opt.value} className="sr-only" onChange={() => setFormData((f) => ({ ...f, carpetShampoing: opt.value }))} />
-                                            <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center flex-shrink-0 ${formData.carpetShampoing === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
-                                              {formData.carpetShampoing === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
-                                            </div>
-                                            <span className="text-white/80 text-sm">{opt.label}</span>
-                                          </label>
-                                        ))}
-                                      </div>
-                                    </div>
-
-                                    {/* Nettoyage extérieur */}
-                                    <div>
-                                      <p className="text-white/60 text-xs mb-2">Avez-vous besoin d&apos;un nettoyage extérieur ?</p>
-                                      <div className="space-y-1.5">
-                                        {[
-                                          { value: 'oui', label: 'Oui, je souhaite une préparation complète' },
-                                          { value: 'non', label: "Non, simplement l'intérieur" },
-                                        ].map((opt) => (
-                                          <label key={opt.value} className={`flex items-center gap-3 p-2.5 border cursor-pointer transition-all duration-200 ${formData.exteriorWash === opt.value ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
-                                            <input type="radio" name="exteriorWash" value={opt.value} className="sr-only" onChange={() => setFormData((f) => ({ ...f, exteriorWash: opt.value }))} />
-                                            <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center flex-shrink-0 ${formData.exteriorWash === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
-                                              {formData.exteriorWash === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
-                                            </div>
-                                            <span className="text-white/80 text-sm">{opt.label}</span>
-                                          </label>
-                                        ))}
-                                      </div>
-                                    </div>
-
-                                    {/* Véhicule vidé */}
-                                    <div>
-                                      <p className="text-white/60 text-xs mb-2">Votre véhicule sera-t-il vidé ?</p>
-                                      <div className="space-y-1.5">
-                                        {[
-                                          { value: 'oui', label: 'Oui' },
-                                          { value: 'non', label: 'Non (+10€ TTC)' },
-                                        ].map((opt) => (
-                                          <label key={opt.value} className={`flex items-center gap-3 p-2.5 border cursor-pointer transition-all duration-200 ${formData.vehicleEmptied === opt.value ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
-                                            <input type="radio" name="vehicleEmptied" value={opt.value} className="sr-only" onChange={() => setFormData((f) => ({ ...f, vehicleEmptied: opt.value }))} />
-                                            <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center flex-shrink-0 ${formData.vehicleEmptied === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
-                                              {formData.vehicleEmptied === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
-                                            </div>
-                                            <span className="text-white/80 text-sm">{opt.label}</span>
-                                          </label>
-                                        ))}
-                                      </div>
-                                    </div>
-                                  </motion.div>
-                                )}
                               </motion.div>
                             )}
 
+                            {/* Step 2.5 — Interior questions */}
+                            {interiorSubStep > 0 && (() => {
+                              const interiorQuestions = [
+                                {
+                                  key: 'interiorCondition' as keyof FormData,
+                                  question: "Comment considérez-vous l'état général de votre véhicule ?",
+                                  options: [
+                                    { value: 'propre', label: 'Propre' },
+                                    { value: 'sale', label: 'Sale' },
+                                    { value: 'tres_sale', label: 'Très sale' },
+                                  ],
+                                },
+                                {
+                                  key: 'seatShampoing' as keyof FormData,
+                                  question: "Avez-vous besoin d'un shampoing des sièges ?",
+                                  options: [
+                                    { value: 'non', label: 'Non, pas de tâches' },
+                                    { value: 'quelques', label: 'Oui, quelques tâches' },
+                                    { value: 'encrassees', label: 'Oui, tâches encrassées' },
+                                  ],
+                                },
+                                {
+                                  key: 'carpetShampoing' as keyof FormData,
+                                  question: "Avez-vous besoin d'un shampoing des tapis et moquettes ?",
+                                  options: [
+                                    { value: 'non', label: 'Non, pas de tâches' },
+                                    { value: 'quelques', label: 'Oui, quelques tâches' },
+                                    { value: 'encrassees', label: 'Oui, tâches encrassées' },
+                                  ],
+                                },
+                                {
+                                  key: 'exteriorWash' as keyof FormData,
+                                  question: "Avez-vous besoin d'un nettoyage extérieur ?",
+                                  options: [
+                                    { value: 'oui', label: 'Oui, préparation complète' },
+                                    { value: 'non', label: "Non, simplement l'intérieur" },
+                                  ],
+                                },
+                                {
+                                  key: 'vehicleEmptied' as keyof FormData,
+                                  question: 'Votre véhicule sera-t-il vidé ?',
+                                  options: [
+                                    { value: 'oui', label: 'Oui' },
+                                    { value: 'non', label: 'Non (+10€ TTC)' },
+                                  ],
+                                },
+                              ]
+                              const current = interiorQuestions[interiorSubStep - 1]
+                              return (
+                                <motion.div
+                                  key={`interior-${interiorSubStep}`}
+                                  initial={{ opacity: 0, x: 30 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  exit={{ opacity: 0, x: -30 }}
+                                  transition={{ duration: 0.3 }}
+                                >
+                                  <div className="flex items-center justify-between mb-1">
+                                    <h3 className="text-white font-semibold text-sm uppercase tracking-widest">
+                                      Détails intérieur
+                                    </h3>
+                                    <span className="text-white/30 text-xs">{interiorSubStep} / 5</span>
+                                  </div>
+                                  <p className="text-white/40 text-xs mb-6">
+                                    Précisez votre besoin pour un devis personnalisé
+                                  </p>
+                                  <p className="text-white/80 text-sm font-medium mb-4">{current.question}</p>
+                                  <div className="space-y-2">
+                                    {current.options.map((opt) => (
+                                      <label
+                                        key={opt.value}
+                                        className={`flex items-center gap-3 p-3.5 border cursor-pointer transition-all duration-200 ${
+                                          formData[current.key] === opt.value
+                                            ? 'border-ar-red bg-ar-red/10'
+                                            : 'border-ar-border hover:border-white/20'
+                                        }`}
+                                      >
+                                        <input
+                                          type="radio"
+                                          name={current.key}
+                                          value={opt.value}
+                                          className="sr-only"
+                                          onChange={() => {
+                                            setFormData((f) => ({ ...f, [current.key]: opt.value }))
+                                            setTimeout(handleNext, 200)
+                                          }}
+                                        />
+                                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 ${formData[current.key] === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
+                                          {formData[current.key] === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
+                                        </div>
+                                        <span className="text-white/80 text-sm">{opt.label}</span>
+                                      </label>
+                                    ))}
+                                  </div>
+                                </motion.div>
+                              )
+                            })()}
+
                             {/* Step 3 — Contact */}
-                            {step === 3 && (
+                            {step === 3 && interiorSubStep === 0 && (
                               <motion.div
                                 key="step3"
                                 initial={{ opacity: 0, x: 30 }}
@@ -840,10 +866,10 @@ export default function BookingForm() {
 
                           {/* Navigation */}
                           <div className="flex items-center justify-between mt-6 pt-4 border-t border-ar-border">
-                            {step > 1 ? (
+                            {step > 1 || interiorSubStep > 0 ? (
                               <button
                                 type="button"
-                                onClick={() => setStep((s) => s - 1)}
+                                onClick={handleBack}
                                 className="flex items-center gap-2 text-white/50 hover:text-white text-sm transition-colors duration-200"
                               >
                                 <ChevronLeft size={16} />
@@ -853,28 +879,29 @@ export default function BookingForm() {
                               <div />
                             )}
 
-                            {step < 3 ? (
+                            {step === 3 && interiorSubStep === 0 ? (
                               <button
                                 type="button"
-                                disabled={!canNext}
-                                onClick={() => setStep((s) => s + 1)}
-                                className={`flex items-center gap-2 btn-primary text-xs transition-opacity duration-300 ${
-                                  !canNext ? 'opacity-40 cursor-not-allowed' : ''
+                                disabled={!canGoToSummary}
+                                onClick={handleNext}
+                                className={`flex items-center gap-2 btn-primary !px-4 !py-3 sm:!px-6 text-xs transition-opacity duration-300 ${
+                                  !canGoToSummary ? 'opacity-40 cursor-not-allowed' : ''
                                 }`}
                               >
-                                Suivant
+                                <span className="hidden sm:inline">Voir le récapitulatif</span>
+                                <span className="sm:hidden">Récap.</span>
                                 <ChevronRight size={16} />
                               </button>
                             ) : (
                               <button
                                 type="button"
-                                disabled={!canGoToSummary}
-                                onClick={() => { if (canGoToSummary) setShowSummary(true) }}
-                                className={`flex items-center gap-2 btn-primary text-xs transition-opacity duration-300 ${
-                                  !canGoToSummary ? 'opacity-40 cursor-not-allowed' : ''
+                                disabled={!canNext}
+                                onClick={handleNext}
+                                className={`flex items-center gap-2 btn-primary !px-4 !py-3 sm:!px-6 text-xs transition-opacity duration-300 ${
+                                  !canNext ? 'opacity-40 cursor-not-allowed' : ''
                                 }`}
                               >
-                                Voir le récapitulatif
+                                Suivant
                                 <ChevronRight size={16} />
                               </button>
                             )}

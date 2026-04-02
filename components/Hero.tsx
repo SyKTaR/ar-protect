@@ -113,7 +113,7 @@ export default function Hero({ videoSrc }: HeroProps = {}) {
           <a href="#contact" className="btn-primary">
             Prendre rendez-vous
           </a>
-          <a href="#avant-apres" className="btn-outline flex items-center gap-2">
+          <a href="#galerie" className="btn-outline flex items-center gap-2">
             <Play size={14} />
             Voir nos réalisations
           </a>

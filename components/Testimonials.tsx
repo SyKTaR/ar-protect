@@ -46,7 +46,7 @@ const testimonials = [
     name: 'Mathilde B.',
     car: 'Renault Twingo 4',
     rating: 5,
-    text: "Service impeccable ! 👌 L’intérieur de ma voiture est comme neuf : sièges parfaitement nettoyés, moquettes impeccables et aucune trace de saleté. Et surtout plus de poils de chien ! On voit tout de suite le détail et le professionnalisme. Je recommande à 100 %, je reviendrai sans hésiter !",
+    text: "Service impeccable ! L’intérieur de ma voiture est comme neuf : sièges parfaitement nettoyés, moquettes impeccables et aucune trace de saleté. Et surtout plus de poils de chien ! On voit tout de suite le détail et le professionnalisme. Je recommande à 100 %, je reviendrai sans hésiter !",
     date: 'Février 2026',
     service: 'Nettoyage Intérieur & Extérieur',
   },
@@ -189,7 +189,7 @@ export default function Testimonials() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: direction * -80 }}
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className="bg-ar-card border border-ar-border p-8 md:p-12 relative"
+                className="bg-ar-card border border-ar-border p-8 md:p-12 relative min-h-[320px] flex flex-col"
               >
                 {/* Quote icon */}
                 <Quote
