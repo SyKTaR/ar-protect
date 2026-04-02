@@ -98,8 +98,8 @@ export default function Hero({ videoSrc }: HeroProps = {}) {
           variants={fadeUp}
           className="max-w-xl mx-auto text-white/60 text-base sm:text-lg font-light leading-relaxed mb-10"
         >
-          Nous traitons chaque véhicule comme une œuvre d&apos;art. Protection céramique,
-          polissage expert et nettoyage professionnel — confiez votre voiture à des orfèvres.
+          Nettoyage intérieur comme extérieur, soin des cuirs, lustrage éclatant et rénovation de phare miroir. 
+          Un travail de haute précision pour un résultat irréprochable.
         </motion.p>
 
         {/* CTAs */}
@@ -111,7 +111,7 @@ export default function Hero({ videoSrc }: HeroProps = {}) {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a href="#contact" className="btn-primary">
-            Réserver mon diagnostic
+            Prendre rendez-vous
           </a>
           <a href="#avant-apres" className="btn-outline flex items-center gap-2">
             <Play size={14} />

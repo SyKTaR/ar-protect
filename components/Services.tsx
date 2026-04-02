@@ -29,6 +29,11 @@ interface SimplePrice {
   price: string
 }
 
+interface FormulaDetail {
+  name: string
+  items: string[]
+}
+
 interface Service {
   id: string
   icon: LucideIcon
@@ -43,6 +48,7 @@ interface Service {
   pricingTable?: PricingTable
   simplePricing?: SimplePrice[]
   includes?: string[]
+  formulaDetails?: FormulaDetail[]
 }
 
 const services: Service[] = [
@@ -72,6 +78,54 @@ const services: Service[] = [
       { step: '2', label: 'Nettoyage Technique', desc: 'Plastiques, surfaces et vitres intérieures nettoyés et dégraissés.' },
       { step: '3', label: 'Traitement Profond', desc: 'Shampoing des sièges et moquettes (selon formule choisie).' },
       { step: '4', label: 'Finition & Protection', desc: 'Nettoyage des seuils, spray parfumé et traitement anti-UV (Formule Signature).' },
+    ],
+    formulaDetails: [
+      {
+        name: 'Essentiel',
+        items: [
+          'Aspiration complète et dépoussiérage',
+          'Plastiques & surfaces nettoyés et dégraissés',
+          'Vitres intérieures nettoyées et dégraissées',
+          'Nettoyage des seuils de porte / coffre',
+          'Spray parfumé anti-odeur',
+        ],
+      },
+      {
+        name: 'Confort',
+        items: [
+          'Aspiration complète et dépoussiérage',
+          'Plastiques & surfaces nettoyés et dégraissés',
+          'Vitres intérieures nettoyées et dégraissées',
+          'Nettoyage des seuils de porte / coffre',
+          'Spray parfumé anti-odeur',
+          'Shampoing des sièges',
+        ],
+      },
+      {
+        name: 'Premium',
+        items: [
+          'Aspiration complète et dépoussiérage',
+          'Plastiques & surfaces nettoyés et dégraissés',
+          'Vitres intérieures nettoyées et dégraissées',
+          'Nettoyage des seuils de porte / coffre',
+          'Spray parfumé anti-odeur',
+          'Shampoing des sièges',
+          'Shampoing des moquettes',
+        ],
+      },
+      {
+        name: 'Signature',
+        items: [
+          'Aspiration complète et dépoussiérage',
+          'Plastiques & surfaces nettoyés et dégraissés',
+          'Vitres intérieures nettoyées et dégraissées',
+          'Nettoyage des seuils de porte / coffre',
+          'Spray parfumé anti-odeur',
+          'Shampoing des sièges',
+          'Shampoing des moquettes',
+          'Traitement anti-UV de toutes les surfaces',
+        ],
+      },
     ],
   },
   {
@@ -183,6 +237,7 @@ const services: Service[] = [
 
 function ServiceModal({ service, onClose }: { service: Service; onClose: () => void }) {
   const Icon = service.icon
+  const [showFormulas, setShowFormulas] = useState(false)
   return (
     <AnimatePresence>
       <motion.div
@@ -291,6 +346,52 @@ function ServiceModal({ service, onClose }: { service: Service; onClose: () => v
                   <p className="text-white/35 text-[11px] mt-3 italic">
                     * {service.pricingTable.note}
                   </p>
+                )}
+
+                {/* Formula details toggle */}
+                {service.formulaDetails && (
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      onClick={() => setShowFormulas((v) => !v)}
+                      className="flex items-center gap-1.5 text-white/40 hover:text-white text-[10px] uppercase tracking-[0.25em] font-semibold transition-colors duration-200"
+                    >
+                      <ChevronRight
+                        size={11}
+                        className={`transition-transform duration-200 ${showFormulas ? 'rotate-90' : ''}`}
+                      />
+                      {showFormulas ? 'Masquer' : 'Voir'} le contenu des formules
+                    </button>
+                    {showFormulas && (
+                      <div className="mt-4 grid grid-cols-2 gap-2.5">
+                        {service.formulaDetails.map((formula) => (
+                          <div
+                            key={formula.name}
+                            className="bg-black/20 border border-ar-border/30 p-3"
+                          >
+                            <h5 className="text-white text-[10px] font-bold uppercase tracking-widest mb-2.5">
+                              {formula.name}
+                            </h5>
+                            <ul className="space-y-1.5">
+                              {formula.items.map((item) => (
+                                <li
+                                  key={item}
+                                  className="flex items-start gap-2 text-[11px] text-white/55 leading-snug"
+                                >
+                                  <Check
+                                    size={10}
+                                    className="text-ar-red flex-shrink-0 mt-0.5"
+                                    strokeWidth={2.5}
+                                  />
+                                  {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
             )}

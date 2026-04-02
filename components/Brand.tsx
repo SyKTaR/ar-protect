@@ -17,7 +17,7 @@ const pillars = [
   },
   {
     icon: ShieldCheck,
-    title: 'Produits de pro uniquement',
+    title: 'Produits de professionnels uniquement',
     desc: 'Des formules professionnelles, respectueuses de vos matériaux. Rien de cheap.',
   },
 ]
@@ -120,8 +120,7 @@ export default function Brand() {
               className="border-l-2 border-ar-red pl-5"
             >
               <p className="text-white/70 text-sm leading-relaxed italic">
-                &ldquo;Pas de chichis, on va à l&apos;essentiel avec une précision chirurgicale.
-                Chaque voiture repart comme si elle sortait du showroom.&rdquo;
+                &ldquo;Le détail fait la différence, et la différence notre signature.&rdquo;
               </p>
               <span className="text-ar-red text-xs uppercase tracking-widest font-semibold mt-2 block">
                 — L&apos;équipe AR Protect

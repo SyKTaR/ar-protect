@@ -8,8 +8,10 @@ const links = {
   services: [
     { label: 'Nettoyage Intérieur', href: '#services' },
     { label: 'Nettoyage Extérieur', href: '#services' },
-    { label: 'Polissage', href: '#services' },
-    { label: 'Protection Céramique', href: '#services' },
+    { label: 'Lustrage', href: '#services' },
+    { label: 'Rénovation phares', href: '#services' },
+    { label: 'Soin des cuirs', href: '#services' },
+    { label: 'Shampoing sièges', href: '#services' },
   ],
   navigation: [
     { label: 'Avant / Après', href: '#avant-apres' },
@@ -113,7 +115,7 @@ export default function Footer() {
                   className="flex items-start gap-3 text-white/50 hover:text-white transition-colors duration-200"
                 >
                   <Mail size={14} className="mt-0.5 text-ar-red flex-shrink-0" />
-                  <span className="text-sm">arprotect@gmail.com</span>
+                  <span className="text-sm">arprotect77@gmail.com</span>
                 </a>
               </li>
               <li className="flex items-start gap-3 text-white/50 hover:text-white transition-colors duration-200">

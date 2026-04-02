@@ -2,53 +2,53 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { Star, ChevronLeft, ChevronRight, Quote, ExternalLink } from 'lucide-react'
 
 const testimonials = [
   {
     id: 1,
-    name: 'Thomas K.',
-    car: 'Peugeot 207',
+    name: 'Maxence E.',
+    car: 'Renault Clio 4',
     rating: 5,
-    text: "Un travail d'une précision remarquable. Ma voiture brille comme au premier jour, voire mieux. L'équipe AR Protect traite chaque véhicule avec un soin exceptionnel. Je ne confierai ma voiture qu'à eux désormais.",
-    date: 'Novembre 2025',
-    service: 'Protection Céramique',
+    text: "Hyper professionnel je recommande !",
+    date: 'Mars 2026',
+    service: 'Int, Shampoing sièges',
   },
   {
     id: 2,
-    name: 'Sophie L.',
-    car: 'Audi RS6',
+    name: 'Sandrine P.',
+    car: 'Renault Scenic',
     rating: 5,
-    text: "Je suis bluffée par le résultat du polissage. Des rayures que je croyais permanentes ont tout simplement disparu. Le service est professionnel, ponctuel et le résultat dépasse toutes mes attentes.",
-    date: 'Octobre 2025',
-    service: 'Polissage Expert',
+    text: "Travail d'excellente qualité et minutieux. La voiture est rendue comme neuve. Je suis ravie de la prestation et je recommande fortement !",
+    date: 'Aout 2025',
+    service: 'Intérieur & Traitement UV',
   },
   {
     id: 3,
-    name: 'Karim B.',
-    car: 'BMW M4 Competition',
+    name: 'Andy G.',
+    car: 'Ford Fiesta',
     rating: 5,
-    text: "Detailing complet intérieur/extérieur + céramique sur ma M4. Le résultat est tout simplement spectaculaire. La carrosserie repousse l'eau de façon incroyable. Rapport qualité/prix excellent pour ce niveau de service.",
-    date: 'Janvier 2026',
-    service: 'Full Detail + Céramique',
+    text: "Merci AR PROTECT pour l’expertise !",
+    date: 'Mars 2026',
+    service: 'Nettoyage Intérieur',
   },
   {
     id: 4,
-    name: 'Marie-Claire V.',
-    car: 'Range Rover',
+    name: 'Zoé L.',
+    car: 'Suzuki Swift',
     rating: 5,
-    text: "Mon Range Rover semblait usé après 3 ans. Après une journée chez AR Protect, il ressort comme neuf. Les cuirs sont traités, la peinture est parfaite. Un vrai travail d'orfèvre comme ils le disent eux-mêmes.",
-    date: 'Fevrier 2026',
+    text: "Thomas travaille avec sérieux et passion, ça se voit dans le résultat final, ma voiture est comme neuve !!! Je recommande sans hésiter :)",
+    date: 'Mars 2026',
     service: 'Nettoyage Intérieur & Extérieur',
   },
   {
     id: 5,
-    name: 'Alexandre D.',
-    car: 'Renault Clio 5',
+    name: 'Mathilde B.',
+    car: 'Renault Twingo 4',
     rating: 5,
-    text: "Confier une voiture demande une confiance absolue. AR Protect l'a méritée. Soin méticuleux, produits premium, résultat irréprochable. Ma clio 5 n'a jamais été aussi belle depuis sa sortie d'usine.",
-    date: 'Décembre 2025',
-    service: 'Correction de Peinture + Céramique',
+    text: "Service impeccable ! 👌 L’intérieur de ma voiture est comme neuf : sièges parfaitement nettoyés, moquettes impeccables et aucune trace de saleté. Et surtout plus de poils de chien ! On voit tout de suite le détail et le professionnalisme. Je recommande à 100 %, je reviendrai sans hésiter !",
+    date: 'Février 2026',
+    service: 'Nettoyage Intérieur & Extérieur',
   },
 ]
 
@@ -125,9 +125,9 @@ export default function Testimonials() {
           className="flex flex-wrap items-center justify-center gap-8 mb-16"
         >
           {[
-            { value: '4.7', label: 'Note de satisfaction', sub: '23 avis' },
+            { value: '5', label: 'Note de satisfaction', sub: '21 avis' },
             { value: '100%', label: 'Clients satisfaits', sub: 'Taux de satisfaction' },
-            { value: '+100', label: 'Véhicules', sub: 'Traités depuis 2025' },
+            { value: '+250', label: 'Véhicules', sub: 'Traités depuis 2026' },
           ].map((stat) => (
             <div key={stat.label} className="text-center px-6 border-r border-ar-border last:border-0">
               <div className="font-display font-black text-3xl sm:text-4xl text-white">{stat.value}</div>
@@ -225,6 +225,22 @@ export default function Testimonials() {
             >
               <ChevronRight size={20} />
             </button>
+          </div>
+
+          {/* Google Review CTA */}
+          <div className="text-center mt-10">
+            <a
+              href="https://www.google.com/search?hl=fr-FR&gl=fr&q=AR+PROTECT&ludocid=2814090523952500646&lsig=AB86z5UWweasKggHlxyl0s4oPbJM&source=g.page.m._&laa=merchant-review-solicitation&pli=1#lrd=0xa24a85d79d490341:0x270da86bfdfb4fa6,3"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 border border-white/20 hover:border-ar-red text-white/50 hover:text-white text-xs uppercase tracking-[0.2em] font-semibold px-6 py-3.5 transition-all duration-300"
+            >
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm6.116 7.006l-1.767 8.34c-.13.58-.48.72-.974.448l-2.688-1.98-1.297 1.25c-.143.143-.264.264-.54.264l.192-2.727 4.96-4.478c.216-.192-.047-.298-.334-.106L6.73 12.553 4.076 11.74c-.567-.177-.578-.567.118-.84l10.978-4.232c.47-.177.883.106.944.338z"/>
+              </svg>
+              Laisser un avis Google
+              <ExternalLink size={11} />
+            </a>
           </div>
         </motion.div>
       </div>

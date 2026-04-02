@@ -210,8 +210,7 @@ const galleryItems: GalleryItem[] = [
 
 const categories = [
   { id: 'all', label: 'Tout voir' },
-  { id: 'ceramique', label: 'Céramique' },
-  { id: 'polissage', label: 'Polissage' },
+  { id: 'lustrage', label: 'Lustrage' },
   { id: 'full', label: 'Full Detail' },
   { id: 'interieur', label: 'Intérieur' },
 ]

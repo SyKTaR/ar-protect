@@ -7,8 +7,8 @@ import { Car, Wrench, User, CheckCircle, ChevronRight, ChevronLeft } from 'lucid
 const vehicleTypes = [
   { id: 'citadine', label: 'Citadine', desc: 'Clio, 208, Fiesta...' },
   { id: 'berline', label: 'Berline', desc: 'A4, Série 3, C-Class...' },
-  { id: 'suv', label: 'SUV / 4x4', desc: 'X5, Q7, Cayenne...' },
-  { id: 'sportive', label: 'Sportive', desc: 'M3, RS, AMG, Porsche...' },
+  { id: 'suv/monospace', label: 'SUV / Monospace', desc: 'X5, Q7, Espace...' },
+  { id: 'utilitaire', label: 'Utilitaire', desc: 'C-100, Transit, Trafic...' },
   { id: 'prestige', label: 'Prestige', desc: 'Ferrari, Lamborghini, Bentley...' },
 ]
 
@@ -16,10 +16,11 @@ const serviceOptions = [
   { id: 'interieur', label: 'Nettoyage Intérieur', price: 'Dès 80€ TTC' },
   { id: 'exterieur', label: 'Nettoyage Extérieur', price: 'Dès 60€ TTC' },
   { id: 'full', label: 'Full Detail (Int + Ext.)', price: 'Dès 140€ TTC' },
-  { id: 'optiques', label: 'Optiques de phares', price: 'Dès 49€ TTC' },
   { id: 'shampoing', label: 'Shampoing des sièges', price: 'Dès 69€ TTC' },
   { id: 'cuirs', label: 'Soin des cuirs', price: 'Sur devis' },
+  { id: 'optiques', label: 'Renovations des optiques', price: 'Dès 49€ TTC' },
   { id: 'lustrage', label: 'Lustrage', price: 'Sur devis' },
+  { id: 'devis', label: 'Demande de devis personnalisé', price: 'Sur devis' },
 ]
 
 const steps = [
@@ -36,6 +37,11 @@ type FormData = {
   email: string
   message: string
   date: string
+  interiorCondition: string
+  seatShampoing: string
+  carpetShampoing: string
+  exteriorWash: string
+  vehicleEmptied: string
 }
 
 export default function BookingForm() {
@@ -53,6 +59,11 @@ export default function BookingForm() {
     email: '',
     message: '',
     date: '',
+    interiorCondition: '',
+    seatShampoing: '',
+    carpetShampoing: '',
+    exteriorWash: '',
+    vehicleEmptied: '',
   })
 
   const canNext =
@@ -142,18 +153,34 @@ export default function BookingForm() {
                 Contact direct
               </p>
               <a
-                href="tel:+33600000000"
+                href="tel:+33636230807"
                 className="text-white font-semibold hover:text-ar-red transition-colors duration-200"
               >
                 06 36 23 08 07
               </a>
               <br />
               <a
-                href="mailto:contact@arprotect.fr"
+                href="mailto:arprotect@gmail.com"
                 className="text-white/50 text-sm hover:text-ar-red transition-colors duration-200"
               >
                 arprotect@gmail.com
               </a>
+              <div className="mt-4 pt-4 border-t border-ar-border/50">
+                <a
+                  href="https://wa.me/33636230807"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 bg-[#25D366]/10 border border-[#25D366]/30 hover:border-[#25D366]/70 text-[#25D366] hover:bg-[#25D366]/20 text-xs font-semibold px-4 py-2.5 transition-all duration-200"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                  WhatsApp
+                </a>
+                <p className="text-white/30 text-xs mt-2">
+                  Si vous souhaitez avoir plus d'informations sur nos prestations ou bien concernant une flottes de véhicules
+                </p>
+              </div>
             </div>
           </motion.div>
 
@@ -335,6 +362,118 @@ export default function BookingForm() {
                               </label>
                             ))}
                           </div>
+
+                          {/* Conditional questions for Nettoyage Intérieur */}
+                          {formData.service === 'interieur' && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="mt-5 space-y-5 border-t border-ar-border pt-5"
+                            >
+                              <p className="text-ar-red/80 text-[10px] uppercase tracking-[0.25em] font-semibold">
+                                Précisez votre besoin
+                              </p>
+
+                              {/* État général */}
+                              <div>
+                                <p className="text-white/60 text-xs mb-2">Comment considérez-vous l&apos;état général de votre véhicule ?</p>
+                                <div className="space-y-1.5">
+                                  {[
+                                    { value: 'propre', label: 'Propre' },
+                                    { value: 'sale', label: 'Sale' },
+                                    { value: 'tres_sale', label: 'Très sale' },
+                                  ].map((opt) => (
+                                    <label key={opt.value} className={`flex items-center gap-3 p-2.5 border cursor-pointer transition-all duration-200 ${formData.interiorCondition === opt.value ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
+                                      <input type="radio" name="interiorCondition" value={opt.value} className="sr-only" onChange={() => setFormData((f) => ({ ...f, interiorCondition: opt.value }))} />
+                                      <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center flex-shrink-0 ${formData.interiorCondition === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
+                                        {formData.interiorCondition === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
+                                      </div>
+                                      <span className="text-white/80 text-sm">{opt.label}</span>
+                                    </label>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Shampoing sièges */}
+                              <div>
+                                <p className="text-white/60 text-xs mb-2">Avez-vous besoin d&apos;un shampoing des sièges ?</p>
+                                <div className="space-y-1.5">
+                                  {[
+                                    { value: 'non', label: 'Non, pas de tâches' },
+                                    { value: 'quelques', label: 'Oui, quelques tâches' },
+                                    { value: 'encrassees', label: 'Oui, tâches encrassées' },
+                                  ].map((opt) => (
+                                    <label key={opt.value} className={`flex items-center gap-3 p-2.5 border cursor-pointer transition-all duration-200 ${formData.seatShampoing === opt.value ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
+                                      <input type="radio" name="seatShampoing" value={opt.value} className="sr-only" onChange={() => setFormData((f) => ({ ...f, seatShampoing: opt.value }))} />
+                                      <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center flex-shrink-0 ${formData.seatShampoing === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
+                                        {formData.seatShampoing === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
+                                      </div>
+                                      <span className="text-white/80 text-sm">{opt.label}</span>
+                                    </label>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Shampoing moquettes */}
+                              <div>
+                                <p className="text-white/60 text-xs mb-2">Avez-vous besoin d&apos;un shampoing des tapis et moquettes ?</p>
+                                <div className="space-y-1.5">
+                                  {[
+                                    { value: 'non', label: 'Non, pas de tâches' },
+                                    { value: 'quelques', label: 'Oui, quelques tâches' },
+                                    { value: 'encrassees', label: 'Oui, tâches encrassées' },
+                                  ].map((opt) => (
+                                    <label key={opt.value} className={`flex items-center gap-3 p-2.5 border cursor-pointer transition-all duration-200 ${formData.carpetShampoing === opt.value ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
+                                      <input type="radio" name="carpetShampoing" value={opt.value} className="sr-only" onChange={() => setFormData((f) => ({ ...f, carpetShampoing: opt.value }))} />
+                                      <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center flex-shrink-0 ${formData.carpetShampoing === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
+                                        {formData.carpetShampoing === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
+                                      </div>
+                                      <span className="text-white/80 text-sm">{opt.label}</span>
+                                    </label>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Nettoyage extérieur */}
+                              <div>
+                                <p className="text-white/60 text-xs mb-2">Avez-vous besoin d&apos;un nettoyage extérieur ?</p>
+                                <div className="space-y-1.5">
+                                  {[
+                                    { value: 'oui', label: 'Oui, je souhaite une préparation complète' },
+                                    { value: 'non', label: "Non, simplement l'intérieur" },
+                                  ].map((opt) => (
+                                    <label key={opt.value} className={`flex items-center gap-3 p-2.5 border cursor-pointer transition-all duration-200 ${formData.exteriorWash === opt.value ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
+                                      <input type="radio" name="exteriorWash" value={opt.value} className="sr-only" onChange={() => setFormData((f) => ({ ...f, exteriorWash: opt.value }))} />
+                                      <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center flex-shrink-0 ${formData.exteriorWash === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
+                                        {formData.exteriorWash === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
+                                      </div>
+                                      <span className="text-white/80 text-sm">{opt.label}</span>
+                                    </label>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Véhicule vidé */}
+                              <div>
+                                <p className="text-white/60 text-xs mb-2">Votre véhicule sera-t-il vidé ?</p>
+                                <div className="space-y-1.5">
+                                  {[
+                                    { value: 'oui', label: 'Oui' },
+                                    { value: 'non', label: 'Non (+10€ TTC)' },
+                                  ].map((opt) => (
+                                    <label key={opt.value} className={`flex items-center gap-3 p-2.5 border cursor-pointer transition-all duration-200 ${formData.vehicleEmptied === opt.value ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
+                                      <input type="radio" name="vehicleEmptied" value={opt.value} className="sr-only" onChange={() => setFormData((f) => ({ ...f, vehicleEmptied: opt.value }))} />
+                                      <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center flex-shrink-0 ${formData.vehicleEmptied === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
+                                        {formData.vehicleEmptied === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
+                                      </div>
+                                      <span className="text-white/80 text-sm">{opt.label}</span>
+                                    </label>
+                                  ))}
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
                         </motion.div>
                       )}
 
