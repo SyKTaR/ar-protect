@@ -50,6 +50,42 @@ const testimonials = [
     date: 'Février 2026',
     service: 'Nettoyage Intérieur & Extérieur',
   },
+  {
+    id: 6,
+    name: 'Affimen',
+    car: 'BMW série 3',
+    rating: 5,
+    text: "Il s’est occupé du nettoyage intérieur de ma E46 : moquettes, sièges en cuir avec traitement, ainsi que le ciel de toit. Le résultat est vraiment bluffant — la voiture est proche du neuf alors qu’elle a 22 ans ! Travail soigné, sérieux et très pro. Je suis totalement satisfait et je reviendrai sans hésiter",
+    date: 'Aout 2025',
+    service: 'Intérieur & Soin cuir',
+  },
+  { 
+  id: 7,
+    name: 'Yohan K.',
+    car: 'Renault Clio 3',
+    rating: 5,
+    text: "Un grand merci à AR Protect pour le professionnalisme et leur sympathie ! Rapide et efficace ! Rien à dire sur la prestation, bravo !",
+    date: 'Février 2026',
+    service: 'Nettoyage Intérieur',
+  },
+  {
+    id: 8,
+    name: 'Quentin R.',
+    car: 'Mazda MX-5',
+    rating: 5,
+    text: "J’ai confié ma mx5 nc et je suis ravi du résultat, allez y les yeux fermés c’est du super boulot !",
+    date: 'Février 2026',
+    service: 'Nettoyage Intérieur & Extérieur',
+  },
+  { 
+    id: 9,
+    name: 'Baptiste D.',
+    car: 'Renault Clio 2',
+    rating: 5,
+    text: "Très satisfait de mon expérience ! La prestation a été réalisée avec beaucoup de sérieux et de professionnalisme. Les délais ont été parfaitement respectés, avec une excellente communication du début à la fin. Le résultat est au top, ma voiture est comme neuve ! Je recommande sans hésitation",
+    date: 'Janvier 2026',
+    service: 'Nettoyage Intérieur & Shampoing sièges',
+  }
 ]
 
 function StarRating({ rating }: { rating: number }) {
