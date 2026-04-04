@@ -124,13 +124,8 @@ export async function POST(request: Request) {
 
   const row = (label: string, value: string) => `
     <tr>
-      <td style="padding: 12px 16px; background: #f9fafb; color: #6b7280; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; width: 160px; border-bottom: 1px solid #e5e7eb;">${label}</td>
-      <td style="padding: 12px 16px; color: #111827; font-size: 15px; border-bottom: 1px solid #e5e7eb;">${value}</td>
-    </tr>`
-
-  const sectionHeader = (title: string) => `
-    <tr>
-      <td colspan="2" style="padding: 20px 16px 10px; background: #fff; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #dc2626; border-bottom: 2px solid #dc2626;">${title}</td>
+      <td style="padding: 12px 16px; background: #f9fafb !important; color: #6b7280 !important; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; width: 160px; border-bottom: 1px solid #e5e7eb;">${label}</td>
+      <td style="padding: 12px 16px; background: #ffffff !important; color: #111827 !important; font-size: 15px; border-bottom: 1px solid #e5e7eb;">${value}</td>
     </tr>`
 
   try {
@@ -140,9 +135,18 @@ export async function POST(request: Request) {
       replyTo: safeEmail,
       subject: `🚗 Nouvelle réservation — ${safeName} · ${serviceLabels[service]}`,
       html: `<!DOCTYPE html>
-<html lang="fr">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0; padding:0; background-color:#f3f4f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">
+<html lang="fr" style="color-scheme: light only;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light only">
+  <meta name="supported-color-schemes" content="light only">
+  <style>
+    :root { color-scheme: light only; }
+    body { color-scheme: light only; }
+  </style>
+</head>
+<body style="margin:0; padding:0; background-color:#f3f4f6 !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; color-scheme: light only;">
 
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6; padding: 40px 16px;">
     <tr><td align="center">
@@ -150,10 +154,10 @@ export async function POST(request: Request) {
 
         <!-- HEADER -->
         <tr>
-          <td style="background: linear-gradient(135deg, #111827 0%, #1f2937 100%); border-radius: 12px 12px 0 0; padding: 36px 40px; text-align: center;">
-            <p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: #dc2626; text-transform: uppercase;">AR Protect</p>
-            <h1 style="margin: 0; font-size: 26px; font-weight: 700; color: #ffffff; line-height: 1.2;">Nouvelle demande de réservation</h1>
-            <p style="margin: 12px 0 0; font-size: 14px; color: #9ca3af;">Reçue le ${new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
+          <td style="background: #1f2937 !important; border-radius: 12px 12px 0 0; padding: 36px 40px; text-align: center;">
+            <p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: #dc2626 !important; text-transform: uppercase;">AR Protect</p>
+            <h1 style="margin: 0; font-size: 26px; font-weight: 700; color: #ffffff !important; line-height: 1.2;">Nouvelle demande de réservation</h1>
+            <p style="margin: 12px 0 0; font-size: 14px; color: #d1d5db !important;">Reçue le ${new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
           </td>
         </tr>
 
@@ -184,7 +188,7 @@ export async function POST(request: Request) {
 
         <!-- BODY -->
         <tr>
-          <td style="background: #ffffff; padding: 32px 40px 0;">
+          <td style="background: #ffffff !important; padding: 32px 40px 0;">
 
             <!-- CONTACT INFO -->
             <p style="margin: 0 0 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #6b7280; text-transform: uppercase;">Informations client</p>
@@ -224,9 +228,9 @@ export async function POST(request: Request) {
 
         <!-- FOOTER -->
         <tr>
-          <td style="background: #111827; border-radius: 0 0 12px 12px; padding: 24px 40px; text-align: center;">
-            <p style="margin: 0; font-size: 13px; font-weight: 700; color: #dc2626; letter-spacing: 0.1em; text-transform: uppercase;">AR Protect</p>
-            <p style="margin: 6px 0 0; font-size: 12px; color: #6b7280;">Cet email a été généré automatiquement depuis le formulaire de réservation.</p>
+          <td style="background: #111827 !important; border-radius: 0 0 12px 12px; padding: 24px 40px; text-align: center;">
+            <p style="margin: 0; font-size: 13px; font-weight: 700; color: #dc2626 !important; letter-spacing: 0.1em; text-transform: uppercase;">AR Protect</p>
+            <p style="margin: 6px 0 0; font-size: 12px; color: #9ca3af !important;">Cet email a été généré automatiquement depuis le formulaire de réservation.</p>
           </td>
         </tr>
 
