@@ -9,8 +9,8 @@ type ViewType = 'exterieur' | 'interieur'
 
 const views: Record<ViewType, { before: string; after: string; label: string }> = {
   exterieur: {
-    before: '/avant.png',
-    after: '/apres.png',
+    before: '/avant_ext.png',
+    after: '/apres_ext.png',
     label: 'Extérieur',
   },
   interieur: {

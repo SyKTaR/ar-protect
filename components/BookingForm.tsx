@@ -714,7 +714,7 @@ export default function BookingForm() {
                                   question: 'Votre véhicule sera-t-il vidé ?',
                                   options: [
                                     { value: 'oui', label: 'Oui' },
-                                    { value: 'non', label: 'Non (+10€ TTC)' },
+                                    { value: 'non', label: 'Non' },
                                   ],
                                 },
                               ]

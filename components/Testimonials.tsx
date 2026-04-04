@@ -85,6 +85,42 @@ const testimonials = [
     text: "Très satisfait de mon expérience ! La prestation a été réalisée avec beaucoup de sérieux et de professionnalisme. Les délais ont été parfaitement respectés, avec une excellente communication du début à la fin. Le résultat est au top, ma voiture est comme neuve ! Je recommande sans hésitation",
     date: 'Janvier 2026',
     service: 'Nettoyage Intérieur & Shampoing sièges',
+  },
+  { 
+    id: 10,
+    name: 'Baptiste D.',
+    car: 'Renault Clio 2',
+    rating: 5,
+    text: "Très satisfait de mon expérience ! La prestation a été réalisée avec beaucoup de sérieux et de professionnalisme. Les délais ont été parfaitement respectés, avec une excellente communication du début à la fin. Le résultat est au top, ma voiture est comme neuve ! Je recommande sans hésitation",
+    date: 'Janvier 2026',
+    service: 'Nettoyage Intérieur & Shampoing sièges',
+  },
+  {
+    id: 11,
+    name: 'Clara C.',
+    car: 'Volkswagen Polo 5',
+    rating: 5,
+    text: "Un super travail sur ma voiture qui avait bien besoin d’un nettoyage intérieur, Thomas est très pro et agréable ! Merci !",
+    date: 'Janvier 2026',
+    service: 'Nettoyage Intérieur & Shampoing sièges',
+  },
+  {
+    id: 12,
+    name: 'Antoine L.',
+    car: 'Volkswagen Golf 8',
+    rating: 5,
+    text: "Travail sérieux et minutieux par un passionné d’automobile, je recommande !",
+    date: 'Décembre 2025',
+    service: 'Nettoyage Intérieur & Extérieur',
+  },
+  { 
+    id: 13,
+    name: 'Sam.',
+    car: 'Seat Ibiza',
+    rating: 5,
+    text: "Très satisfaite du service ! Ma voiture est ressortie impeccable, intérieur comme extérieur. Travail soigné et rapide, avec un vrai souci du détail. Je recommande sans hésiter.",
+    date: 'Décembre 2025',
+    service: 'Nettoyage Intérieur & Shampoing sièges',
   }
 ]
 

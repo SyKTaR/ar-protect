@@ -115,78 +115,127 @@ export async function POST(request: Request) {
   const exteriorWashLabels: Record<string, string> = { oui: 'Oui, préparation complète', non: "Non, simplement l'intérieur" }
   const vehicleEmptiedLabels: Record<string, string> = { oui: 'Oui', non: 'Non (+10€ TTC)' }
 
+  // Format date in French (e.g. "12 avril 2026")
+  const formattedDate = safeDate
+    ? new Date(safeDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+    : null
+
   const to = process.env.CONTACT_EMAIL ?? 'lucas.dsnts77@gmail.com'
+
+  const row = (label: string, value: string) => `
+    <tr>
+      <td style="padding: 12px 16px; background: #f9fafb; color: #6b7280; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; width: 160px; border-bottom: 1px solid #e5e7eb;">${label}</td>
+      <td style="padding: 12px 16px; color: #111827; font-size: 15px; border-bottom: 1px solid #e5e7eb;">${value}</td>
+    </tr>`
+
+  const sectionHeader = (title: string) => `
+    <tr>
+      <td colspan="2" style="padding: 20px 16px 10px; background: #fff; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #dc2626; border-bottom: 2px solid #dc2626;">${title}</td>
+    </tr>`
 
   try {
     await resend.emails.send({
       from: 'AR Protect <onboarding@resend.dev>',
       to,
       replyTo: safeEmail,
-      subject: `Nouvelle demande de réservation — ${safeName}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #1a1a1a; color: #fff; padding: 32px; border-radius: 8px;">
-          <h2 style="color: #dc2626; margin-top: 0;">Nouvelle demande de réservation</h2>
+      subject: `🚗 Nouvelle réservation — ${safeName} · ${serviceLabels[service]}`,
+      html: `<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0; padding:0; background-color:#f3f4f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">
 
-          <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-              <td style="padding: 8px 0; color: #999; width: 140px;">Nom</td>
-              <td style="padding: 8px 0; color: #fff; font-weight: bold;">${safeName}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: #999;">Téléphone</td>
-              <td style="padding: 8px 0; color: #fff;">${safePhone}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: #999;">Email</td>
-              <td style="padding: 8px 0; color: #fff;">${safeEmail}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: #999;">Véhicule</td>
-              <td style="padding: 8px 0; color: #fff;">${vehicleLabels[vehicle]}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: #999;">Service</td>
-              <td style="padding: 8px 0; color: #fff;">${serviceLabels[service]}</td>
-            </tr>
-            ${safeDate ? `
-            <tr>
-              <td style="padding: 8px 0; color: #999;">Date souhaitée</td>
-              <td style="padding: 8px 0; color: #fff;">${safeDate}</td>
-            </tr>` : ''}
-            ${interiorCondition ? `
-            <tr><td colspan="2" style="padding: 12px 0 4px; color: #dc2626; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;">Détails nettoyage intérieur</td></tr>
-            <tr>
-              <td style="padding: 6px 0; color: #999;">État général</td>
-              <td style="padding: 6px 0; color: #fff;">${interiorConditionLabels[interiorCondition] ?? interiorCondition}</td>
-            </tr>` : ''}
-            ${seatShampoing ? `
-            <tr>
-              <td style="padding: 6px 0; color: #999;">Shampoing sièges</td>
-              <td style="padding: 6px 0; color: #fff;">${shampoingLabels[seatShampoing] ?? seatShampoing}</td>
-            </tr>` : ''}
-            ${carpetShampoing ? `
-            <tr>
-              <td style="padding: 6px 0; color: #999;">Shampoing moquettes</td>
-              <td style="padding: 6px 0; color: #fff;">${shampoingLabels[carpetShampoing] ?? carpetShampoing}</td>
-            </tr>` : ''}
-            ${exteriorWash ? `
-            <tr>
-              <td style="padding: 6px 0; color: #999;">Nettoyage extérieur</td>
-              <td style="padding: 6px 0; color: #fff;">${exteriorWashLabels[exteriorWash] ?? exteriorWash}</td>
-            </tr>` : ''}
-            ${vehicleEmptied ? `
-            <tr>
-              <td style="padding: 6px 0; color: #999;">Véhicule vidé</td>
-              <td style="padding: 6px 0; color: #fff;">${vehicleEmptiedLabels[vehicleEmptied] ?? vehicleEmptied}</td>
-            </tr>` : ''}
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6; padding: 40px 16px;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%;">
+
+        <!-- HEADER -->
+        <tr>
+          <td style="background: linear-gradient(135deg, #111827 0%, #1f2937 100%); border-radius: 12px 12px 0 0; padding: 36px 40px; text-align: center;">
+            <p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: #dc2626; text-transform: uppercase;">AR Protect</p>
+            <h1 style="margin: 0; font-size: 26px; font-weight: 700; color: #ffffff; line-height: 1.2;">Nouvelle demande de réservation</h1>
+            <p style="margin: 12px 0 0; font-size: 14px; color: #9ca3af;">Reçue le ${new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
+          </td>
+        </tr>
+
+        <!-- SUMMARY BADGES -->
+        <tr>
+          <td style="background: #dc2626; padding: 16px 40px;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="text-align: center; padding: 0 8px;">
+                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Client</p>
+                  <p style="margin: 4px 0 0; font-size: 16px; font-weight: 700; color: #ffffff;">${safeName}</p>
+                </td>
+                <td style="width: 1px; background: rgba(255,255,255,0.2);"></td>
+                <td style="text-align: center; padding: 0 8px;">
+                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Service</p>
+                  <p style="margin: 4px 0 0; font-size: 16px; font-weight: 700; color: #ffffff;">${serviceLabels[service]}</p>
+                </td>
+                ${formattedDate ? `
+                <td style="width: 1px; background: rgba(255,255,255,0.2);"></td>
+                <td style="text-align: center; padding: 0 8px;">
+                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Date souhaitée</p>
+                  <p style="margin: 4px 0 0; font-size: 16px; font-weight: 700; color: #ffffff;">${formattedDate}</p>
+                </td>` : ''}
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- BODY -->
+        <tr>
+          <td style="background: #ffffff; padding: 32px 40px 0;">
+
+            <!-- CONTACT INFO -->
+            <p style="margin: 0 0 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #6b7280; text-transform: uppercase;">Informations client</p>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; border-collapse: separate; border-spacing: 0;">
+              ${row('Nom complet', `<strong>${safeName}</strong>`)}
+              ${row('Téléphone', `<a href="tel:${safePhone}" style="color: #dc2626; text-decoration: none; font-weight: 600;">${safePhone}</a>`)}
+              ${row('Email', `<a href="mailto:${safeEmail}" style="color: #dc2626; text-decoration: none;">${safeEmail}</a>`)}
+              ${row('Véhicule', vehicleLabels[vehicle] ?? vehicle)}
+            </table>
+
+            <!-- SERVICE DETAILS -->
+            <p style="margin: 24px 0 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #6b7280; text-transform: uppercase;">Détails de la prestation</p>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; border-collapse: separate; border-spacing: 0;">
+              ${row('Service demandé', `<span style="background: #fef2f2; color: #dc2626; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-size: 13px;">${serviceLabels[service]}</span>`)}
+              ${formattedDate ? row('Date souhaitée', `<strong>${formattedDate}</strong>`) : ''}
+              ${interiorCondition ? row('État intérieur', interiorConditionLabels[interiorCondition] ?? interiorCondition) : ''}
+              ${seatShampoing ? row('Shampoing sièges', shampoingLabels[seatShampoing] ?? seatShampoing) : ''}
+              ${carpetShampoing ? row('Shampoing moquettes', shampoingLabels[carpetShampoing] ?? carpetShampoing) : ''}
+              ${exteriorWash ? row('Nettoyage extérieur', exteriorWashLabels[exteriorWash] ?? exteriorWash) : ''}
+              ${vehicleEmptied ? row('Véhicule vidé', vehicleEmptiedLabels[vehicleEmptied] ?? vehicleEmptied) : ''}
+            </table>
+
             ${safeMessage ? `
-            <tr>
-              <td style="padding: 8px 0; color: #999; vertical-align: top;">Message</td>
-              <td style="padding: 8px 0; color: #fff; white-space: pre-wrap;">${safeMessage}</td>
-            </tr>` : ''}
-          </table>
-        </div>
-      `,
+            <!-- MESSAGE -->
+            <p style="margin: 24px 0 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #6b7280; text-transform: uppercase;">Message du client</p>
+            <div style="background: #f9fafb; border-left: 3px solid #dc2626; border-radius: 0 8px 8px 0; padding: 16px 20px; margin-bottom: 0;">
+              <p style="margin: 0; font-size: 15px; color: #374151; line-height: 1.6; white-space: pre-wrap;">${safeMessage}</p>
+            </div>` : ''}
+
+            <!-- CTA -->
+            <div style="text-align: center; padding: 32px 0 36px;">
+              <a href="mailto:${safeEmail}?subject=Re: Votre demande de réservation AR Protect" style="display: inline-block; background: #dc2626; color: #ffffff; font-size: 15px; font-weight: 700; text-decoration: none; padding: 14px 36px; border-radius: 8px; letter-spacing: 0.02em;">Répondre au client</a>
+            </div>
+
+          </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+          <td style="background: #111827; border-radius: 0 0 12px 12px; padding: 24px 40px; text-align: center;">
+            <p style="margin: 0; font-size: 13px; font-weight: 700; color: #dc2626; letter-spacing: 0.1em; text-transform: uppercase;">AR Protect</p>
+            <p style="margin: 6px 0 0; font-size: 12px; color: #6b7280;">Cet email a été généré automatiquement depuis le formulaire de réservation.</p>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
+
+</body>
+</html>`,
     })
 
     return NextResponse.json({ success: true })
