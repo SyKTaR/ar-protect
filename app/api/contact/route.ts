@@ -120,7 +120,7 @@ export async function POST(request: Request) {
     ? new Date(safeDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
     : null
 
-  const to = process.env.CONTACT_EMAIL ?? 'lucas.dsnts77@gmail.com'
+  const to = process.env.CONTACT_EMAIL ?? 'arprotect77@gmail.com'
 
   const row = (label: string, value: string) => `
     <tr>
@@ -133,7 +133,7 @@ export async function POST(request: Request) {
       from: 'AR Protect <onboarding@resend.dev>',
       to,
       replyTo: safeEmail,
-      subject: `🚗 Nouvelle réservation — ${safeName} · ${serviceLabels[service]}`,
+      subject: `Nouvelle réservation — ${safeName} · ${serviceLabels[service]}`,
       html: `<!DOCTYPE html>
 <html lang="fr" style="color-scheme: light only;">
 <head>
