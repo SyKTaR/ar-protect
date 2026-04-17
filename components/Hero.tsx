@@ -110,10 +110,10 @@ export default function Hero({ videoSrc }: HeroProps = {}) {
           variants={fadeUp}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <a href="#contact" className="btn-primary">
+          <a href="#contact" className="btn-primary w-full sm:w-auto text-center">
             Prendre rendez-vous
           </a>
-          <a href="#galerie" className="btn-outline flex items-center gap-2">
+          <a href="#galerie" className="btn-outline w-full sm:w-auto flex items-center justify-center gap-2">
             <Play size={14} />
             Voir nos réalisations
           </a>

@@ -63,16 +63,7 @@ const services: Service[] = [
     price: 'Dès 99€ TTC',
     modalDescription:
       "Une remise à neuf méticuleuse de votre habitacle adaptée à votre type de véhicule. Nous utilisons des techniques d'extraction et de traitement vapeur pour un résultat professionnel.",
-    pricingTable: {
-      headers: ['Formule', 'Citadine', 'Berline', 'SUV / Prestige'],
-      rows: [
-        { label: '(1) Essentiel', prices: ['99€', '109€', '119€'] },
-        { label: '(2) Confort', prices: ['129€', '139€', '149€'] },
-        { label: '(3) Premium', prices: ['159€', '169€', '179€'] },
-        { label: '(4) Signature', prices: ['219€', '229€', '239€'] },
-      ],
-      note: "Utilitaire sur devis. Supplément de 10€ TTC si le véhicule n'est pas vidé.",
-    },
+
     process: [
       { step: '1', label: 'Aspiration & Dépoussiérage', desc: "Aspiration complète de l'habitacle et dépoussiérage minutieux." },
       { step: '2', label: 'Nettoyage Technique', desc: 'Plastiques, surfaces et vitres intérieures nettoyés et dégraissés.' },

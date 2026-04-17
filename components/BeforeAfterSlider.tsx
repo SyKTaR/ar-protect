@@ -47,6 +47,7 @@ export default function BeforeAfterSlider() {
   const onTouchMove = useCallback(
     (e: TouchEvent) => {
       if (!isDragging) return
+      e.preventDefault()
       updatePosition(e.touches[0].clientX)
     },
     [isDragging, updatePosition]
@@ -57,7 +58,7 @@ export default function BeforeAfterSlider() {
   useEffect(() => {
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseup', stopDrag)
-    window.addEventListener('touchmove', onTouchMove, { passive: true })
+    window.addEventListener('touchmove', onTouchMove, { passive: false })
     window.addEventListener('touchend', stopDrag)
     return () => {
       window.removeEventListener('mousemove', onMouseMove)
