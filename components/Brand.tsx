@@ -11,13 +11,13 @@ const pillars = [
     desc: 'Un intérieur sain et un extérieur qui brille vraiment. On ne fait pas semblant.',
   },
   {
-    icon: Wrench,
+    icon: ShieldCheck,
     title: 'Rénovation & Protection',
-    desc: 'Phares ternis, micro-rayures, protection carrosserie. On efface et on protège pour durer.',
+    desc: 'Phares ternis, micro-rayures, plastiques défraîchis. On efface, on rénove et on protège pour durer.',
   },
   {
-    icon: ShieldCheck,
-    title: 'Produits de professionnels uniquement',
+    icon: Wrench,
+    title: 'Utilisation de produits professionnels uniquement',
     desc: 'Des formules professionnelles, respectueuses de vos matériaux. Rien de cheap.',
   },
 ]

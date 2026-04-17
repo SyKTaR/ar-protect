@@ -56,10 +56,10 @@ const services: Service[] = [
     id: 'interieur',
     icon: Droplets,
     title: 'HABITACLE & SOIN',
-    subtitle: 'DEEP CLEAN',
+    subtitle: 'INTERIOR CARE',
     description:
-      "Une remise à neuf profonde de votre intérieur. Nous proposons 4 niveaux de finition pour répondre exactement à vos besoins de propreté et d'hygiène.",
-    features: ['4 Formules (Essentiel à Signature)', 'Aspiration & Dépoussiérage', 'Shampoing sièges & moquettes', 'Traitement anti-UV'],
+      "Une remise à neuf complète de votre intérieur. Nous proposons 4 niveaux de finition pour répondre exactement à vos besoins de propreté et d'hygiène.",
+    features: ['Essentiel', 'Confort', 'Premium', 'Signature'],
     price: 'Dès 99€ TTC',
     modalDescription:
       "Une remise à neuf méticuleuse de votre habitacle adaptée à votre type de véhicule. Nous utilisons des techniques d'extraction et de traitement vapeur pour un résultat professionnel.",
@@ -202,7 +202,7 @@ const services: Service[] = [
     subtitle: 'SAFETY & STYLE',
     description:
       "Retrouvez une visibilité optimale et un aspect neuf pour vos phares. Une étape cruciale pour la sécurité et le passage au contrôle technique.",
-    features: ['Ponçage des optiques', 'Polissage haute brillance', 'Protection Céramique anti-UV', "Option à l'unité ou par paire"],
+    features: ['Ponçage des optiques', 'Lustrage haute brillance', "Option à l'unité ou par paire"],
     price: 'Dès 49€ TTC',
     modalDescription:
       'Restaurez la clarté de vos phares pour améliorer votre visibilité nocturne et garantir le passage au contrôle technique.',
@@ -213,7 +213,6 @@ const services: Service[] = [
     process: [
       { step: '1', label: 'Ponçage', desc: "Élimination de la couche d'oxydation jaune des optiques." },
       { step: '2', label: 'Polissage', desc: 'Restauration de la transparence et de la brillance.' },
-      { step: '3', label: 'Protection', desc: "Application d'une céramique protectrice anti-UV longue durée." },
     ],
   },
   {

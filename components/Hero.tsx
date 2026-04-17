@@ -72,7 +72,7 @@ export default function Hero({ videoSrc }: HeroProps = {}) {
         >
           <span className="w-1.5 h-1.5 rounded-full bg-ar-red animate-pulse" />
           <span className="text-ar-red text-xs font-semibold uppercase tracking-[0.2em]">
-            Detailing Haut de Gamme
+            DÉPLACEMENT EN ÎLE DE FRANCE
           </span>
         </motion.div>
 

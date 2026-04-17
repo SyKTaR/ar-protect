@@ -13,14 +13,14 @@ const vehicleTypes = [
 ]
 
 const serviceOptions = [
-  { id: 'interieur', label: 'Nettoyage Intérieur', price: 'Dès 80€ TTC' },
-  { id: 'exterieur', label: 'Nettoyage Extérieur', price: 'Dès 60€ TTC' },
-  { id: 'full', label: 'Full Detail (Int + Ext.)', price: 'Dès 140€ TTC' },
+  { id: 'interieur', label: 'Nettoyage Intérieur', price: 'Dès 99€ TTC' },
+  { id: 'exterieur', label: 'Nettoyage Extérieur', price: 'Dès 89€ TTC' },
+  { id: 'full', label: 'Full Detail (Int + Ext.)', price: 'Dès 149€ TTC' },
   { id: 'shampoing', label: 'Shampoing des sièges', price: 'Dès 69€ TTC' },
-  { id: 'cuirs', label: 'Soin des cuirs', price: 'Sur devis' },
+  { id: 'cuirs', label: 'Soin des cuirs', price: '179€ TTC' },
   { id: 'optiques', label: 'Renovations des optiques', price: 'Dès 49€ TTC' },
   { id: 'lustrage', label: 'Lustrage', price: 'Sur devis' },
-  { id: 'devis', label: 'Demande de devis personnalisé', price: 'Sur devis' },
+  { id: 'devis', label: 'Demande de devis personnalisé' },
 ]
 
 
@@ -261,19 +261,15 @@ export default function BookingForm() {
               <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tight text-white leading-none mb-6">
                 Réservez <br />
                 <span className="text-gradient-red">votre</span> <br />
-                diagnostic
+                créneau
               </h2>
-              <p className="text-white/50 text-sm leading-relaxed mb-10 max-w-sm">
-                Décrivez-nous votre projet en 3 étapes simples. Nous vous contactons dans les 24h
-                avec un devis précis et personnalisé.
-              </p>
 
               {/* What to expect */}
               <div className="space-y-4">
                 {[
                   { title: 'Diagnostic gratuit', desc: "Évaluation complète de l'état de votre véhicule" },
                   { title: 'Devis transparent', desc: "Prix fixés à l'avance, sans surprise" },
-                  { title: 'Prise en charge', desc: 'Ramassage et livraison possible sur demande' },
+                  { title: 'Résultat Garanti', desc: 'Prestation réalisée avec rigueur et passion' },
                 ].map((item, i) => (
                   <motion.div
                     key={item.title}
@@ -309,7 +305,7 @@ export default function BookingForm() {
                   href="mailto:arprotect@gmail.com"
                   className="text-white/50 text-sm hover:text-ar-red transition-colors duration-200"
                 >
-                  arprotect@gmail.com
+                  arprotect77@gmail.com
                 </a>
                 <div className="mt-4 pt-4 border-t border-ar-border/50">
                   <a
@@ -324,7 +320,7 @@ export default function BookingForm() {
                     WhatsApp
                   </a>
                   <p className="text-white/30 text-xs mt-2">
-                    Si vous souhaitez avoir plus d&apos;informations sur nos prestations ou bien concernant une flottes de véhicules
+                    Vous êtes professionnels de l’automobile ou vous possédez une flotte de véhicules ? Contactez-nous dès maintenant pour découvrir nos avantages professionnels
                   </p>
                 </div>
               </div>
@@ -711,7 +707,7 @@ export default function BookingForm() {
                                 },
                                 {
                                   key: 'vehicleEmptied' as keyof FormData,
-                                  question: 'Votre véhicule sera-t-il vidé ?',
+                                  question: 'Votre véhicule sera-t-il vidé de vos effets personnels ?',
                                   options: [
                                     { value: 'oui', label: 'Oui' },
                                     { value: 'non', label: 'Non' },

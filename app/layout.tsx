@@ -6,7 +6,7 @@ const siteUrl = 'https://www.arprotect.fr'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'AR Protect | Detailing Automobile Île-de-France — Nettoyage & Protection',
+    default: 'AR PROTECT | Detailing Automobile Île-de-France — Nettoyage & Protection',
     template: '%s | AR Protect',
   },
   description:
