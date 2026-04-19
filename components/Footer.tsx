@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Instagram, Facebook, Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react'
+import { Instagram, Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 const links = {
   services: [
@@ -12,17 +13,18 @@ const links = {
     { label: 'Rénovation phares', href: '#services' },
     { label: 'Soin des cuirs', href: '#services' },
     { label: 'Shampoing sièges', href: '#services' },
-  ],
-  navigation: [
-    { label: 'Avant / Après', href: '#avant-apres' },
-    { label: 'Réalisations', href: '#galerie' },
-    { label: 'Avis Clients', href: '#avis' },
-    { label: 'Réserver', href: '#contact' },
+    { label: 'Produits d’entretien', href: '/produits' },
   ],
 }
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const pathname = usePathname()
+  const isSubPage = pathname !== '/'
+  const resolveHref = (href: string) => {
+    if (href.startsWith('/')) return href
+    return isSubPage ? `/${href}` : href
+  }
 
   return (
     <footer className="bg-ar-black border-t border-ar-border">
@@ -80,7 +82,7 @@ export default function Footer() {
               {links.services.map((link) => (
                 <li key={link.label}>
                   <a
-                    href={link.href}
+                    href={resolveHref(link.href)}
                     className="text-white/50 text-sm hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
                   >
                     <span className="w-0 group-hover:w-3 h-px bg-ar-red transition-all duration-300 overflow-hidden" />
@@ -99,7 +101,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:+33600000000"
+                  href="tel:+33636230807"
                   className="flex items-start gap-3 text-white/50 hover:text-white transition-colors duration-200 group"
                 >
                   <Phone size={14} className="mt-0.5 text-ar-red flex-shrink-0" />
@@ -108,7 +110,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:contact@arprotect.fr"
+                  href="mailto:arprotect77@gmail.com"
                   className="flex items-start gap-3 text-white/50 hover:text-white transition-colors duration-200"
                 >
                   <Mail size={14} className="mt-0.5 text-ar-red flex-shrink-0" />

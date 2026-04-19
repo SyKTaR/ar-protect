@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation'
 const navLinks = [
   { label: 'Notre ADN', href: '#notre-adn' },
   { label: 'Services', href: '#services' },
+  { label: 'Produits', href: '/produits' },
   { label: 'Réalisations', href: '#galerie' },
   { label: 'Avis clients', href: '#avis' },
   { label: 'Contact', href: '#contact' },
@@ -20,7 +21,10 @@ export default function Header() {
   const pathname = usePathname()
   const isSubPage = pathname !== '/'
 
-  const resolveHref = (anchor: string) => isSubPage ? `/${anchor}` : anchor
+  const resolveHref = (href: string) => {
+    if (href.startsWith('/')) return href
+    return isSubPage ? `/${href}` : href
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -56,23 +60,29 @@ export default function Header() {
             </a>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-7 xl:gap-8">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={resolveHref(link.href)}
-                  className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 uppercase tracking-widest relative group"
+                  className={`text-sm font-medium transition-colors duration-200 uppercase tracking-widest relative group ${
+                    pathname === link.href ? 'text-white' : 'text-white/70 hover:text-white'
+                  }`}
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-ar-red group-hover:w-full transition-all duration-300" />
+                  <span
+                    className={`absolute -bottom-1 left-0 h-px bg-ar-red transition-all duration-300 ${
+                      pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                  />
                 </a>
               ))}
             </nav>
 
             {/* CTA Desktop */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-4">
               <a
-                href="tel:+33600000000"
+                href="tel:+33636230807"
                 className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-200"
               >
                 <Phone size={14} />
@@ -88,7 +98,7 @@ export default function Header() {
 
             {/* Mobile burger */}
             <button
-              className="md:hidden text-white p-2"
+              className="lg:hidden text-white p-2"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
             >
@@ -117,7 +127,9 @@ export default function Header() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.08 }}
                   onClick={() => setMobileOpen(false)}
-                  className="text-2xl font-display font-bold text-white hover:text-ar-red transition-colors duration-200 uppercase tracking-widest border-b border-ar-border pb-4"
+                  className={`text-2xl font-display font-bold transition-colors duration-200 uppercase tracking-widest border-b border-ar-border pb-4 ${
+                    pathname === link.href ? 'text-ar-red' : 'text-white hover:text-ar-red'
+                  }`}
                 >
                   {link.label}
                 </motion.a>
