@@ -14,13 +14,18 @@ const contactSchema = z.object({
   name: z.string().min(2).max(100),
   email: z.string().email(),
   phone: z.string().refine((v) => /^[0-9\s+\-().]{6,20}$/.test(v), { message: 'Numéro invalide' }),
+  vehicleMakeModel: z.string().min(2).max(120),
+  appointmentLocation: z.string().min(3).max(250),
   vehicle: z.enum(['citadine', 'berline', 'suv', 'suv/monospace', 'sportive', 'prestige', 'utilitaire']),
   service: z.enum(['interieur', 'exterieur', 'full', 'optiques', 'shampoing', 'cuirs', 'lustrage', 'devis']),
-  date: z.string().optional(),
+  date: z.string().min(1),
+  time: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/),
   message: z.string().max(2000).optional(),
   interiorCondition: z.string().max(50).optional(),
   seatShampoing: z.string().max(50).optional(),
   carpetShampoing: z.string().max(50).optional(),
+  plasticUvTreatment: z.string().max(50).optional(),
+  leatherUvTreatment: z.string().max(50).optional(),
   exteriorWash: z.string().max(50).optional(),
   vehicleEmptied: z.string().max(50).optional(),
 })
@@ -74,6 +79,70 @@ const serviceLabels: Record<string, string> = {
   devis: 'Demande de devis personnalisé',
 }
 
+const INTERIOR_BASE_PRICE = 99
+const MAX_ATTACHMENT_FILES = 5
+const MAX_ATTACHMENT_SIZE = 15 * 1024 * 1024
+const MIN_BOOKING_HOUR = 9
+const MAX_BOOKING_HOUR = 18
+
+const interiorPriceTable: Record<string, Record<string, number>> = {
+  interiorCondition: { propre: 0, sale: 20, tres_sale: 40 },
+  seatShampoing: { non: 0, quelques: 49, encrassees: 69 },
+  carpetShampoing: { non: 0, quelques: 39, encrassees: 59 },
+  plasticUvTreatment: { oui: 29, non: 0 },
+  leatherUvTreatment: { oui: 49, non: 0 },
+  exteriorWash: { oui: 69, non: 0 },
+  vehicleEmptied: { oui: 0, non: 10 },
+}
+
+function getAppointmentValidationError(date: string, time: string) {
+  const selectedDateTime = new Date(`${date}T${time}:00`)
+  if (Number.isNaN(selectedDateTime.getTime())) {
+    return 'Date ou heure invalide.'
+  }
+
+  const [hour, minute] = time.split(':').map(Number)
+  const selectedMinutes = hour * 60 + minute
+  const minMinutes = MIN_BOOKING_HOUR * 60
+  const maxMinutes = MAX_BOOKING_HOUR * 60
+
+  if (selectedDateTime.getDay() === 0) {
+    return 'Les réservations ne sont pas disponibles le dimanche.'
+  }
+
+  if (date.endsWith('-12-25') || date.endsWith('-12-31')) {
+    return 'Les réservations ne sont pas disponibles le 25 décembre et le 31 décembre.'
+  }
+
+  if (selectedMinutes < minMinutes || selectedMinutes > maxMinutes) {
+    return 'Veuillez choisir une heure entre 9h et 18h.'
+  }
+
+  if (selectedDateTime.getTime() < Date.now() + 24 * 60 * 60 * 1000) {
+    return 'Veuillez choisir un créneau au moins 24h à l’avance.'
+  }
+
+  return null
+}
+
+function validateAttachments(files: File[]) {
+  if (files.length > MAX_ATTACHMENT_FILES) {
+    return `Vous pouvez joindre ${MAX_ATTACHMENT_FILES} fichiers maximum.`
+  }
+
+  const invalidFile = files.find((file) => !file.type.startsWith('image/') && !file.type.startsWith('video/'))
+  if (invalidFile) {
+    return 'Seules les photos et vidéos sont acceptées.'
+  }
+
+  const oversizedFile = files.find((file) => file.size > MAX_ATTACHMENT_SIZE)
+  if (oversizedFile) {
+    return 'Chaque fichier doit faire moins de 15 Mo.'
+  }
+
+  return null
+}
+
 export async function POST(request: Request) {
   // Rate limiting
   const ip =
@@ -90,8 +159,28 @@ export async function POST(request: Request) {
 
   // Parse & validate body
   let body: unknown
+  let attachments: File[] = []
   try {
-    body = await request.json()
+    const contentType = request.headers.get('content-type') ?? ''
+    if (contentType.includes('multipart/form-data')) {
+      const multipart = await request.formData()
+      const fields: Record<string, string> = {}
+
+      multipart.forEach((value, key) => {
+        if (key === 'attachments' && value instanceof File && value.size > 0) {
+          attachments.push(value)
+          return
+        }
+
+        if (typeof value === 'string') {
+          fields[key] = value
+        }
+      })
+
+      body = fields
+    } else {
+      body = await request.json()
+    }
   } catch {
     return NextResponse.json({ success: false }, { status: 400 })
   }
@@ -101,24 +190,72 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: 'Données invalides.' }, { status: 422 })
   }
 
-  const { name, email, phone, vehicle, service, date, message, interiorCondition, seatShampoing, carpetShampoing, exteriorWash, vehicleEmptied } = parsed.data
+  const appointmentError = getAppointmentValidationError(parsed.data.date, parsed.data.time)
+  if (appointmentError) {
+    return NextResponse.json({ success: false, error: appointmentError }, { status: 422 })
+  }
+
+  const attachmentError = validateAttachments(attachments)
+  if (attachmentError) {
+    return NextResponse.json({ success: false, error: attachmentError }, { status: 422 })
+  }
+
+  const {
+    name,
+    email,
+    phone,
+    vehicleMakeModel,
+    appointmentLocation,
+    vehicle,
+    service,
+    date,
+    time,
+    message,
+    interiorCondition,
+    seatShampoing,
+    carpetShampoing,
+    plasticUvTreatment,
+    leatherUvTreatment,
+    exteriorWash,
+    vehicleEmptied,
+  } = parsed.data
 
   // Escape all user content before inserting into HTML
   const safeName = escapeHtml(name)
   const safeEmail = escapeHtml(email)
   const safePhone = escapeHtml(phone)
+  const safeVehicleMakeModel = escapeHtml(vehicleMakeModel)
+  const safeAppointmentLocation = escapeHtml(appointmentLocation)
   const safeDate = date ? escapeHtml(date) : null
+  const safeTime = escapeHtml(time)
   const safeMessage = message ? escapeHtml(message) : null
 
   const interiorConditionLabels: Record<string, string> = { propre: 'Propre', sale: 'Sale', tres_sale: 'Très sale' }
   const shampoingLabels: Record<string, string> = { non: 'Non, pas de tâches', quelques: 'Oui, quelques tâches', encrassees: 'Oui, tâches encrassées' }
+  const yesNoLabels: Record<string, string> = { oui: 'Oui', non: 'Non' }
   const exteriorWashLabels: Record<string, string> = { oui: 'Oui, préparation complète', non: "Non, simplement l'intérieur" }
   const vehicleEmptiedLabels: Record<string, string> = { oui: 'Oui', non: 'Non (+10€ TTC)' }
+  const getInteriorOptionPrice = (field: string, value?: string) =>
+    value ? interiorPriceTable[field]?.[value] ?? 0 : 0
+  const formatOptionWithPrice = (label: string, price: number) =>
+    `${label} <span style="color:#dc2626; font-weight:700;">${price > 0 ? `(+${price}€)` : '(inclus)'}</span>`
+  const interiorEstimatedTotal =
+    service === 'interieur'
+      ? INTERIOR_BASE_PRICE +
+        getInteriorOptionPrice('interiorCondition', interiorCondition) +
+        getInteriorOptionPrice('seatShampoing', seatShampoing) +
+        getInteriorOptionPrice('carpetShampoing', carpetShampoing) +
+        getInteriorOptionPrice('plasticUvTreatment', plasticUvTreatment) +
+        getInteriorOptionPrice('leatherUvTreatment', leatherUvTreatment) +
+        getInteriorOptionPrice('exteriorWash', exteriorWash) +
+        getInteriorOptionPrice('vehicleEmptied', vehicleEmptied)
+      : null
 
   // Format date in French (e.g. "12 avril 2026")
   const formattedDate = safeDate
     ? new Date(safeDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
     : null
+  const formattedAppointment = formattedDate ? `${formattedDate} à ${safeTime}` : null
 
   const to = process.env.CONTACT_EMAIL ?? 'arprotect77@gmail.com'
 
@@ -129,11 +266,19 @@ export async function POST(request: Request) {
     </tr>`
 
   try {
+    const emailAttachments = await Promise.all(
+      attachments.map(async (file) => ({
+        filename: file.name,
+        content: Buffer.from(await file.arrayBuffer()),
+      }))
+    )
+
     await resend.emails.send({
       from: 'AR Protect <onboarding@resend.dev>',
       to,
       replyTo: safeEmail,
       subject: `Nouvelle réservation — ${safeName} · ${serviceLabels[service]}`,
+      attachments: emailAttachments.length > 0 ? emailAttachments : undefined,
       html: `<!DOCTYPE html>
 <html lang="fr" style="color-scheme: light only;">
 <head>
@@ -175,11 +320,11 @@ export async function POST(request: Request) {
                   <p style="margin: 0; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Service</p>
                   <p style="margin: 4px 0 0; font-size: 16px; font-weight: 700; color: #ffffff;">${serviceLabels[service]}</p>
                 </td>
-                ${formattedDate ? `
+                ${formattedAppointment ? `
                 <td style="width: 1px; background: rgba(255,255,255,0.2);"></td>
                 <td style="text-align: center; padding: 0 8px;">
-                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Date souhaitée</p>
-                  <p style="margin: 4px 0 0; font-size: 16px; font-weight: 700; color: #ffffff;">${formattedDate}</p>
+                  <p style="margin: 0; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Créneau souhaité</p>
+                  <p style="margin: 4px 0 0; font-size: 16px; font-weight: 700; color: #ffffff;">${formattedAppointment}</p>
                 </td>` : ''}
               </tr>
             </table>
@@ -196,19 +341,25 @@ export async function POST(request: Request) {
               ${row('Nom complet', `<strong>${safeName}</strong>`)}
               ${row('Téléphone', `<a href="tel:${safePhone}" style="color: #dc2626; text-decoration: none; font-weight: 600;">${safePhone}</a>`)}
               ${row('Email', `<a href="mailto:${safeEmail}" style="color: #dc2626; text-decoration: none;">${safeEmail}</a>`)}
-              ${row('Véhicule', vehicleLabels[vehicle] ?? vehicle)}
+              ${row('Catégorie véhicule', vehicleLabels[vehicle] ?? vehicle)}
+              ${row('Marque / modèle', safeVehicleMakeModel)}
+              ${row('Lieu du RDV', safeAppointmentLocation)}
             </table>
 
             <!-- SERVICE DETAILS -->
             <p style="margin: 24px 0 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #6b7280; text-transform: uppercase;">Détails de la prestation</p>
             <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; border-collapse: separate; border-spacing: 0;">
               ${row('Service demandé', `<span style="background: #fef2f2; color: #dc2626; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-size: 13px;">${serviceLabels[service]}</span>`)}
-              ${formattedDate ? row('Date souhaitée', `<strong>${formattedDate}</strong>`) : ''}
-              ${interiorCondition ? row('État intérieur', interiorConditionLabels[interiorCondition] ?? interiorCondition) : ''}
-              ${seatShampoing ? row('Shampoing sièges', shampoingLabels[seatShampoing] ?? seatShampoing) : ''}
-              ${carpetShampoing ? row('Shampoing moquettes', shampoingLabels[carpetShampoing] ?? carpetShampoing) : ''}
-              ${exteriorWash ? row('Nettoyage extérieur', exteriorWashLabels[exteriorWash] ?? exteriorWash) : ''}
-              ${vehicleEmptied ? row('Véhicule vidé', vehicleEmptiedLabels[vehicleEmptied] ?? vehicleEmptied) : ''}
+              ${formattedAppointment ? row('Créneau souhaité', `<strong>${formattedAppointment}</strong>`) : ''}
+              ${interiorEstimatedTotal ? row('Tarif estimé', `<strong>${interiorEstimatedTotal}€ TTC</strong>`) : ''}
+              ${interiorCondition ? row('État intérieur', formatOptionWithPrice(interiorConditionLabels[interiorCondition] ?? escapeHtml(interiorCondition), getInteriorOptionPrice('interiorCondition', interiorCondition))) : ''}
+              ${seatShampoing ? row('Shampoing sièges', formatOptionWithPrice(shampoingLabels[seatShampoing] ?? escapeHtml(seatShampoing), getInteriorOptionPrice('seatShampoing', seatShampoing))) : ''}
+              ${carpetShampoing ? row('Shampoing moquettes', formatOptionWithPrice(shampoingLabels[carpetShampoing] ?? escapeHtml(carpetShampoing), getInteriorOptionPrice('carpetShampoing', carpetShampoing))) : ''}
+              ${plasticUvTreatment ? row('Traitement UV plastiques', formatOptionWithPrice(yesNoLabels[plasticUvTreatment] ?? escapeHtml(plasticUvTreatment), getInteriorOptionPrice('plasticUvTreatment', plasticUvTreatment))) : ''}
+              ${leatherUvTreatment ? row('Nourrissant et UV cuirs', formatOptionWithPrice(yesNoLabels[leatherUvTreatment] ?? escapeHtml(leatherUvTreatment), getInteriorOptionPrice('leatherUvTreatment', leatherUvTreatment))) : ''}
+              ${exteriorWash ? row('Nettoyage extérieur', formatOptionWithPrice(exteriorWashLabels[exteriorWash] ?? escapeHtml(exteriorWash), getInteriorOptionPrice('exteriorWash', exteriorWash))) : ''}
+              ${vehicleEmptied ? row('Véhicule vidé', formatOptionWithPrice(vehicleEmptiedLabels[vehicleEmptied] ?? escapeHtml(vehicleEmptied), getInteriorOptionPrice('vehicleEmptied', vehicleEmptied))) : ''}
+              ${attachments.length > 0 ? row('Fichiers joints', attachments.map((file) => escapeHtml(file.name)).join('<br>')) : ''}
             </table>
 
             ${safeMessage ? `

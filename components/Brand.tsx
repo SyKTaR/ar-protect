@@ -96,7 +96,7 @@ export default function Brand() {
                 qu&apos;on aime voir briller.
               </p>
               <p>
-                Chez AR Protect, on est avant tout des{' '}
+                Chez <span className="text-ar-red font-semibold">AR Protect</span>, on est avant tout des{' '}
                 <span className="text-white font-semibold">passionnés de belles mécaniques</span>.
                 Notre but ? Redonner ce petit coup de jeune qui fait plaisir à chaque fois que
                 vous ouvrez votre portière.

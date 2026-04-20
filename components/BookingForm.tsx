@@ -30,11 +30,16 @@ type FormData = {
   name: string
   phone: string
   email: string
+  vehicleMakeModel: string
+  appointmentLocation: string
   message: string
   date: string
+  time: string
   interiorCondition: string
   seatShampoing: string
   carpetShampoing: string
+  plasticUvTreatment: string
+  leatherUvTreatment: string
   exteriorWash: string
   vehicleEmptied: string
 }
@@ -45,13 +50,179 @@ const emptyForm: FormData = {
   name: '',
   phone: '',
   email: '',
+  vehicleMakeModel: '',
+  appointmentLocation: '',
   message: '',
   date: '',
+  time: '',
   interiorCondition: '',
   seatShampoing: '',
   carpetShampoing: '',
+  plasticUvTreatment: '',
+  leatherUvTreatment: '',
   exteriorWash: '',
   vehicleEmptied: '',
+}
+
+const INTERIOR_BASE_PRICE = 99
+
+const interiorQuestions = [
+  {
+    key: 'interiorCondition' as keyof FormData,
+    summaryLabel: 'État intérieur',
+    question: "Comment considérez-vous l'état général de votre véhicule ?",
+    options: [
+      { value: 'propre', label: 'Propre', price: 0 },
+      { value: 'sale', label: 'Sale', price: 20 },
+      { value: 'tres_sale', label: 'Très sale', price: 40 },
+    ],
+  },
+  {
+    key: 'seatShampoing' as keyof FormData,
+    summaryLabel: 'Shampoing sièges',
+    question: "Avez-vous besoin d'un shampoing des sièges ?",
+    options: [
+      { value: 'non', label: 'Non, pas de tâches', price: 0 },
+      { value: 'quelques', label: 'Oui, quelques tâches', price: 49 },
+      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 69 },
+    ],
+  },
+  {
+    key: 'carpetShampoing' as keyof FormData,
+    summaryLabel: 'Shampoing tapis et moquettes',
+    question: "Avez-vous besoin d'un shampoing des tapis et moquettes ?",
+    options: [
+      { value: 'non', label: 'Non, pas de tâches', price: 0 },
+      { value: 'quelques', label: 'Oui, quelques tâches', price: 39 },
+      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 59 },
+    ],
+  },
+  {
+    key: 'plasticUvTreatment' as keyof FormData,
+    summaryLabel: 'Traitement UV plastiques',
+    question: "Avez-vous besoin d'un traitement UV des plastiques ?",
+    options: [
+      { value: 'oui', label: 'Oui', price: 29 },
+      { value: 'non', label: 'Non', price: 0 },
+    ],
+  },
+  {
+    key: 'leatherUvTreatment' as keyof FormData,
+    summaryLabel: 'Nourrissant et traitement UV cuirs',
+    question: "Avez-vous besoin d'un nourrissant et traitement UV des cuirs ?",
+    options: [
+      { value: 'oui', label: 'Oui', price: 49 },
+      { value: 'non', label: 'Non', price: 0 },
+    ],
+  },
+  {
+    key: 'exteriorWash' as keyof FormData,
+    summaryLabel: 'Nettoyage extérieur',
+    question: "Avez-vous besoin d'un nettoyage extérieur ?",
+    options: [
+      { value: 'oui', label: 'Oui, préparation complète', price: 69 },
+      { value: 'non', label: "Non, simplement l'intérieur", price: 0 },
+    ],
+  },
+  {
+    key: 'vehicleEmptied' as keyof FormData,
+    summaryLabel: 'Véhicule vidé',
+    question: 'Votre véhicule sera-t-il vidé de vos effets personnels ?',
+    options: [
+      { value: 'oui', label: 'Oui', price: 0 },
+      { value: 'non', label: 'Non', price: 10 },
+    ],
+  },
+]
+
+const getPriceLabel = (price: number) => (price > 0 ? `+${price}€` : 'Inclus')
+
+const MAX_ATTACHMENT_FILES = 5
+const MAX_ATTACHMENT_SIZE = 15 * 1024 * 1024
+const MIN_BOOKING_HOUR = 9
+const MAX_BOOKING_HOUR = 18
+
+const toDateInputValue = (date: Date) => {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+const getAppointmentDateTime = (date: string, time: string) => {
+  if (!date || !time) return null
+  const parsed = new Date(`${date}T${time}:00`)
+  return Number.isNaN(parsed.getTime()) ? null : parsed
+}
+
+const getAppointmentValidationError = (data: FormData) => {
+  if (!data.date || !data.time) return null
+
+  const selectedDateTime = getAppointmentDateTime(data.date, data.time)
+  if (!selectedDateTime) return 'Veuillez choisir une date et une heure valides.'
+
+  const [hour, minute] = data.time.split(':').map(Number)
+  const selectedMinutes = hour * 60 + minute
+  const minMinutes = MIN_BOOKING_HOUR * 60
+  const maxMinutes = MAX_BOOKING_HOUR * 60
+
+  if (selectedDateTime.getDay() === 0) {
+    return 'Les réservations ne sont pas disponibles le dimanche.'
+  }
+
+  if (data.date.endsWith('-12-25') || data.date.endsWith('-12-31')) {
+    return 'Les réservations ne sont pas disponibles le 25 décembre et le 31 décembre.'
+  }
+
+  if (selectedMinutes < minMinutes || selectedMinutes > maxMinutes) {
+    return 'Veuillez choisir une heure entre 9h et 18h.'
+  }
+
+  if (selectedDateTime.getTime() < Date.now() + 24 * 60 * 60 * 1000) {
+    return 'Veuillez choisir un créneau au moins 24h à l’avance.'
+  }
+
+  return null
+}
+
+const validateAttachments = (files: File[]) => {
+  if (files.length > MAX_ATTACHMENT_FILES) {
+    return `Vous pouvez joindre ${MAX_ATTACHMENT_FILES} fichiers maximum.`
+  }
+
+  const invalidFile = files.find((file) => !file.type.startsWith('image/') && !file.type.startsWith('video/'))
+  if (invalidFile) {
+    return 'Seules les photos et vidéos sont acceptées.'
+  }
+
+  const oversizedFile = files.find((file) => file.size > MAX_ATTACHMENT_SIZE)
+  if (oversizedFile) {
+    return 'Chaque fichier doit faire moins de 15 Mo.'
+  }
+
+  return ''
+}
+
+const getInteriorEstimate = (data: FormData) => {
+  const options = interiorQuestions
+    .map((question) => {
+      const selected = question.options.find((option) => option.value === data[question.key])
+      if (!selected) return null
+      return {
+        label: question.summaryLabel,
+        value: selected.label,
+        price: selected.price,
+      }
+    })
+    .filter((item): item is { label: string; value: string; price: number } => item !== null)
+
+  const optionsTotal = options.reduce((total, item) => total + item.price, 0)
+
+  return {
+    basePrice: INTERIOR_BASE_PRICE,
+    options,
+    total: INTERIOR_BASE_PRICE + optionsTotal,
+  }
 }
 
 export default function BookingForm() {
@@ -65,6 +236,8 @@ export default function BookingForm() {
   const [error, setError] = useState(false)
   const [formData, setFormData] = useState<FormData>(emptyForm)
   const [interiorSubStep, setInteriorSubStep] = useState(0)
+  const [attachments, setAttachments] = useState<File[]>([])
+  const [attachmentError, setAttachmentError] = useState('')
 
   const dynamicSteps = [
     { id: 1, label: 'Véhicule', icon: Car },
@@ -76,27 +249,50 @@ export default function BookingForm() {
 
   const currentStep = showSummary ? 4 : interiorSubStep > 0 ? 2.5 : step
 
-  const interiorFieldForSubStep: (keyof FormData)[] = [
-    'interiorCondition', 'seatShampoing', 'carpetShampoing', 'exteriorWash', 'vehicleEmptied',
-  ]
+  const interiorFieldForSubStep = interiorQuestions.map((question) => question.key)
+  const interiorQuestionCount = interiorFieldForSubStep.length
+  const interiorEstimateStep = interiorQuestionCount + 1
+  const interiorEstimate = getInteriorEstimate(formData)
+  const minBookingDate = toDateInputValue(new Date(Date.now() + 24 * 60 * 60 * 1000))
+  const appointmentValidationError = getAppointmentValidationError(formData)
 
   const canNext =
     (step === 1 && formData.vehicle !== '') ||
     (step === 2 && interiorSubStep === 0 && formData.service !== '') ||
-    (interiorSubStep > 0 && formData[interiorFieldForSubStep[interiorSubStep - 1]] !== '') ||
+    (interiorSubStep > 0 &&
+      interiorSubStep <= interiorQuestionCount &&
+      formData[interiorFieldForSubStep[interiorSubStep - 1]] !== '') ||
+    interiorSubStep === interiorEstimateStep ||
     (step === 3 && interiorSubStep === 0)
 
-  const canGoToSummary = !!(formData.name && formData.phone && formData.email)
+  const canGoToSummary = !!(
+    formData.name &&
+    formData.phone &&
+    formData.email &&
+    formData.vehicleMakeModel &&
+    formData.appointmentLocation &&
+    formData.date &&
+    formData.time &&
+    !appointmentValidationError &&
+    !attachmentError
+  )
 
   const handleSubmit = async () => {
-    if (!formData.name || !formData.phone || !formData.email) return
+    if (!canGoToSummary) return
     setSending(true)
     setError(false)
     try {
+      const payload = new globalThis.FormData()
+      Object.entries(formData).forEach(([key, value]) => {
+        payload.append(key, value)
+      })
+      attachments.forEach((file) => {
+        payload.append('attachments', file)
+      })
+
       const res = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: payload,
       })
       if (!res.ok) throw new Error()
       setSubmitted(true)
@@ -110,6 +306,8 @@ export default function BookingForm() {
 
   const handleReset = () => {
     setFormData(emptyForm)
+    setAttachments([])
+    setAttachmentError('')
     setStep(1)
     setInteriorSubStep(0)
     setShowSummary(false)
@@ -123,10 +321,19 @@ export default function BookingForm() {
     setStep(s)
   }
 
+  const handleAttachmentChange = (files: FileList | null) => {
+    const nextFiles = Array.from(files ?? [])
+    const validationError = validateAttachments(nextFiles)
+    setAttachmentError(validationError)
+    setAttachments(validationError ? [] : nextFiles)
+  }
+
   const handleNext = () => {
     if (interiorSubStep > 0) {
-      if (interiorSubStep < 5) {
+      if (interiorSubStep < interiorQuestionCount) {
         setInteriorSubStep(interiorSubStep + 1)
+      } else if (interiorSubStep === interiorQuestionCount) {
+        setInteriorSubStep(interiorEstimateStep)
       } else {
         setInteriorSubStep(0)
         setStep(3)
@@ -147,7 +354,7 @@ export default function BookingForm() {
     } else if (interiorSubStep > 1) {
       setInteriorSubStep(interiorSubStep - 1)
     } else if (step === 3 && formData.service === 'interieur') {
-      setInteriorSubStep(5)
+      setInteriorSubStep(interiorEstimateStep)
     } else if (step > 1) {
       setStep(step - 1)
     }
@@ -162,6 +369,9 @@ export default function BookingForm() {
   }
   const seatShampoinglabel: Record<string, string> = {
     non: 'Non, pas de tâches', quelques: 'Oui, quelques tâches', encrassees: 'Oui, tâches encrassées',
+  }
+  const yesNoLabel: Record<string, string> = {
+    oui: 'Oui', non: 'Non',
   }
   const exteriorWashLabel: Record<string, string> = {
     oui: 'Oui, préparation complète', non: "Non, seulement l'intérieur",
@@ -408,10 +618,10 @@ export default function BookingForm() {
                           transition={{ duration: 0.3 }}
                         >
                           <h3 className="text-white font-semibold mb-1 text-sm uppercase tracking-widest">
-                            Récapitulatif
+                            Descriptif de la demande
                           </h3>
                           <p className="text-white/40 text-xs mb-5">
-                            Vérifiez vos informations avant d&apos;envoyer la demande
+                            Vérifiez le détail de votre prestation avant d&apos;envoyer la demande
                           </p>
 
                           <div className="space-y-3">
@@ -468,6 +678,18 @@ export default function BookingForm() {
                                       <span className="text-white/70">{seatShampoinglabel[formData.carpetShampoing]}</span>
                                     </div>
                                   )}
+                                  {formData.plasticUvTreatment && (
+                                    <div className="flex gap-2 text-xs">
+                                      <span className="text-white/40">Plastiques UV :</span>
+                                      <span className="text-white/70">{yesNoLabel[formData.plasticUvTreatment]}</span>
+                                    </div>
+                                  )}
+                                  {formData.leatherUvTreatment && (
+                                    <div className="flex gap-2 text-xs">
+                                      <span className="text-white/40">Cuirs UV :</span>
+                                      <span className="text-white/70">{yesNoLabel[formData.leatherUvTreatment]}</span>
+                                    </div>
+                                  )}
                                   {formData.exteriorWash && (
                                     <div className="flex gap-2 text-xs">
                                       <span className="text-white/40">Extérieur :</span>
@@ -480,6 +702,10 @@ export default function BookingForm() {
                                       <span className="text-white/70">{vehicleEmptiedLabel[formData.vehicleEmptied]}</span>
                                     </div>
                                   )}
+                                  <div className="flex items-center justify-between gap-3 pt-2 mt-2 border-t border-ar-border/50">
+                                    <span className="text-white/45 text-xs uppercase tracking-widest">Tarif estimé</span>
+                                    <span className="text-ar-red text-sm font-bold">{interiorEstimate.total}€ TTC</span>
+                                  </div>
                                 </div>
                               )}
                             </div>
@@ -510,10 +736,24 @@ export default function BookingForm() {
                                   <span className="text-white/40">Email :</span>
                                   <span className="text-white/80">{formData.email}</span>
                                 </div>
+                                <div className="flex gap-2 text-xs">
+                                  <span className="text-white/40">Marque / modèle :</span>
+                                  <span className="text-white/80">{formData.vehicleMakeModel}</span>
+                                </div>
+                                <div className="flex gap-2 text-xs">
+                                  <span className="text-white/40">Lieu du RDV :</span>
+                                  <span className="text-white/80">{formData.appointmentLocation}</span>
+                                </div>
                                 {formData.date && (
                                   <div className="flex gap-2 text-xs">
                                     <span className="text-white/40">Date souhaitée :</span>
-                                    <span className="text-white/80">{formData.date}</span>
+                                    <span className="text-white/80">{formData.date}{formData.time ? ` à ${formData.time}` : ''}</span>
+                                  </div>
+                                )}
+                                {attachments.length > 0 && (
+                                  <div className="flex gap-2 text-xs">
+                                    <span className="text-white/40">Fichiers :</span>
+                                    <span className="text-white/80">{attachments.length} fichier(s)</span>
                                   </div>
                                 )}
                                 {formData.message && (
@@ -668,53 +908,9 @@ export default function BookingForm() {
                             )}
 
                             {/* Step 2.5 — Interior questions */}
-                            {interiorSubStep > 0 && (() => {
-                              const interiorQuestions = [
-                                {
-                                  key: 'interiorCondition' as keyof FormData,
-                                  question: "Comment considérez-vous l'état général de votre véhicule ?",
-                                  options: [
-                                    { value: 'propre', label: 'Propre' },
-                                    { value: 'sale', label: 'Sale' },
-                                    { value: 'tres_sale', label: 'Très sale' },
-                                  ],
-                                },
-                                {
-                                  key: 'seatShampoing' as keyof FormData,
-                                  question: "Avez-vous besoin d'un shampoing des sièges ?",
-                                  options: [
-                                    { value: 'non', label: 'Non, pas de tâches' },
-                                    { value: 'quelques', label: 'Oui, quelques tâches' },
-                                    { value: 'encrassees', label: 'Oui, tâches encrassées' },
-                                  ],
-                                },
-                                {
-                                  key: 'carpetShampoing' as keyof FormData,
-                                  question: "Avez-vous besoin d'un shampoing des tapis et moquettes ?",
-                                  options: [
-                                    { value: 'non', label: 'Non, pas de tâches' },
-                                    { value: 'quelques', label: 'Oui, quelques tâches' },
-                                    { value: 'encrassees', label: 'Oui, tâches encrassées' },
-                                  ],
-                                },
-                                {
-                                  key: 'exteriorWash' as keyof FormData,
-                                  question: "Avez-vous besoin d'un nettoyage extérieur ?",
-                                  options: [
-                                    { value: 'oui', label: 'Oui, préparation complète' },
-                                    { value: 'non', label: "Non, simplement l'intérieur" },
-                                  ],
-                                },
-                                {
-                                  key: 'vehicleEmptied' as keyof FormData,
-                                  question: 'Votre véhicule sera-t-il vidé de vos effets personnels ?',
-                                  options: [
-                                    { value: 'oui', label: 'Oui' },
-                                    { value: 'non', label: 'Non' },
-                                  ],
-                                },
-                              ]
+                            {interiorSubStep > 0 && interiorSubStep <= interiorQuestionCount && (() => {
                               const current = interiorQuestions[interiorSubStep - 1]
+                              const interiorProgress = (interiorSubStep / interiorQuestions.length) * 100
                               return (
                                 <motion.div
                                   key={`interior-${interiorSubStep}`}
@@ -727,7 +923,20 @@ export default function BookingForm() {
                                     <h3 className="text-white font-semibold text-sm uppercase tracking-widest">
                                       Détails intérieur
                                     </h3>
-                                    <span className="text-white/30 text-xs">{interiorSubStep} / 5</span>
+                                    <span className="text-white/30 text-xs">{interiorSubStep} / {interiorQuestions.length}</span>
+                                  </div>
+                                  <div
+                                    className="mb-4 h-2 w-full overflow-hidden bg-ar-anthracite border border-ar-border"
+                                    role="progressbar"
+                                    aria-valuemin={1}
+                                    aria-valuemax={interiorQuestions.length}
+                                    aria-valuenow={interiorSubStep}
+                                    aria-label="Progression des questions intérieur"
+                                  >
+                                    <div
+                                      className="h-full bg-ar-red transition-all duration-300"
+                                      style={{ width: `${interiorProgress}%` }}
+                                    />
                                   </div>
                                   <p className="text-white/40 text-xs mb-6">
                                     Précisez votre besoin pour un devis personnalisé
@@ -737,32 +946,104 @@ export default function BookingForm() {
                                     {current.options.map((opt) => (
                                       <label
                                         key={opt.value}
-                                        className={`flex items-center gap-3 p-3.5 border cursor-pointer transition-all duration-200 ${
+                                        className={`flex items-center justify-between gap-3 p-3.5 border cursor-pointer transition-all duration-200 ${
                                           formData[current.key] === opt.value
                                             ? 'border-ar-red bg-ar-red/10'
                                             : 'border-ar-border hover:border-white/20'
                                         }`}
                                       >
-                                        <input
-                                          type="radio"
-                                          name={current.key}
-                                          value={opt.value}
-                                          className="sr-only"
-                                          onChange={() => {
-                                            setFormData((f) => ({ ...f, [current.key]: opt.value }))
-                                            setTimeout(handleNext, 200)
-                                          }}
-                                        />
-                                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 ${formData[current.key] === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
-                                          {formData[current.key] === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
+                                        <div className="flex items-center gap-3 min-w-0">
+                                          <input
+                                            type="radio"
+                                            name={current.key}
+                                            value={opt.value}
+                                            className="sr-only"
+                                            onChange={() => {
+                                              setFormData((f) => ({ ...f, [current.key]: opt.value }))
+                                              setTimeout(handleNext, 200)
+                                            }}
+                                          />
+                                          <div className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 ${formData[current.key] === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
+                                            {formData[current.key] === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
+                                          </div>
+                                          <span className="text-white/80 text-sm leading-tight">{opt.label}</span>
                                         </div>
-                                        <span className="text-white/80 text-sm">{opt.label}</span>
+                                        <span className={`text-xs font-semibold flex-shrink-0 ${
+                                          opt.price > 0 ? 'text-ar-red' : 'text-white/35'
+                                        }`}>
+                                          {getPriceLabel(opt.price)}
+                                        </span>
                                       </label>
                                     ))}
                                   </div>
                                 </motion.div>
                               )
                             })()}
+
+                            {/* Step 2.6 — Interior estimate */}
+                            {interiorSubStep === interiorEstimateStep && (
+                              <motion.div
+                                key="interior-estimate"
+                                initial={{ opacity: 0, x: 30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -30 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <h3 className="text-white font-semibold mb-1 text-sm uppercase tracking-widest">
+                                  Tarif estimé
+                                </h3>
+                                <p className="text-white/40 text-xs mb-5">
+                                  Vérifiez le montant estimatif avant de renseigner vos coordonnées
+                                </p>
+
+                                <div className="border border-ar-red/40 bg-ar-red/10 p-4 mb-4">
+                                  <div className="flex items-end justify-between gap-4">
+                                    <div>
+                                      <p className="text-white/45 text-[10px] uppercase tracking-[0.2em] font-semibold">
+                                        Nettoyage intérieur
+                                      </p>
+                                      <p className="text-white/70 text-xs mt-1">
+                                        Base + options sélectionnées
+                                      </p>
+                                    </div>
+                                    <div className="text-right flex-shrink-0">
+                                      <p className="text-white font-display font-black text-3xl leading-none">
+                                        {interiorEstimate.total}€
+                                      </p>
+                                      <p className="text-white/45 text-[10px] uppercase tracking-widest mt-1">
+                                        TTC estimé
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                  <div className="flex items-center justify-between gap-3 border border-ar-border p-3">
+                                    <div className="min-w-0">
+                                      <p className="text-white/80 text-sm">Base nettoyage intérieur</p>
+                                      <p className="text-white/35 text-xs">Prestation à partir de</p>
+                                    </div>
+                                    <span className="text-white text-sm font-semibold flex-shrink-0">
+                                      {interiorEstimate.basePrice}€
+                                    </span>
+                                  </div>
+
+                                  {interiorEstimate.options.map((item) => (
+                                    <div key={`${item.label}-${item.value}`} className="flex items-center justify-between gap-3 border border-ar-border p-3">
+                                      <div className="min-w-0">
+                                        <p className="text-white/80 text-sm leading-tight">{item.label}</p>
+                                        <p className="text-white/35 text-xs mt-0.5">{item.value}</p>
+                                      </div>
+                                      <span className={`text-sm font-semibold flex-shrink-0 ${
+                                        item.price > 0 ? 'text-ar-red' : 'text-white/35'
+                                      }`}>
+                                        {getPriceLabel(item.price)}
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
 
                             {/* Step 3 — Contact */}
                             {step === 3 && interiorSubStep === 0 && (
@@ -828,20 +1109,76 @@ export default function BookingForm() {
                                   />
                                 </div>
                                 <div>
-                                  <label htmlFor="booking-date" className="text-white/50 text-xs uppercase tracking-widest block mb-1.5">
-                                    Date souhaitée
+                                  <label className="text-white/50 text-xs uppercase tracking-widest block mb-1.5">
+                                    Marque et modèle du véhicule *
                                   </label>
                                   <input
-                                    id="booking-date"
-                                    type="date"
-                                    title="Date souhaitée"
-                                    value={formData.date}
+                                    type="text"
+                                    required
+                                    value={formData.vehicleMakeModel}
                                     onChange={(e) =>
-                                      setFormData((f) => ({ ...f, date: e.target.value }))
+                                      setFormData((f) => ({ ...f, vehicleMakeModel: e.target.value }))
                                     }
-                                    className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm focus:outline-none focus:border-ar-red transition-colors duration-200 [color-scheme:dark]"
+                                    className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-ar-red transition-colors duration-200"
+                                    placeholder="Ex : Audi A3, Peugeot 308..."
                                   />
                                 </div>
+                                <div>
+                                  <label className="text-white/50 text-xs uppercase tracking-widest block mb-1.5">
+                                    Lieu du rendez-vous *
+                                  </label>
+                                  <input
+                                    type="text"
+                                    required
+                                    value={formData.appointmentLocation}
+                                    onChange={(e) =>
+                                      setFormData((f) => ({ ...f, appointmentLocation: e.target.value }))
+                                    }
+                                    className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-ar-red transition-colors duration-200"
+                                    placeholder="Adresse ou ville du rendez-vous"
+                                  />
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                  <div>
+                                    <label htmlFor="booking-date" className="text-white/50 text-xs uppercase tracking-widest block mb-1.5">
+                                      Date souhaitée *
+                                    </label>
+                                    <input
+                                      id="booking-date"
+                                      type="date"
+                                      required
+                                      title="Date souhaitée"
+                                      min={minBookingDate}
+                                      value={formData.date}
+                                      onChange={(e) =>
+                                        setFormData((f) => ({ ...f, date: e.target.value }))
+                                      }
+                                      className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm focus:outline-none focus:border-ar-red transition-colors duration-200 [color-scheme:dark]"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label htmlFor="booking-time" className="text-white/50 text-xs uppercase tracking-widest block mb-1.5">
+                                      Heure souhaitée *
+                                    </label>
+                                    <input
+                                      id="booking-time"
+                                      type="time"
+                                      required
+                                      min="09:00"
+                                      max="18:00"
+                                      step={1800}
+                                      title="Heure souhaitée"
+                                      value={formData.time}
+                                      onChange={(e) =>
+                                        setFormData((f) => ({ ...f, time: e.target.value }))
+                                      }
+                                      className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm focus:outline-none focus:border-ar-red transition-colors duration-200 [color-scheme:dark]"
+                                    />
+                                  </div>
+                                </div>
+                                <p className={`text-xs leading-relaxed ${appointmentValidationError ? 'text-red-400' : 'text-white/35'}`}>
+                                  {appointmentValidationError ?? 'Créneaux disponibles du lundi au samedi, de 9h à 18h, au moins 24h à l’avance. Le 25/12 et le 31/12 ne sont pas disponibles.'}
+                                </p>
                                 <div>
                                   <label className="text-white/50 text-xs uppercase tracking-widest block mb-1.5">
                                     Message (optionnel)
@@ -855,6 +1192,21 @@ export default function BookingForm() {
                                     className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-ar-red transition-colors duration-200 resize-none"
                                     placeholder="Précisez votre demande, l'état de votre véhicule..."
                                   />
+                                </div>
+                                <div>
+                                  <label className="text-white/50 text-xs uppercase tracking-widest block mb-1.5">
+                                    Photos / vidéos (optionnel)
+                                  </label>
+                                  <input
+                                    type="file"
+                                    multiple
+                                    accept="image/*,video/*"
+                                    onChange={(e) => handleAttachmentChange(e.target.files)}
+                                    className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm file:mr-4 file:border-0 file:bg-ar-red file:px-3 file:py-2 file:text-xs file:font-semibold file:uppercase file:tracking-wider file:text-white focus:outline-none focus:border-ar-red transition-colors duration-200"
+                                  />
+                                  <p className={`text-xs mt-1.5 ${attachmentError ? 'text-red-400' : 'text-white/35'}`}>
+                                    {attachmentError || `${MAX_ATTACHMENT_FILES} fichiers maximum, photos ou vidéos, 15 Mo par fichier.`}
+                                  </p>
                                 </div>
                               </motion.div>
                             )}
@@ -897,7 +1249,7 @@ export default function BookingForm() {
                                   !canNext ? 'opacity-40 cursor-not-allowed' : ''
                                 }`}
                               >
-                                Suivant
+                                {interiorSubStep === interiorEstimateStep ? 'Valider et continuer' : 'Suivant'}
                                 <ChevronRight size={16} />
                               </button>
                             )}
