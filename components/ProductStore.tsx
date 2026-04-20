@@ -1,24 +1,18 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
   Check,
-  Droplets,
   Minus,
-  PackageCheck,
   Plus,
-  ShieldCheck,
   ShoppingBag,
-  Sparkles,
   Trash2,
-  Wind,
 } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
 
-type Category = 'Tous' | 'Lavage' | 'Habitacle' | 'Protection' | 'Packs'
+type Category = 'Tous' | 'Packs' | 'Lavage' | 'Protection' | 'Habitacle'
 
 type Product = {
   id: string
@@ -29,8 +23,10 @@ type Product = {
   badge?: string
   description: string
   highlights: string[]
-  icon: LucideIcon
-  tone: 'red' | 'silver' | 'graphite'
+  image: {
+    src: string
+    alt: string
+  }
 }
 
 type CartItem = {
@@ -42,123 +38,42 @@ const categories: Category[] = ['Tous', 'Lavage', 'Habitacle', 'Protection', 'Pa
 
 const products: Product[] = [
   {
-    id: 'shampoing-ph-neutre',
-    name: 'Shampoing pH neutre',
-    category: 'Lavage',
-    volume: '500 ml',
-    price: 18.9,
-    description: 'Mousse dense pour laver la carrosserie sans retirer les protections existantes.',
-    highlights: ['Lavage manuel', 'Sans trace', 'Brillance propre'],
-    icon: Droplets,
-    tone: 'red',
-  },
-  {
-    id: 'quick-detailer',
-    name: 'Quick Detailer',
-    category: 'Protection',
-    volume: '500 ml',
-    price: 22.9,
-    description: 'Spray de finition pour raviver la brillance entre deux lavages.',
-    highlights: ['Effet slick', 'Finition rapide', 'Hydrophobe'],
-    icon: Sparkles,
-    tone: 'silver',
-  },
-  {
-    id: 'nettoyant-jantes',
-    name: 'Nettoyant jantes',
-    category: 'Lavage',
-    volume: '750 ml',
-    price: 19.9,
-    description: 'Formule active pour dissoudre le film routier et les poussières de frein.',
-    highlights: ['Jantes alu', 'Action rapide', 'Finition nette'],
-    icon: Wind,
-    tone: 'graphite',
-  },
-  {
-    id: 'nettoyant-interieur',
-    name: 'Nettoyant intérieur',
-    category: 'Habitacle',
-    volume: '500 ml',
-    price: 16.9,
-    description: 'Nettoie plastiques, panneaux de porte et surfaces de vie sans aspect gras.',
-    highlights: ['Multi-surfaces', 'Finition satinée', 'Odeur fraîche'],
-    icon: PackageCheck,
-    tone: 'silver',
-  },
-  {
-    id: 'dressing-pneus',
-    name: 'Dressing pneus',
-    category: 'Protection',
-    volume: '500 ml',
-    price: 17.9,
-    description: 'Redonne une finition noire satinée aux pneus et aux plastiques extérieurs.',
-    highlights: ['Noir profond', 'Anti-projection', 'Satin durable'],
-    icon: ShieldCheck,
-    tone: 'red',
-  },
-  {
     id: 'pack-entretien-complet',
     name: 'Pack entretien complet',
     category: 'Packs',
     volume: '4 produits',
     price: 69.9,
-    badge: 'Économie pack',
     description: 'Le kit simple pour entretenir un véhicule propre après une prestation AR Protect.',
-    highlights: ['Shampoing', 'Intérieur', 'Jantes', 'Microfibre offerte'],
-    icon: ShoppingBag,
-    tone: 'graphite',
+    highlights: ['Shampoing', 'Intérieur', 'Brosse', 'Microfibre offerte'],
+    image: {
+      src: '/products/pack-entretien-complet.jpg',
+      alt: 'Pack entretien complet AR Protect',
+    },
   },
 ]
 
 const formatPrice = (value: number) =>
   new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value)
 
-function ProductVisual({ product }: { product: Product }) {
-  const Icon = product.icon
-  const toneClasses = {
-    red: 'from-ar-red/70 via-red-950/70 to-black border-ar-red/40 text-red-100',
-    silver: 'from-white/45 via-zinc-500/25 to-black border-white/25 text-white',
-    graphite: 'from-zinc-500/45 via-zinc-900 to-black border-white/15 text-zinc-100',
-  }
+function ProductPhoto({ product }: { product: Product }) {
+  const fallbackImage = '/arprotect_logo.jpg'
+  const [imageSrc, setImageSrc] = useState(product.image.src)
+
+  useEffect(() => {
+    setImageSrc(product.image.src)
+  }, [product.image.src])
 
   return (
-    <div className="relative flex h-52 items-center justify-center overflow-hidden border-b border-ar-border bg-black">
-      <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.07),transparent_35%,rgba(220,38,38,0.08)_70%,transparent)]" />
-      <div className="absolute left-4 top-4 h-16 w-px bg-gradient-to-b from-ar-red to-transparent" />
-      <div className="absolute bottom-5 right-5 text-[4.5rem] font-display font-black leading-none text-white/[0.035]">
-        AR
-      </div>
-
-      <div className="relative flex items-end gap-3">
-        <div className="relative h-36 w-20">
-          <div className="absolute left-1/2 top-0 h-5 w-9 -translate-x-1/2 rounded-t-sm border border-white/20 bg-zinc-900" />
-          <div
-            className={`absolute bottom-0 left-1/2 flex h-32 w-20 -translate-x-1/2 flex-col justify-between border bg-gradient-to-br p-3 shadow-2xl ${toneClasses[product.tone]}`}
-          >
-            <div className="flex justify-between">
-              <span className="h-1.5 w-1.5 bg-ar-red" />
-              <span className="text-[0.55rem] font-bold uppercase tracking-widest text-white/40">Pro</span>
-            </div>
-            <div>
-              <Icon size={24} strokeWidth={1.4} />
-              <div className="mt-3 h-px w-full bg-white/25" />
-              <p className="mt-2 text-[0.48rem] font-bold uppercase leading-tight tracking-widest text-white/70">
-                AR Protect
-              </p>
-            </div>
-          </div>
-        </div>
-        {product.category === 'Packs' && (
-          <div className="mb-1 h-24 w-24 border border-white/15 bg-zinc-950 p-3 shadow-2xl">
-            <div className="h-full border border-ar-red/30 bg-ar-red/10 p-2">
-              <ShoppingBag size={22} className="text-ar-red" />
-              <p className="mt-5 text-[0.5rem] font-black uppercase tracking-widest text-white/70">
-                Kit care
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
+    <div className="relative h-60 overflow-hidden border-b border-ar-border bg-[#0b0b0b]">
+      <Image
+        src={imageSrc}
+        alt={product.image.alt}
+        fill
+        sizes="(min-width: 1280px) 24vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+        className="object-contain p-6 transition-transform duration-500 group-hover:scale-[1.04]"
+        onError={() => setImageSrc(fallbackImage)}
+      />
+      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/[0.04]" />
     </div>
   )
 }
@@ -304,7 +219,7 @@ export default function ProductStore() {
                     transition={{ duration: 0.45, delay: index * 0.04 }}
                     className="group flex min-h-[32rem] flex-col overflow-hidden border border-ar-border bg-ar-card transition-all duration-300 hover:-translate-y-1 hover:border-ar-red/50"
                   >
-                    <ProductVisual product={product} />
+                    <ProductPhoto product={product} />
 
                     <div className="flex flex-1 flex-col p-5">
                       <div className="mb-4 flex items-start justify-between gap-3">
