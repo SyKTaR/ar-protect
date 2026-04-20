@@ -73,8 +73,8 @@ const interiorQuestions = [
     question: "Comment considérez-vous l'état général de votre véhicule ?",
     options: [
       { value: 'propre', label: 'Propre', price: 0 },
-      { value: 'sale', label: 'Sale', price: 20 },
-      { value: 'tres_sale', label: 'Très sale', price: 40 },
+      { value: 'sale', label: 'Sale', price: 0 },
+      { value: 'tres_sale', label: 'Très sale', price: 0 },
     ],
   },
   {
@@ -83,8 +83,8 @@ const interiorQuestions = [
     question: "Avez-vous besoin d'un shampoing des sièges ?",
     options: [
       { value: 'non', label: 'Non, pas de tâches', price: 0 },
-      { value: 'quelques', label: 'Oui, quelques tâches', price: 49 },
-      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 69 },
+      { value: 'quelques', label: 'Oui, quelques tâches', price: 0 },
+      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 0 },
     ],
   },
   {
@@ -93,8 +93,8 @@ const interiorQuestions = [
     question: "Avez-vous besoin d'un shampoing des tapis et moquettes ?",
     options: [
       { value: 'non', label: 'Non, pas de tâches', price: 0 },
-      { value: 'quelques', label: 'Oui, quelques tâches', price: 39 },
-      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 59 },
+      { value: 'quelques', label: 'Oui, quelques tâches', price: 0 },
+      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 0 },
     ],
   },
   {
@@ -102,7 +102,7 @@ const interiorQuestions = [
     summaryLabel: 'Traitement UV plastiques',
     question: "Avez-vous besoin d'un traitement UV des plastiques ?",
     options: [
-      { value: 'oui', label: 'Oui', price: 29 },
+      { value: 'oui', label: 'Oui', price: 0 },
       { value: 'non', label: 'Non', price: 0 },
     ],
   },
@@ -111,7 +111,7 @@ const interiorQuestions = [
     summaryLabel: 'Nourrissant et traitement UV cuirs',
     question: "Avez-vous besoin d'un nourrissant et traitement UV des cuirs ?",
     options: [
-      { value: 'oui', label: 'Oui', price: 49 },
+      { value: 'oui', label: 'Oui', price: 0 },
       { value: 'non', label: 'Non', price: 0 },
     ],
   },
@@ -120,7 +120,7 @@ const interiorQuestions = [
     summaryLabel: 'Nettoyage extérieur',
     question: "Avez-vous besoin d'un nettoyage extérieur ?",
     options: [
-      { value: 'oui', label: 'Oui, préparation complète', price: 69 },
+      { value: 'oui', label: 'Oui, préparation complète', price: 0 },
       { value: 'non', label: "Non, simplement l'intérieur", price: 0 },
     ],
   },
@@ -130,7 +130,7 @@ const interiorQuestions = [
     question: 'Votre véhicule sera-t-il vidé de vos effets personnels ?',
     options: [
       { value: 'oui', label: 'Oui', price: 0 },
-      { value: 'non', label: 'Non', price: 10 },
+      { value: 'non', label: 'Non', price: 0 },
     ],
   },
 ]
