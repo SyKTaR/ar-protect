@@ -14,6 +14,8 @@ type GalleryItem = {
   images?: string[] // Chemins vers les vraies photos (optionnel)
 }
 
+const MOBILE_VISIBLE_COUNT = 4
+
 const galleryItems: GalleryItem[] = [
   {
     id: 1,
@@ -220,11 +222,13 @@ function GalleryCard({
   onClick,
   index,
   isInView,
+  className = '',
 }: {
   item: GalleryItem
   onClick: () => void
   index: number
   isInView: boolean
+  className?: string
 }) {
   const heightClass =
     item.aspect === 'tall' ? 'h-72' : item.aspect === 'wide' ? 'h-40' : 'h-52'
@@ -235,7 +239,7 @@ function GalleryCard({
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.07 }}
-      className="masonry-item"
+      className={`masonry-item ${className}`}
     >
       <div
         className={`relative ${heightClass} overflow-hidden cursor-pointer group border border-ar-border hover:border-ar-red/50 transition-all duration-500`}
@@ -457,11 +461,13 @@ export default function Gallery() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const [activeCategory, setActiveCategory] = useState('all')
   const [lightbox, setLightbox] = useState<GalleryItem | null>(null)
+  const [mobileGalleryExpanded, setMobileGalleryExpanded] = useState(false)
 
   const filtered =
     activeCategory === 'all'
       ? galleryItems
       : galleryItems.filter((i) => i.category === activeCategory)
+  const hasHiddenMobileItems = filtered.length > MOBILE_VISIBLE_COUNT
 
   return (
     <section id="galerie" ref={ref} className="section-padding bg-ar-black relative overflow-hidden">
@@ -495,7 +501,10 @@ export default function Gallery() {
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => {
+                setActiveCategory(cat.id)
+                setMobileGalleryExpanded(false)
+              }}
               className={`px-5 py-2 text-xs uppercase tracking-widest font-semibold transition-all duration-300 ${
                 activeCategory === cat.id
                   ? 'bg-ar-red text-white'
@@ -516,9 +525,22 @@ export default function Gallery() {
               onClick={() => setLightbox(item)}
               index={i}
               isInView={isInView}
+              className={!mobileGalleryExpanded && i >= MOBILE_VISIBLE_COUNT ? 'hidden sm:block' : ''}
             />
           ))}
         </div>
+
+        {hasHiddenMobileItems && (
+          <div className="mt-8 flex justify-center sm:hidden">
+            <button
+              type="button"
+              onClick={() => setMobileGalleryExpanded((expanded) => !expanded)}
+              className="min-h-11 border border-ar-border px-5 py-3 text-xs font-semibold uppercase tracking-widest text-white/70 transition-all duration-300 hover:border-ar-red/60 hover:text-white"
+            >
+              {mobileGalleryExpanded ? 'Réduire' : `Afficher en plus (${filtered.length - MOBILE_VISIBLE_COUNT})`}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Lightbox */}

@@ -225,7 +225,7 @@ export default function Testimonials() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: direction * -80 }}
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className="bg-ar-card border border-ar-border p-8 md:p-12 relative min-h-[320px] flex flex-col"
+                className="bg-ar-card border border-ar-border p-6 sm:p-8 md:p-12 relative h-[30rem] sm:h-[27rem] md:h-[25rem] flex flex-col overflow-hidden"
               >
                 {/* Quote icon */}
                 <Quote
@@ -237,12 +237,12 @@ export default function Testimonials() {
                 <StarRating rating={testimonial.rating} />
 
                 {/* Text */}
-                <blockquote className="mt-6 text-white/80 text-base md:text-lg leading-relaxed font-light italic">
+                <blockquote className="mt-6 min-h-0 flex-1 overflow-y-auto pr-1 text-white/80 text-base md:text-lg leading-relaxed font-light italic">
                   &ldquo;{testimonial.text}&rdquo;
                 </blockquote>
 
                 {/* Author */}
-                <div className="mt-8 flex items-center justify-between flex-wrap gap-4">
+                <div className="mt-6 sm:mt-8 flex items-center justify-between flex-wrap gap-4 flex-shrink-0">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-ar-red/20 border border-ar-red/30 flex items-center justify-center text-ar-red font-bold text-sm">
                       {testimonial.name[0]}

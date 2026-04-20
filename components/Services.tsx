@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, type UIEvent } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Droplets, Sparkles, Layers, Gem, Lightbulb, Wind, ArrowUpRight, X, Check, ChevronRight, ChevronLeft } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -580,23 +580,40 @@ export default function Services() {
   const [carouselIndex, setCarouselIndex] = useState(0)
 
   const visibleOnDesktop = 4
-  const totalExtra = services.length - visibleOnDesktop // 2
-  const maxIndex = totalExtra // can scroll up to 2 positions
+  const maxIndex = Math.max(0, services.length - visibleOnDesktop)
+
+  function getCarouselStep(carousel: HTMLDivElement) {
+    const firstItem = carousel.children[0] as HTMLElement | undefined
+    const secondItem = carousel.children[1] as HTMLElement | undefined
+
+    if (firstItem && secondItem) {
+      return secondItem.offsetLeft - firstItem.offsetLeft
+    }
+
+    return firstItem?.offsetWidth ?? carousel.clientWidth
+  }
+
+  function scrollToService(index: number) {
+    const carousel = carouselRef.current
+    if (!carousel) return
+
+    const step = getCarouselStep(carousel)
+    const left = Math.max(0, index * step)
+    carousel.scrollTo({ left, behavior: 'smooth' })
+  }
 
   function scrollCarousel(dir: 1 | -1) {
     const next = Math.max(0, Math.min(maxIndex, carouselIndex + dir))
     setCarouselIndex(next)
-    if (carouselRef.current) {
-      const cardWidth = carouselRef.current.scrollWidth / services.length
-      carouselRef.current.scrollTo({ left: next * cardWidth, behavior: 'smooth' })
-    }
+    scrollToService(next)
   }
 
-  function handleScroll() {
-    if (!carouselRef.current) return
-    const cardWidth = carouselRef.current.scrollWidth / services.length
-    const index = Math.round(carouselRef.current.scrollLeft / cardWidth)
-    setCarouselIndex(Math.min(index, maxIndex))
+  function handleScroll(event: UIEvent<HTMLDivElement>) {
+    const carousel = event.currentTarget
+    const step = getCarouselStep(carousel)
+    const index = step > 0 ? Math.round(carousel.scrollLeft / step) : 0
+
+    setCarouselIndex(Math.max(0, Math.min(services.length - 1, index)))
   }
 
   return (
@@ -698,10 +715,22 @@ export default function Services() {
           {/* Mobile scroll dots */}
           <div className="flex lg:hidden justify-center gap-1.5 mt-5">
             {services.map((_, i) => (
-              <span
+              <button
+                type="button"
                 key={i}
-                className={`h-1.5 rounded-full transition-all duration-300 ${i === carouselIndex ? 'bg-ar-red w-4' : 'bg-white/20 w-1.5'}`}
-              />
+                onClick={() => {
+                  setCarouselIndex(i)
+                  scrollToService(i)
+                }}
+                aria-label={`Voir le service ${i + 1}`}
+                className="flex h-8 w-8 items-center justify-center"
+              >
+                <span
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === carouselIndex ? 'bg-ar-red w-4' : 'bg-white/20 w-1.5'
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </div>
