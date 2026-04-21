@@ -2,7 +2,8 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Car, Wrench, User, CheckCircle, ChevronRight, ChevronLeft, FileText, X, Edit2, ClipboardList } from 'lucide-react'
+import { Car, Wrench, User, CheckCircle, ChevronRight, ChevronLeft, FileText, X, Edit2, ClipboardList, ShoppingBag, Minus, Plus } from 'lucide-react'
+import { formatProductPrice, getProductById, getRecommendedProductsForService } from '@/lib/products'
 
 const vehicleTypes = [
   { id: 'citadine', label: 'Citadine', desc: 'Clio, 208, Fiesta...' },
@@ -238,6 +239,7 @@ export default function BookingForm() {
   const [interiorSubStep, setInteriorSubStep] = useState(0)
   const [attachments, setAttachments] = useState<File[]>([])
   const [attachmentError, setAttachmentError] = useState('')
+  const [selectedProductQuantities, setSelectedProductQuantities] = useState<Record<string, number>>({})
 
   const dynamicSteps = [
     { id: 1, label: 'Véhicule', icon: Car },
@@ -255,6 +257,18 @@ export default function BookingForm() {
   const interiorEstimate = getInteriorEstimate(formData)
   const minBookingDate = toDateInputValue(new Date(Date.now() + 24 * 60 * 60 * 1000))
   const appointmentValidationError = getAppointmentValidationError(formData)
+  const recommendedProducts = getRecommendedProductsForService(formData.service)
+  const selectedProducts = Object.entries(selectedProductQuantities)
+    .map(([productId, quantity]) => {
+      const product = getProductById(productId)
+      if (!product || quantity <= 0) return null
+      return { product, quantity }
+    })
+    .filter((item): item is { product: NonNullable<ReturnType<typeof getProductById>>; quantity: number } => item !== null)
+  const selectedProductsTotal = selectedProducts.reduce(
+    (total, item) => total + item.product.price * item.quantity,
+    0
+  )
 
   const canNext =
     (step === 1 && formData.vehicle !== '') ||
@@ -289,6 +303,17 @@ export default function BookingForm() {
       attachments.forEach((file) => {
         payload.append('attachments', file)
       })
+      if (selectedProducts.length > 0) {
+        payload.append(
+          'recommendedProducts',
+          JSON.stringify(
+            selectedProducts.map((item) => ({
+              id: item.product.id,
+              quantity: item.quantity,
+            }))
+          )
+        )
+      }
 
       const res = await fetch('/api/contact', {
         method: 'POST',
@@ -308,6 +333,7 @@ export default function BookingForm() {
     setFormData(emptyForm)
     setAttachments([])
     setAttachmentError('')
+    setSelectedProductQuantities({})
     setStep(1)
     setInteriorSubStep(0)
     setShowSummary(false)
@@ -326,6 +352,18 @@ export default function BookingForm() {
     const validationError = validateAttachments(nextFiles)
     setAttachmentError(validationError)
     setAttachments(validationError ? [] : nextFiles)
+  }
+
+  const updateProductQuantity = (productId: string, nextQuantity: number) => {
+    setSelectedProductQuantities((current) => {
+      const next = { ...current }
+      if (nextQuantity <= 0) {
+        delete next[productId]
+      } else {
+        next[productId] = Math.min(nextQuantity, 9)
+      }
+      return next
+    })
   }
 
   const handleNext = () => {
@@ -764,6 +802,112 @@ export default function BookingForm() {
                                 )}
                               </div>
                             </div>
+
+                            {/* Produits conseillés */}
+                            <div className="border border-ar-red/30 bg-ar-red/[0.03] p-4">
+                              <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                                <div>
+                                  <span className="text-ar-red text-[10px] uppercase tracking-[0.2em] font-semibold">
+                                    Produits conseillés
+                                  </span>
+                                  <p className="mt-1 text-xs leading-relaxed text-white/40">
+                                    Sélection basée sur votre prestation. Les produits ajoutés seront préparés avec votre demande.
+                                  </p>
+                                </div>
+                                <a
+                                  href="/produits"
+                                  className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-white/35 transition-colors hover:text-white"
+                                >
+                                  Boutique
+                                  <ChevronRight size={13} />
+                                </a>
+                              </div>
+
+                              <div className="space-y-2.5">
+                                {recommendedProducts.map((product) => {
+                                  const quantity = selectedProductQuantities[product.id] ?? 0
+
+                                  return (
+                                    <div
+                                      key={product.id}
+                                      className={`border p-3 transition-colors ${
+                                        quantity > 0
+                                          ? 'border-ar-red/60 bg-ar-red/10'
+                                          : 'border-ar-border bg-ar-card/60'
+                                      }`}
+                                    >
+                                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                                        <div className="min-w-0">
+                                          <div className="mb-1 flex flex-wrap items-center gap-2">
+                                            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30">
+                                              {product.category} · {product.volume}
+                                            </p>
+                                            <span className="bg-white/5 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white/35">
+                                              Site
+                                            </span>
+                                          </div>
+                                          <p className="text-sm font-semibold uppercase leading-tight text-white">
+                                            {product.name}
+                                          </p>
+                                          <p className="mt-1 text-xs leading-relaxed text-white/42">
+                                            {product.description}
+                                          </p>
+                                        </div>
+
+                                        <div className="flex flex-shrink-0 items-center justify-between gap-3 sm:min-w-36 sm:justify-end">
+                                          <strong className="font-display text-lg font-black text-white">
+                                            {formatProductPrice(product.price)}
+                                          </strong>
+                                          {quantity > 0 ? (
+                                            <div className="grid grid-cols-[2.25rem_2.25rem_2.25rem] overflow-hidden border border-ar-red/45">
+                                              <button
+                                                type="button"
+                                                aria-label={`Retirer ${product.name}`}
+                                                onClick={() => updateProductQuantity(product.id, quantity - 1)}
+                                                className="flex h-9 items-center justify-center bg-ar-red/10 text-white transition-colors hover:bg-ar-red"
+                                              >
+                                                <Minus size={14} />
+                                              </button>
+                                              <span className="flex h-9 items-center justify-center border-x border-ar-red/35 text-xs font-bold text-white">
+                                                {quantity}
+                                              </span>
+                                              <button
+                                                type="button"
+                                                aria-label={`Ajouter ${product.name}`}
+                                                onClick={() => updateProductQuantity(product.id, quantity + 1)}
+                                                className="flex h-9 items-center justify-center bg-ar-red text-white transition-colors hover:bg-ar-red-hover"
+                                              >
+                                                <Plus size={14} />
+                                              </button>
+                                            </div>
+                                          ) : (
+                                            <button
+                                              type="button"
+                                              onClick={() => updateProductQuantity(product.id, 1)}
+                                              className="flex h-9 items-center justify-center gap-1.5 border border-ar-red/45 bg-ar-red/10 px-3 text-[10px] font-bold uppercase tracking-widest text-white transition-colors hover:bg-ar-red"
+                                            >
+                                              <ShoppingBag size={13} />
+                                              Ajouter
+                                            </button>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )
+                                })}
+                              </div>
+
+                              {selectedProducts.length > 0 && (
+                                <div className="mt-4 flex items-center justify-between gap-3 border-t border-ar-border pt-3">
+                                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/35">
+                                    Total produits
+                                  </span>
+                                  <span className="font-display text-xl font-black text-ar-red">
+                                    {formatProductPrice(selectedProductsTotal)}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
                           </div>
 
                           {/* Actions */}
@@ -884,9 +1028,10 @@ export default function BookingForm() {
                                           name="service"
                                           value={s.id}
                                           className="sr-only"
-                                          onChange={() =>
+                                          onChange={() => {
+                                            setSelectedProductQuantities({})
                                             setFormData((f) => ({ ...f, service: s.id }))
-                                          }
+                                          }}
                                         />
                                         <div
                                           className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition-all ${

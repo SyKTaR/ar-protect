@@ -11,23 +11,9 @@ import {
   ShoppingBag,
   Trash2,
 } from 'lucide-react'
+import { formatProductPrice, productCatalog, type Product, type ProductCategory } from '@/lib/products'
 
-type Category = 'Tous' | 'Packs' | 'Lavage' | 'Protection' | 'Habitacle'
-
-type Product = {
-  id: string
-  name: string
-  category: Exclude<Category, 'Tous'>
-  volume: string
-  price: number
-  badge?: string
-  description: string
-  highlights: string[]
-  image: {
-    src: string
-    alt: string
-  }
-}
+type Category = 'Tous' | ProductCategory
 
 type CartItem = {
   product: Product
@@ -35,25 +21,6 @@ type CartItem = {
 }
 
 const categories: Category[] = ['Tous', 'Lavage', 'Habitacle', 'Protection', 'Packs']
-
-const products: Product[] = [
-  {
-    id: 'pack-entretien-complet',
-    name: 'Pack entretien complet',
-    category: 'Packs',
-    volume: '4 produits',
-    price: 69.9,
-    description: 'Le kit simple pour entretenir un véhicule propre après une prestation AR Protect.',
-    highlights: ['Shampoing', 'Intérieur', 'Brosse', 'Microfibre offerte'],
-    image: {
-      src: '/products/pack-entretien-complet.jpg',
-      alt: 'Pack entretien complet AR Protect',
-    },
-  },
-]
-
-const formatPrice = (value: number) =>
-  new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value)
 
 function ProductPhoto({ product }: { product: Product }) {
   const fallbackImage = '/arprotect_logo.jpg'
@@ -83,8 +50,8 @@ export default function ProductStore() {
   const [cart, setCart] = useState<Record<string, CartItem>>({})
 
   const visibleProducts = useMemo(() => {
-    if (activeCategory === 'Tous') return products
-    return products.filter((product) => product.category === activeCategory)
+    if (activeCategory === 'Tous') return productCatalog
+    return productCatalog.filter((product) => product.category === activeCategory)
   }, [activeCategory])
 
   const cartItems = useMemo(() => Object.values(cart), [cart])
@@ -104,17 +71,17 @@ export default function ProductStore() {
   }
 
   const orderLines = cartItems.map(
-    (item) => `${item.quantity} x ${item.product.name} (${formatPrice(item.product.price)})`
+    (item) => `${item.quantity} x ${item.product.name} (${formatProductPrice(item.product.price)})`
   )
 
   const whatsappHref = `https://wa.me/33636230807?text=${encodeURIComponent(
-    `Bonjour AR Protect, je souhaite commander :\n${orderLines.join('\n')}\n\nTotal produits : ${formatPrice(subtotal)}`
+    `Bonjour AR Protect, je souhaite commander :\n${orderLines.join('\n')}\n\nTotal produits : ${formatProductPrice(subtotal)}`
   )}`
 
   const mailHref = `mailto:arprotect77@gmail.com?subject=${encodeURIComponent(
     'Commande produits AR Protect'
   )}&body=${encodeURIComponent(
-    `Bonjour AR Protect,\n\nJe souhaite commander :\n${orderLines.join('\n')}\n\nTotal produits : ${formatPrice(
+    `Bonjour AR Protect,\n\nJe souhaite commander :\n${orderLines.join('\n')}\n\nTotal produits : ${formatProductPrice(
       subtotal
     )}\n\nMerci.`
   )}`
@@ -255,7 +222,7 @@ export default function ProductStore() {
                             Prix TTC
                           </span>
                           <strong className="font-display text-2xl font-black text-white">
-                            {formatPrice(product.price)}
+                            {formatProductPrice(product.price)}
                           </strong>
                         </div>
 
@@ -332,7 +299,7 @@ export default function ProductStore() {
                             <div>
                               <p className="font-bold uppercase leading-tight text-white">{item.product.name}</p>
                               <p className="mt-1 text-xs text-white/40">
-                                {item.quantity} x {formatPrice(item.product.price)}
+                                {item.quantity} x {formatProductPrice(item.product.price)}
                               </p>
                             </div>
                             <button
@@ -356,7 +323,7 @@ export default function ProductStore() {
                       Total produits
                     </span>
                     <strong className="font-display text-3xl font-black text-white">
-                      {formatPrice(subtotal)}
+                      {formatProductPrice(subtotal)}
                     </strong>
                   </div>
 

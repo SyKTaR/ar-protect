@@ -1,6 +1,7 @@
 import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
+import { formatProductPrice, getProductById } from '@/lib/products'
 
 // Validate required env variable at startup
 if (!process.env.RESEND_API_KEY) {
@@ -28,6 +29,7 @@ const contactSchema = z.object({
   leatherUvTreatment: z.string().max(50).optional(),
   exteriorWash: z.string().max(50).optional(),
   vehicleEmptied: z.string().max(50).optional(),
+  recommendedProducts: z.string().max(2000).optional(),
 })
 
 // --- Simple in-memory rate limiter ---
@@ -64,8 +66,10 @@ const vehicleLabels: Record<string, string> = {
   citadine: 'Citadine',
   berline: 'Berline',
   suv: 'SUV / 4x4',
+  'suv/monospace': 'SUV / Monospace',
   sportive: 'Sportive',
   prestige: 'Prestige',
+  utilitaire: 'Utilitaire',
 }
 
 const serviceLabels: Record<string, string> = {
@@ -143,6 +147,34 @@ function validateAttachments(files: File[]) {
   return null
 }
 
+function parseRecommendedProducts(rawProducts?: string) {
+  if (!rawProducts) return []
+
+  try {
+    const parsed = JSON.parse(rawProducts)
+    if (!Array.isArray(parsed)) return []
+
+    return parsed
+      .map((item) => {
+        if (!item || typeof item !== 'object') return null
+
+        const productId = typeof item.id === 'string' ? item.id : ''
+        const product = getProductById(productId)
+        const quantity = Number(item.quantity)
+
+        if (!product || !Number.isFinite(quantity) || quantity <= 0) return null
+
+        return {
+          product,
+          quantity: Math.min(Math.trunc(quantity), 9),
+        }
+      })
+      .filter((item): item is { product: NonNullable<ReturnType<typeof getProductById>>; quantity: number } => item !== null)
+  } catch {
+    return []
+  }
+}
+
 export async function POST(request: Request) {
   // Rate limiting
   const ip =
@@ -218,6 +250,7 @@ export async function POST(request: Request) {
     leatherUvTreatment,
     exteriorWash,
     vehicleEmptied,
+    recommendedProducts,
   } = parsed.data
 
   // Escape all user content before inserting into HTML
@@ -250,6 +283,11 @@ export async function POST(request: Request) {
         getInteriorOptionPrice('exteriorWash', exteriorWash) +
         getInteriorOptionPrice('vehicleEmptied', vehicleEmptied)
       : null
+  const productsToPrepare = parseRecommendedProducts(recommendedProducts)
+  const productsToPrepareTotal = productsToPrepare.reduce(
+    (total, item) => total + item.product.price * item.quantity,
+    0
+  )
 
   // Format date in French (e.g. "12 avril 2026")
   const formattedDate = safeDate
@@ -361,6 +399,19 @@ export async function POST(request: Request) {
               ${vehicleEmptied ? row('Véhicule vidé', formatOptionWithPrice(vehicleEmptiedLabels[vehicleEmptied] ?? escapeHtml(vehicleEmptied), getInteriorOptionPrice('vehicleEmptied', vehicleEmptied))) : ''}
               ${attachments.length > 0 ? row('Fichiers joints', attachments.map((file) => escapeHtml(file.name)).join('<br>')) : ''}
             </table>
+
+            ${productsToPrepare.length > 0 ? `
+            <!-- RECOMMENDED PRODUCTS -->
+            <p style="margin: 24px 0 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #6b7280; text-transform: uppercase;">Produits à préparer avec la prestation</p>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; border-collapse: separate; border-spacing: 0;">
+              ${productsToPrepare.map((item) =>
+                row(
+                  `${item.quantity} × ${escapeHtml(item.product.name)}`,
+                  `<strong>${formatProductPrice(item.product.price * item.quantity)}</strong><br><span style="color:#6b7280; font-size: 12px;">${escapeHtml(item.product.category)} · ${escapeHtml(item.product.volume)}</span>`
+                )
+              ).join('')}
+              ${row('Total produits', `<strong style="color:#dc2626;">${formatProductPrice(productsToPrepareTotal)}</strong>`)}
+            </table>` : ''}
 
             ${safeMessage ? `
             <!-- MESSAGE -->

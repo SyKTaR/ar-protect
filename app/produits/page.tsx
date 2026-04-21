@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ProductStore from '@/components/ProductStore'
+import { productCatalog } from '@/lib/products'
 
 const siteUrl = 'https://www.arprotect.fr'
 
@@ -41,12 +42,7 @@ const jsonLd = {
   mainEntity: {
     '@type': 'ItemList',
     itemListElement: [
-      'Shampoing pH neutre',
-      'Quick Detailer',
-      'Nettoyant jantes',
-      'Nettoyant intérieur',
-      'Dressing pneus',
-      'Pack entretien complet',
+      ...productCatalog.map((product) => product.name),
     ].map((name, index) => ({
       '@type': 'ListItem',
       position: index + 1,
