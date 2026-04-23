@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Instagram, Facebook, Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react'
+import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react'
 
 const links = {
   services: [
@@ -55,7 +55,11 @@ export default function Footer() {
                 aria-label="Instagram"
                 className="w-10 h-10 border border-ar-border flex items-center justify-center text-white/50 hover:text-white hover:border-ar-red transition-all duration-300"
               >
-                <Instagram size={16} />
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+                  </svg>
               </a>
               <a
                 href="https://www.tiktok.com/@ar.protect?lang=fr"

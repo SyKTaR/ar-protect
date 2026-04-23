@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Sparkles, ShieldCheck, Wrench } from 'lucide-react'
+import { Sparkles, ShieldCheck, Bubbles } from 'lucide-react'
 
 const pillars = [
   {
@@ -16,7 +16,7 @@ const pillars = [
     desc: 'Phares ternis, micro-rayures, plastiques défraîchis. On efface, on rénove et on protège pour durer.',
   },
   {
-    icon: Wrench,
+    icon: Bubbles,
     title: 'Utilisation de produits professionnels uniquement',
     desc: 'Des formules professionnelles, respectueuses de vos matériaux. Rien de cheap.',
   },
