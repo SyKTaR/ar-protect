@@ -13,7 +13,7 @@ const vehicleTypes = [
 ]
 
 const serviceOptions = [
-  { id: 'interieur', label: 'Nettoyage Intérieur', price: 'Dès 99€ TTC' },
+  { id: 'interieur', label: 'Nettoyage Intérieur', price: 'Dès 79€ TTC' },
   { id: 'exterieur', label: 'Nettoyage Extérieur', price: 'Dès 89€ TTC' },
   { id: 'full', label: 'Full Detail (Int + Ext.)', price: 'Dès 149€ TTC' },
   { id: 'shampoing', label: 'Shampoing des sièges', price: 'Dès 69€ TTC' },
@@ -64,7 +64,15 @@ const emptyForm: FormData = {
   vehicleEmptied: '',
 }
 
-const INTERIOR_BASE_PRICE = 99
+const getInteriorBasePrice = (vehicle: string) => {
+  switch (vehicle) {
+    case 'citadine': return 79
+    case 'berline': return 89
+    case 'suv/monospace': return 99
+    case 'prestige': return 99
+    default: return 79
+  }
+}
 
 const interiorQuestions = [
   {
@@ -73,8 +81,8 @@ const interiorQuestions = [
     question: "Comment considérez-vous l'état général de votre véhicule ?",
     options: [
       { value: 'propre', label: 'Propre', price: 0 },
-      { value: 'sale', label: 'Sale', price: 0 },
-      { value: 'tres_sale', label: 'Très sale', price: 0 },
+      { value: 'sale', label: 'Sale', price: 10 },
+      { value: 'tres_sale', label: 'Très sale', price: 20 },
     ],
   },
   {
@@ -83,8 +91,8 @@ const interiorQuestions = [
     question: "Avez-vous besoin d'un shampoing des sièges ?",
     options: [
       { value: 'non', label: 'Non, pas de tâches', price: 0 },
-      { value: 'quelques', label: 'Oui, quelques tâches', price: 0 },
-      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 0 },
+      { value: 'quelques', label: 'Oui, quelques tâches', price: 20 },
+      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 30 },
     ],
   },
   {
@@ -93,8 +101,8 @@ const interiorQuestions = [
     question: "Avez-vous besoin d'un shampoing des tapis et moquettes ?",
     options: [
       { value: 'non', label: 'Non, pas de tâches', price: 0 },
-      { value: 'quelques', label: 'Oui, quelques tâches', price: 0 },
-      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 0 },
+      { value: 'quelques', label: 'Oui, quelques tâches', price: 20 },
+      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 30 },
     ],
   },
   {
@@ -102,7 +110,7 @@ const interiorQuestions = [
     summaryLabel: 'Traitement UV plastiques',
     question: "Avez-vous besoin d'un traitement UV des plastiques ?",
     options: [
-      { value: 'oui', label: 'Oui', price: 0 },
+      { value: 'oui', label: 'Oui', price: 40 },
       { value: 'non', label: 'Non', price: 0 },
     ],
   },
@@ -111,7 +119,7 @@ const interiorQuestions = [
     summaryLabel: 'Nourrissant et traitement UV cuirs',
     question: "Avez-vous besoin d'un nourrissant et traitement UV des cuirs ?",
     options: [
-      { value: 'oui', label: 'Oui', price: 0 },
+      { value: 'oui', label: 'Oui', price: 40 },
       { value: 'non', label: 'Non', price: 0 },
     ],
   },
@@ -120,8 +128,8 @@ const interiorQuestions = [
     summaryLabel: 'Nettoyage extérieur',
     question: "Avez-vous besoin d'un nettoyage extérieur ?",
     options: [
-      { value: 'oui', label: 'Oui, préparation complète', price: 0 },
-      { value: 'non', label: "Non, simplement l'intérieur", price: 0 },
+      { value: 'oui', label: 'Oui, préparation complète', price: 60 },
+      { value: 'non', label: "Non, seulement l'intérieur", price: 0 },
     ],
   },
   {
@@ -130,7 +138,7 @@ const interiorQuestions = [
     question: 'Votre véhicule sera-t-il vidé de vos effets personnels ?',
     options: [
       { value: 'oui', label: 'Oui', price: 0 },
-      { value: 'non', label: 'Non', price: 0 },
+      { value: 'non', label: 'Non', price: 10 },
     ],
   },
 ]
@@ -204,6 +212,7 @@ const validateAttachments = (files: File[]) => {
 }
 
 const getInteriorEstimate = (data: FormData) => {
+  const basePrice = getInteriorBasePrice(data.vehicle)
   const options = interiorQuestions
     .map((question) => {
       const selected = question.options.find((option) => option.value === data[question.key])
@@ -219,9 +228,9 @@ const getInteriorEstimate = (data: FormData) => {
   const optionsTotal = options.reduce((total, item) => total + item.price, 0)
 
   return {
-    basePrice: INTERIOR_BASE_PRICE,
+    basePrice,
     options,
-    total: INTERIOR_BASE_PRICE + optionsTotal,
+    total: basePrice + optionsTotal,
   }
 }
 
