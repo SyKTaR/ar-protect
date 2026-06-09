@@ -7,18 +7,18 @@ import { Sparkles, ShieldCheck, Bubbles } from 'lucide-react'
 const pillars = [
   {
     icon: Sparkles,
-    title: 'Nettoyage complet',
-    desc: 'Un intérieur sain et un extérieur qui brille vraiment. On ne fait pas semblant.',
+    title: 'Déplacement à domicile',
+    desc: 'Partout en en Ile-de-France.',
   },
-  {
+  { 
     icon: ShieldCheck,
-    title: 'Rénovation & Protection',
-    desc: 'Phares ternis, micro-rayures, plastiques défraîchis. On efface, on rénove et on protège pour durer.',
+    title: 'Nettoyage, soins et protection',
+    desc: 'On efface les traces du temps et on protège votre véhicule durablement.',
   },
   {
     icon: Bubbles,
-    title: 'Utilisation de produits professionnels uniquement',
-    desc: 'Des formules professionnelles, respectueuses de vos matériaux. Rien de cheap.',
+    title: 'Produits premium & résultat professionnel',
+    desc: 'Sélection des meilleurs produits pour un résultat garanti.',
   },
 ]
 
@@ -53,7 +53,7 @@ export default function Brand() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
           {/* LEFT — brand story */}
           <div>
@@ -109,7 +109,7 @@ export default function Brand() {
               animate={isInView ? { scaleX: 1 } : {}}
               transition={{ duration: 0.7, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
               style={{ originX: 0 }}
-              className="h-px bg-ar-border my-8"
+              className="h-px bg-ar-border my-5"
             />
 
             {/* Quote pull */}
@@ -147,7 +147,7 @@ export default function Brand() {
                   initial={{ opacity: 0, x: 30 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.55, delay: 0.3 + i * 0.15, ease: 'easeOut' }}
-                  className="group relative flex gap-5 py-7 border-b border-ar-border/60 last:border-b-0"
+                  className="group relative flex gap-5 py-5 border-b border-ar-border/60 last:border-b-0"
                 >
                   {/* Number */}
                   <span className="absolute right-0 top-7 font-display font-black text-5xl text-white/[0.04] leading-none select-none">
@@ -176,7 +176,7 @@ export default function Brand() {
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.75 }}
-              className="mt-8"
+              className="mt-5"
             >
               <a href="#contact" className="btn-primary inline-block">
                 Prendre rendez-vous

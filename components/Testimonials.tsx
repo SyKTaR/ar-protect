@@ -179,7 +179,7 @@ export default function Testimonials() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8"
         >
           <span className="text-ar-red text-xs uppercase tracking-[0.3em] font-semibold mb-4 block">
             Ils nous font confiance
@@ -194,12 +194,12 @@ export default function Testimonials() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-wrap items-center justify-center gap-8 mb-16"
+          className="flex flex-wrap items-center justify-center gap-8 mb-10"
         >
           {[
-            { value: '5', label: 'Note de satisfaction', sub: '21 avis' },
+            { value: '5', label: 'Note de satisfaction', sub: '22 avis' },
             { value: '100%', label: 'Clients satisfaits', sub: 'Taux de satisfaction' },
-            { value: '+250', label: 'Véhicules', sub: 'Traités depuis 2026' },
+            { value: '+350', label: 'Véhicules', sub: 'Traités depuis 2026' },
           ].map((stat) => (
             <div key={stat.label} className="text-center px-6 border-r border-ar-border last:border-0">
               <div className="font-display font-black text-3xl sm:text-4xl text-white">{stat.value}</div>
@@ -225,7 +225,7 @@ export default function Testimonials() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: direction * -80 }}
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className="bg-ar-card border border-ar-border p-6 sm:p-8 md:p-12 relative h-[30rem] sm:h-[27rem] md:h-[25rem] flex flex-col overflow-hidden"
+                className="bg-ar-card border border-ar-border p-6 sm:p-8 md:p-10 relative h-[26rem] sm:h-[22rem] md:h-[20rem] flex flex-col overflow-hidden"
               >
                 {/* Quote icon */}
                 <Quote
@@ -264,7 +264,7 @@ export default function Testimonials() {
           </div>
 
           {/* Navigation */}
-          <div className="flex items-center justify-between mt-8">
+          <div className="flex items-center justify-between mt-5">
             <button
               onClick={prev}
               className="w-12 h-12 border border-ar-border hover:border-ar-red flex items-center justify-center text-white/60 hover:text-white transition-all duration-300"
@@ -300,7 +300,7 @@ export default function Testimonials() {
           </div>
 
           {/* Google Review CTA */}
-          <div className="text-center mt-10">
+          <div className="text-center mt-6">
             <a
               href="https://www.google.com/search?hl=fr-FR&gl=fr&q=AR+PROTECT&ludocid=2814090523952500646&lsig=AB86z5UWweasKggHlxyl0s4oPbJM&source=g.page.m._&laa=merchant-review-solicitation&pli=1#lrd=0xa24a85d79d490341:0x270da86bfdfb4fa6,3"
               target="_blank"

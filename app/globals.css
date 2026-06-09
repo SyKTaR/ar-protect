@@ -8,7 +8,7 @@
   --ar-black: #0a0a0a;
   --ar-dark: #111111;
   --ar-anthracite: #1a1a1a;
-  --ar-red: #dc2626;
+  --ar-red: #cc0000;
   --ar-white: #ffffff;
 }
 
@@ -41,19 +41,19 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #dc2626;
+  background: #cc0000;
   border-radius: 2px;
 }
 
 /* Selection */
 ::selection {
-  background: #dc2626;
+  background: #cc0000;
   color: #ffffff;
 }
 
 /* Red gradient line utility */
 .gradient-line {
-  background: linear-gradient(90deg, #dc2626, #7f1d1d);
+  background: linear-gradient(90deg, #cc0000, #6b0000);
 }
 
 /* Grain texture overlay */
@@ -72,7 +72,7 @@ body {
 
 /* Section padding */
 .section-padding {
-  @apply py-20 md:py-32;
+  @apply py-12 md:py-20;
 }
 
 /* Red accent button */
@@ -91,7 +91,7 @@ body {
 
 /* Text gradient red */
 .text-gradient-red {
-  background: linear-gradient(135deg, #dc2626 0%, #f87171 100%);
+  background: linear-gradient(135deg, #cc0000 0%, #ff2222 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

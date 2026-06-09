@@ -238,7 +238,7 @@ export async function POST(request: Request) {
   const getInteriorOptionPrice = (field: string, value?: string) =>
     value ? interiorPriceTable[field]?.[value] ?? 0 : 0
   const formatOptionWithPrice = (label: string, price: number) =>
-    `${label} <span style="color:#dc2626; font-weight:700;">${price > 0 ? `(+${price}€)` : '(inclus)'}</span>`
+    `${label} <span style="color:#cc0000; font-weight:700;">${price > 0 ? `(+${price}€)` : '(inclus)'}</span>`
   const interiorEstimatedTotal =
     service === 'interieur'
       ? INTERIOR_BASE_PRICE +
@@ -274,7 +274,7 @@ export async function POST(request: Request) {
     )
 
     await resend.emails.send({
-      from: 'AR Protect <onboarding@resend.dev>',
+      from: process.env.EMAIL_FROM ?? 'AR Protect <noreply@arprotect.fr>',
       to,
       replyTo: safeEmail,
       subject: `Nouvelle réservation — ${safeName} · ${serviceLabels[service]}`,
@@ -300,7 +300,7 @@ export async function POST(request: Request) {
         <!-- HEADER -->
         <tr>
           <td style="background: #1f2937 !important; border-radius: 12px 12px 0 0; padding: 36px 40px; text-align: center;">
-            <p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: #dc2626 !important; text-transform: uppercase;">AR Protect</p>
+            <p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: #cc0000 !important; text-transform: uppercase;">AR Protect</p>
             <h1 style="margin: 0; font-size: 26px; font-weight: 700; color: #ffffff !important; line-height: 1.2;">Nouvelle demande de réservation</h1>
             <p style="margin: 12px 0 0; font-size: 14px; color: #d1d5db !important;">Reçue le ${new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
           </td>
@@ -308,7 +308,7 @@ export async function POST(request: Request) {
 
         <!-- SUMMARY BADGES -->
         <tr>
-          <td style="background: #dc2626; padding: 16px 40px;">
+          <td style="background: #cc0000; padding: 16px 40px;">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td style="text-align: center; padding: 0 8px;">
@@ -339,8 +339,8 @@ export async function POST(request: Request) {
             <p style="margin: 0 0 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #6b7280; text-transform: uppercase;">Informations client</p>
             <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; border-collapse: separate; border-spacing: 0;">
               ${row('Nom complet', `<strong>${safeName}</strong>`)}
-              ${row('Téléphone', `<a href="tel:${safePhone}" style="color: #dc2626; text-decoration: none; font-weight: 600;">${safePhone}</a>`)}
-              ${row('Email', `<a href="mailto:${safeEmail}" style="color: #dc2626; text-decoration: none;">${safeEmail}</a>`)}
+              ${row('Téléphone', `<a href="tel:${safePhone}" style="color: #cc0000; text-decoration: none; font-weight: 600;">${safePhone}</a>`)}
+              ${row('Email', `<a href="mailto:${safeEmail}" style="color: #cc0000; text-decoration: none;">${safeEmail}</a>`)}
               ${row('Catégorie véhicule', vehicleLabels[vehicle] ?? vehicle)}
               ${row('Marque / modèle', safeVehicleMakeModel)}
               ${row('Lieu du RDV', safeAppointmentLocation)}
@@ -349,7 +349,7 @@ export async function POST(request: Request) {
             <!-- SERVICE DETAILS -->
             <p style="margin: 24px 0 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #6b7280; text-transform: uppercase;">Détails de la prestation</p>
             <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; border-collapse: separate; border-spacing: 0;">
-              ${row('Service demandé', `<span style="background: #fef2f2; color: #dc2626; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-size: 13px;">${serviceLabels[service]}</span>`)}
+              ${row('Service demandé', `<span style="background: #fef2f2; color: #cc0000; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-size: 13px;">${serviceLabels[service]}</span>`)}
               ${formattedAppointment ? row('Créneau souhaité', `<strong>${formattedAppointment}</strong>`) : ''}
               ${interiorEstimatedTotal ? row('Tarif estimé', `<strong>${interiorEstimatedTotal}€ TTC</strong>`) : ''}
               ${interiorCondition ? row('État intérieur', formatOptionWithPrice(interiorConditionLabels[interiorCondition] ?? escapeHtml(interiorCondition), getInteriorOptionPrice('interiorCondition', interiorCondition))) : ''}
@@ -365,13 +365,13 @@ export async function POST(request: Request) {
             ${safeMessage ? `
             <!-- MESSAGE -->
             <p style="margin: 24px 0 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: #6b7280; text-transform: uppercase;">Message du client</p>
-            <div style="background: #f9fafb; border-left: 3px solid #dc2626; border-radius: 0 8px 8px 0; padding: 16px 20px; margin-bottom: 0;">
+            <div style="background: #f9fafb; border-left: 3px solid #cc0000; border-radius: 0 8px 8px 0; padding: 16px 20px; margin-bottom: 0;">
               <p style="margin: 0; font-size: 15px; color: #374151; line-height: 1.6; white-space: pre-wrap;">${safeMessage}</p>
             </div>` : ''}
 
             <!-- CTA -->
             <div style="text-align: center; padding: 32px 0 36px;">
-              <a href="mailto:${safeEmail}?subject=Re: Votre demande de réservation AR Protect" style="display: inline-block; background: #dc2626; color: #ffffff; font-size: 15px; font-weight: 700; text-decoration: none; padding: 14px 36px; border-radius: 8px; letter-spacing: 0.02em;">Répondre au client</a>
+              <a href="mailto:${safeEmail}?subject=Re: Votre demande de réservation AR Protect" style="display: inline-block; background: #cc0000; color: #ffffff; font-size: 15px; font-weight: 700; text-decoration: none; padding: 14px 36px; border-radius: 8px; letter-spacing: 0.02em;">Répondre au client</a>
             </div>
 
           </td>
@@ -380,7 +380,7 @@ export async function POST(request: Request) {
         <!-- FOOTER -->
         <tr>
           <td style="background: #111827 !important; border-radius: 0 0 12px 12px; padding: 24px 40px; text-align: center;">
-            <p style="margin: 0; font-size: 13px; font-weight: 700; color: #dc2626 !important; letter-spacing: 0.1em; text-transform: uppercase;">AR Protect</p>
+            <p style="margin: 0; font-size: 13px; font-weight: 700; color: #cc0000 !important; letter-spacing: 0.1em; text-transform: uppercase;">AR Protect</p>
             <p style="margin: 6px 0 0; font-size: 12px; color: #9ca3af !important;">Cet email a été généré automatiquement depuis le formulaire de réservation.</p>
           </td>
         </tr>

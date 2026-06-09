@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { X, ZoomIn, ChevronLeft, ChevronRight, Images } from 'lucide-react'
+import { X, ZoomIn, ChevronLeft, ChevronRight, Images, ChevronDown } from 'lucide-react'
 import Image from 'next/image'
 
 type GalleryItem = {
@@ -11,10 +11,10 @@ type GalleryItem = {
   aspect: 'tall' | 'wide' | 'normal'
   gradient: string
   category: string
-  images?: string[] // Chemins vers les vraies photos (optionnel)
+  images?: string[]
 }
 
-const MOBILE_VISIBLE_COUNT = 4
+const INITIAL_VISIBLE = 6
 
 const galleryItems: GalleryItem[] = [
   {
@@ -144,59 +144,59 @@ const galleryItems: GalleryItem[] = [
     gradient: 'linear-gradient(135deg, #0d0d0d, #1a1a1a, #2d2d2d)',
     category: 'full',
     images: [
-      '/gallery/honda-civic/image1.jpeg', 
-    ]
+      '/gallery/honda-civic/image1.jpeg',
+    ],
   },
   {
     id: 11,
-    label: 'Bmw X1 MSport',
+    label: 'BMW X1 MSport',
     aspect: 'normal',
     gradient: 'linear-gradient(135deg, #0d0d0d, #1a1a1a, #2d2d2d)',
     category: 'full',
     images: [
-      '/gallery/bmw-x1-msport/image1.jpeg', 
+      '/gallery/bmw-x1-msport/image1.jpeg',
       '/gallery/bmw-x1-msport/image2.jpeg',
       '/gallery/bmw-x1-msport/image3.jpeg',
       '/gallery/bmw-x1-msport/image4.jpeg',
       '/gallery/bmw-x1-msport/image5.jpeg',
       '/gallery/bmw-x1-msport/image6.jpeg',
-    ]
+    ],
   },
   {
     id: 12,
     label: 'Ferrari SF90 Stradale',
-    aspect: 'normal',
+    aspect: 'wide',
     gradient: 'linear-gradient(135deg, #0d0d0d, #1a1a1a, #2d2d2d)',
     category: 'full',
     images: [
-      '/gallery/ferrari-sf90-stradale/image1.jpeg', 
+      '/gallery/ferrari-sf90-stradale/image1.jpeg',
       '/gallery/ferrari-sf90-stradale/image2.jpeg',
       '/gallery/ferrari-sf90-stradale/image3.jpeg',
       '/gallery/ferrari-sf90-stradale/image4.jpeg',
-    ]
+    ],
   },
   {
     id: 13,
     label: 'Hyundai Tucson',
-    aspect: 'normal',
+    aspect: 'tall',
     gradient: 'linear-gradient(135deg, #0d0d0d, #1a1a1a, #2d2d2d)',
     category: 'full',
     images: [
-      '/gallery/hyundai-tucson/image1.jpeg', 
+      '/gallery/hyundai-tucson/image1.jpeg',
       '/gallery/hyundai-tucson/image2.jpeg',
       '/gallery/hyundai-tucson/image3.jpeg',
       '/gallery/hyundai-tucson/image4.jpeg',
       '/gallery/hyundai-tucson/image5.jpeg',
-    ]
+    ],
   },
   {
     id: 14,
-    label: 'Mercdes Classe S',
+    label: 'Mercedes Classe S',
     aspect: 'normal',
     gradient: 'linear-gradient(135deg, #0d0d0d, #1a1a1a, #2d2d2d)',
     category: 'full',
     images: [
-      '/gallery/mercedes-classe-s/image1.jpeg', 
+      '/gallery/mercedes-classe-s/image1.jpeg',
       '/gallery/mercedes-classe-s/image2.jpeg',
       '/gallery/mercedes-classe-s/image3.jpeg',
       '/gallery/mercedes-classe-s/image4.jpeg',
@@ -206,8 +206,8 @@ const galleryItems: GalleryItem[] = [
       '/gallery/mercedes-classe-s/image8.jpeg',
       '/gallery/mercedes-classe-s/image9.jpeg',
       '/gallery/mercedes-classe-s/image10.jpeg',
-    ]
-  }
+    ],
+  },
 ]
 
 const categories = [
@@ -222,44 +222,49 @@ function GalleryCard({
   onClick,
   index,
   isInView,
-  className = '',
+  isNew,
 }: {
   item: GalleryItem
   onClick: () => void
   index: number
   isInView: boolean
-  className?: string
+  isNew: boolean
 }) {
-  const heightClass =
-    item.aspect === 'tall' ? 'h-72' : item.aspect === 'wide' ? 'h-40' : 'h-52'
   const hasPhotos = item.images && item.images.length > 0
+  const heightClass =
+    item.aspect === 'tall' ? 'h-80' : item.aspect === 'wide' ? 'h-44' : 'h-60'
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={isNew ? { opacity: 0 } : { opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.07 }}
-      className={`masonry-item ${className}`}
+      transition={{
+        duration: isNew ? 0.4 : 0.45,
+        delay: isNew ? (index - INITIAL_VISIBLE) * 0.07 : index * 0.06,
+        ease: 'easeOut',
+      }}
+      className="masonry-item"
     >
       <div
-        className={`relative ${heightClass} overflow-hidden cursor-pointer group border border-ar-border hover:border-ar-red/50 transition-all duration-500`}
+        className={`relative ${heightClass} overflow-hidden cursor-pointer group border border-ar-border hover:border-ar-red/50 transition-all duration-500 bg-[#111111]`}
         onClick={onClick}
-        style={!hasPhotos ? { background: item.gradient } : {}}
+        style={!hasPhotos ? { background: item.gradient } : undefined}
       >
-        {/* Real photo (first image as thumbnail) */}
         {hasPhotos && (
           <Image
             src={item.images![0]}
             alt={item.label}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            priority={index < INITIAL_VISIBLE}
           />
         )}
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-ar-black/20 group-hover:bg-ar-black/50 transition-colors duration-300" />
+        <div className="absolute inset-0 bg-ar-black/10 group-hover:bg-ar-black/50 transition-colors duration-300" />
 
-        {/* Center icon on hover */}
+        {/* Zoom icon on hover */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="w-12 h-12 bg-ar-red/90 flex items-center justify-center">
             <ZoomIn size={20} className="text-white" />
@@ -274,12 +279,11 @@ function GalleryCard({
           </div>
         )}
 
-        {/* Label */}
+        {/* Label on hover */}
         <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-ar-black to-transparent">
           <p className="text-white text-xs font-semibold uppercase tracking-wider">{item.label}</p>
         </div>
 
-        {/* Decorative car silhouette (only without real photo) */}
         {!hasPhotos && (
           <div className="absolute inset-0 flex items-center justify-center opacity-10 text-6xl select-none">
             🚗
@@ -314,7 +318,6 @@ function Lightbox({
     setCurrentIndex((i) => (i + 1) % total)
   }, [total])
 
-  // Keyboard navigation
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -340,17 +343,17 @@ function Lightbox({
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.92, opacity: 0 }}
+        initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.92, opacity: 0 }}
+        exit={{ scale: 0.95, opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="relative w-full max-w-4xl"
+        className="relative w-full max-w-6xl flex flex-col"
+        style={{ maxHeight: 'calc(100vh - 2rem)' }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Image container */}
         <div
-          className={`relative w-full aspect-video border border-ar-border overflow-hidden ${hasPhotos ? 'bg-[#0d0d0d]' : ''}`}
-          style={!hasPhotos ? { background: item.gradient } : undefined}
+          className={`relative w-full overflow-hidden border border-ar-border ${hasPhotos ? 'bg-[#0d0d0d]' : ''}`}
+          style={{ height: 'calc(100vh - 7rem)', ...(hasPhotos ? {} : { background: item.gradient }) }}
         >
           {hasPhotos ? (
             <AnimatePresence mode="wait" custom={direction}>
@@ -377,6 +380,7 @@ function Lightbox({
                   fill
                   className="object-contain"
                   draggable={false}
+                  sizes="(max-width: 1024px) 100vw, 1152px"
                 />
               </motion.div>
             </AnimatePresence>
@@ -392,7 +396,6 @@ function Lightbox({
             </div>
           )}
 
-          {/* Close button */}
           <button
             type="button"
             aria-label="Fermer"
@@ -402,7 +405,6 @@ function Lightbox({
             <X size={18} />
           </button>
 
-          {/* Arrow navigation */}
           {total > 1 && (
             <>
               <button
@@ -425,10 +427,8 @@ function Lightbox({
           )}
         </div>
 
-        {/* Footer: label + dots */}
         <div className="flex items-center justify-between mt-3 px-1">
           <p className="text-white/70 text-xs uppercase tracking-widest">{item.label}</p>
-
           {total > 1 && (
             <div className="flex items-center gap-2">
               {Array.from({ length: total }).map((_, i) => (
@@ -440,8 +440,8 @@ function Lightbox({
                     setDirection(i > currentIndex ? 1 : -1)
                     setCurrentIndex(i)
                   }}
-                  className={`w-1.5 h-1.5 transition-all duration-300 ${
-                    i === currentIndex ? 'bg-ar-red w-4' : 'bg-white/30 hover:bg-white/60'
+                  className={`h-1.5 transition-all duration-300 ${
+                    i === currentIndex ? 'bg-ar-red w-4' : 'bg-white/30 hover:bg-white/60 w-1.5'
                   }`}
                 />
               ))}
@@ -461,13 +461,16 @@ export default function Gallery() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const [activeCategory, setActiveCategory] = useState('all')
   const [lightbox, setLightbox] = useState<GalleryItem | null>(null)
-  const [mobileGalleryExpanded, setMobileGalleryExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(false)
 
   const filtered =
     activeCategory === 'all'
       ? galleryItems
       : galleryItems.filter((i) => i.category === activeCategory)
-  const hasHiddenMobileItems = filtered.length > MOBILE_VISIBLE_COUNT
+
+  const visibleItems = expanded ? filtered : filtered.slice(0, INITIAL_VISIBLE)
+  const hasMore = !expanded && filtered.length > INITIAL_VISIBLE
+  const hiddenCount = filtered.length - INITIAL_VISIBLE
 
   return (
     <section id="galerie" ref={ref} className="section-padding bg-ar-black relative overflow-hidden">
@@ -477,7 +480,7 @@ export default function Gallery() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
           <span className="text-ar-red text-xs uppercase tracking-[0.3em] font-semibold mb-4 block">
             Portfolio
@@ -496,14 +499,15 @@ export default function Gallery() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex flex-wrap justify-center gap-2 mb-12"
+          className="flex flex-wrap justify-center gap-2 mb-6"
         >
           {categories.map((cat) => (
             <button
+              type="button"
               key={cat.id}
               onClick={() => {
                 setActiveCategory(cat.id)
-                setMobileGalleryExpanded(false)
+                setExpanded(false)
               }}
               className={`px-5 py-2 text-xs uppercase tracking-widest font-semibold transition-all duration-300 ${
                 activeCategory === cat.id
@@ -518,28 +522,51 @@ export default function Gallery() {
 
         {/* Masonry grid */}
         <div className="masonry-grid">
-          {filtered.map((item, i) => (
+          {visibleItems.map((item, i) => (
             <GalleryCard
               key={item.id}
               item={item}
               onClick={() => setLightbox(item)}
               index={i}
               isInView={isInView}
-              className={!mobileGalleryExpanded && i >= MOBILE_VISIBLE_COUNT ? 'hidden sm:block' : ''}
+              isNew={expanded && i >= INITIAL_VISIBLE}
             />
           ))}
         </div>
 
-        {hasHiddenMobileItems && (
-          <div className="mt-8 flex justify-center sm:hidden">
+        {/* Voir plus / Afficher moins */}
+        {filtered.length > INITIAL_VISIBLE && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-6 flex justify-center"
+          >
             <button
               type="button"
-              onClick={() => setMobileGalleryExpanded((expanded) => !expanded)}
-              className="min-h-11 border border-ar-border px-5 py-3 text-xs font-semibold uppercase tracking-widest text-white/70 transition-all duration-300 hover:border-ar-red/60 hover:text-white"
+              onClick={() => setExpanded((v) => !v)}
+              className="group flex items-center gap-3 border border-ar-border px-8 py-3 text-xs font-semibold uppercase tracking-widest text-white/70 transition-all duration-300 hover:border-ar-red/60 hover:text-white hover:bg-ar-red/5"
             >
-              {mobileGalleryExpanded ? 'Réduire' : `Afficher en plus (${filtered.length - MOBILE_VISIBLE_COUNT})`}
+              {expanded ? (
+                <>
+                  <span>Afficher moins</span>
+                  <ChevronDown
+                    size={14}
+                    className="text-white/50 group-hover:text-white rotate-180 transition-all duration-300"
+                  />
+                </>
+              ) : (
+                <>
+                  <span>Voir plus</span>
+                  <span className="text-white/35 font-normal">+{hiddenCount}</span>
+                  <ChevronDown
+                    size={14}
+                    className="text-white/50 group-hover:text-white group-hover:translate-y-0.5 transition-all duration-300"
+                  />
+                </>
+              )}
             </button>
-          </div>
+          </motion.div>
         )}
       </div>
 

@@ -212,15 +212,16 @@ const services: Service[] = [
     title: 'SHAMPOING SIÈGES',
     subtitle: 'HYGIÈNE PLUS',
     description:
-      "Élimine les taches tenaces, les odeurs et les bactéries. Redonnez de la fraîcheur et une hygiène saine à vos tissus de sièges.",
+      "Élimine les taches tenaces, les odeurs légères et les bactéries. Redonnez de la fraîcheur et une hygiène saine à vos tissus de sièges.",
     features: ['Application mousse active', 'Lessivage en profondeur', 'Traitement vapeur antibactérien', 'Élimination des odeurs'],
     price: '69€ TTC',
     modalDescription:
       'Une intervention ciblée sur vos tissus pour éliminer les taches tenaces et les odeurs persistantes.',
     process: [
-      { step: '1', label: 'Aspiration & Mousse', desc: "Aspiration des sièges et application d'une mousse active." },
-      { step: '2', label: 'Lessivage Mécanique', desc: 'Lessivage mécanique des fibres.' },
-      { step: '3', label: 'Traitement Vapeur', desc: 'Traitement vapeur antibactérien pour une fraîcheur durable.' },
+      { step: '1', label: 'Aspiration minutieuse', desc: "Aspiration des sièges." },
+      { step: '2', label: 'Application mousse active', desc: 'Application de la mousse active pour un nettoyage approfondi.' },
+      { step: '3', label: 'Lessivage en profondeur', desc: 'Lessivage en profondeur des fibres.' },
+      { step: '4', label: 'Traitement vapeur antibactérien', desc: 'Traitement vapeur antibactérien pour une fraîcheur durable.' },
     ],
   },
 ]
@@ -638,23 +639,18 @@ export default function Services() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-16 md:mb-20"
+          className="mb-10 md:mb-14"
         >
           <span className="text-ar-red text-xs uppercase tracking-[0.3em] font-semibold mb-4 block">
             Nos expertises
           </span>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tight text-white leading-none">
-              Nos <br className="hidden md:block" />
-              <span className="text-gradient-red">Services</span>
-            </h2>
-            <div className="flex flex-col gap-4 items-start md:items-end">
-              <p className="text-white/50 max-w-sm text-sm leading-relaxed">
-                Chaque prestation est réalisée avec des produits professionnels et des techniques
-                éprouvées pour des résultats irréprochables.
-              </p>
-            </div>
-          </div>
+          <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tight text-white leading-none mb-4">
+            Nos <span className="text-gradient-red">Services</span>
+          </h2>
+          <p className="text-white/50 max-w-sm text-sm leading-relaxed">
+            Chaque prestation est réalisée avec des produits professionnels et des techniques
+            éprouvées pour des résultats irréprochables.
+          </p>
         </motion.div>
 
         {/* Carousel — desktop: shows 4, scrolls to reveal 2 more — mobile: all scroll */}
@@ -740,7 +736,7 @@ export default function Services() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center mt-14"
+          className="text-center mt-8"
         >
           <p className="text-white/40 text-sm mb-5">
             Vous ne savez pas quelle prestation choisir ?

@@ -27,8 +27,8 @@ export default function Footer() {
   return (
     <footer className="bg-ar-black border-t border-ar-border">
       {/* Main footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
@@ -42,8 +42,8 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs mb-6">
-              L&apos;excellence du detailing automobile haut de gamme. Chaque véhicule mérite un
-              traitement d&apos;exception — nous sommes là pour ça.
+              L&apos;excellence du detailing automobile à domicile. Chaque véhicule mérite un
+              traitement d&apos;exception, nous sommes là pour ça.
             </p>
 
             {/* Social */}
@@ -116,7 +116,7 @@ export default function Footer() {
                   className="flex items-start gap-3 text-white/50 hover:text-white transition-colors duration-200"
                 >
                   <Mail size={14} className="mt-0.5 text-ar-red flex-shrink-0" />
-                  <span className="text-sm">arprotect77@gmail.com</span>
+                  <span className="text-sm">contact@arprotect.fr</span>
                 </a>
               </li>
               <li className="flex items-start gap-3 text-white/50 hover:text-white transition-colors duration-200">

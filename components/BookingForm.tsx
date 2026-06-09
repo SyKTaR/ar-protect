@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Car, Wrench, User, CheckCircle, ChevronRight, ChevronLeft, FileText, X, Edit2, ClipboardList } from 'lucide-react'
+import { Car, Wrench, User, CheckCircle, ChevronRight, ChevronLeft, ChevronDown, FileText, X, Edit2, ClipboardList } from 'lucide-react'
 
 const vehicleTypes = [
   { id: 'citadine', label: 'Citadine', desc: 'Clio, 208, Fiesta...' },
@@ -42,6 +42,10 @@ type FormData = {
   leatherUvTreatment: string
   exteriorWash: string
   vehicleEmptied: string
+  extraAnimalHair: string
+  extraSand: string
+  extraOzone: string
+  extraChildSeatCount: string
 }
 
 const emptyForm: FormData = {
@@ -62,6 +66,10 @@ const emptyForm: FormData = {
   leatherUvTreatment: '',
   exteriorWash: '',
   vehicleEmptied: '',
+  extraAnimalHair: '',
+  extraSand: '',
+  extraOzone: '',
+  extraChildSeatCount: '',
 }
 
 const getInteriorBasePrice = (vehicle: string) => {
@@ -143,12 +151,18 @@ const interiorQuestions = [
   },
 ]
 
-const getPriceLabel = (price: number) => (price > 0 ? `+${price}€` : 'Inclus')
 
 const MAX_ATTACHMENT_FILES = 5
 const MAX_ATTACHMENT_SIZE = 15 * 1024 * 1024
 const MIN_BOOKING_HOUR = 9
 const MAX_BOOKING_HOUR = 18
+
+const timeSlots = Array.from({ length: (MAX_BOOKING_HOUR - MIN_BOOKING_HOUR) * 2 + 1 }, (_, i) => {
+  const totalMinutes = MIN_BOOKING_HOUR * 60 + i * 30
+  const h = String(Math.floor(totalMinutes / 60)).padStart(2, '0')
+  const m = String(totalMinutes % 60).padStart(2, '0')
+  return `${h}:${m}`
+})
 
 const toDateInputValue = (date: Date) => {
   const year = date.getFullYear()
@@ -227,10 +241,20 @@ const getInteriorEstimate = (data: FormData) => {
 
   const optionsTotal = options.reduce((total, item) => total + item.price, 0)
 
+  const extras: { label: string; price: number }[] = []
+  if (data.extraAnimalHair === 'oui') extras.push({ label: "Poils d'animaux dans l'habitacle", price: 20 })
+  if (data.extraSand === 'oui') extras.push({ label: "Sable dans l'habitacle", price: 20 })
+  if (data.extraOzone === 'oui') extras.push({ label: 'Traitement ozone', price: 40 })
+  const childSeatCount = parseInt(data.extraChildSeatCount || '0', 10)
+  if (childSeatCount > 0) extras.push({ label: `Shampoing siège auto ×${childSeatCount}`, price: childSeatCount * 10 })
+
+  const extrasTotal = extras.reduce((total, item) => total + item.price, 0)
+
   return {
     basePrice,
     options,
-    total: basePrice + optionsTotal,
+    extras,
+    total: basePrice + optionsTotal + extrasTotal,
   }
 }
 
@@ -247,6 +271,7 @@ export default function BookingForm() {
   const [interiorSubStep, setInteriorSubStep] = useState(0)
   const [attachments, setAttachments] = useState<File[]>([])
   const [attachmentError, setAttachmentError] = useState('')
+  const [showOptionsDetail, setShowOptionsDetail] = useState(false)
 
   const dynamicSteps = [
     { id: 1, label: 'Véhicule', icon: Car },
@@ -330,6 +355,16 @@ export default function BookingForm() {
     setStep(s)
   }
 
+  const handleStepClick = (stepId: number) => {
+    if (stepId === 2.5) {
+      setShowSummary(false)
+      setStep(2)
+      setInteriorSubStep(interiorEstimateStep)
+    } else {
+      goEditStep(stepId)
+    }
+  }
+
   const handleAttachmentChange = (files: FileList | null) => {
     const nextFiles = Array.from(files ?? [])
     const validationError = validateAttachments(nextFiles)
@@ -386,7 +421,7 @@ export default function BookingForm() {
     oui: 'Oui, préparation complète', non: "Non, seulement l'intérieur",
   }
   const vehicleEmptiedLabel: Record<string, string> = {
-    oui: 'Oui', non: 'Non (+10€ TTC)',
+    oui: 'Oui', non: 'Non',
   }
 
   return (
@@ -521,27 +556,11 @@ export default function BookingForm() {
                 </a>
                 <br />
                 <a
-                  href="mailto:arprotect@gmail.com"
+                  href="mailto:contact@arprotect.fr"
                   className="text-white/50 text-sm hover:text-ar-red transition-colors duration-200"
                 >
-                  arprotect77@gmail.com
+                  contact@arprotect.fr
                 </a>
-                <div className="mt-4 pt-4 border-t border-ar-border/50">
-                  <a
-                    href="https://wa.me/33636230807"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 bg-[#25D366]/10 border border-[#25D366]/30 hover:border-[#25D366]/70 text-[#25D366] hover:bg-[#25D366]/20 text-xs font-semibold px-4 py-2.5 transition-all duration-200"
-                  >
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                    </svg>
-                    WhatsApp
-                  </a>
-                  <p className="text-white/30 text-xs mt-2">
-                    Vous êtes professionnels de l’automobile ou vous possédez une flotte de véhicules ? Contactez-nous dès maintenant pour découvrir nos avantages professionnels
-                  </p>
-                </div>
               </div>
             </motion.div>
 
@@ -580,30 +599,39 @@ export default function BookingForm() {
                         const isDone = s.id < currentStep
                         return (
                           <div key={s.id} className="flex items-center flex-1 min-w-0">
-                            <div className="flex flex-col items-center gap-1 flex-shrink-0">
-                              <div
-                                className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center transition-all duration-300 ${
-                                  isActive
-                                    ? 'bg-ar-red text-white'
-                                    : isDone
-                                    ? 'bg-ar-red/30 text-ar-red border border-ar-red/50'
-                                    : 'bg-ar-anthracite text-white/30 border border-ar-border'
-                                }`}
+                            {isDone ? (
+                              <button
+                                type="button"
+                                onClick={() => handleStepClick(s.id)}
+                                className="flex flex-col items-center gap-1 flex-shrink-0 group"
                               >
-                                {isDone ? (
+                                <div className="w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center transition-all duration-300 bg-ar-red/30 text-ar-red border border-ar-red/50 group-hover:bg-ar-red group-hover:text-white">
                                   <CheckCircle size={13} />
-                                ) : (
+                                </div>
+                                <span className="hidden sm:block text-[9px] sm:text-[10px] uppercase tracking-wide sm:tracking-widest whitespace-nowrap text-ar-red/70 group-hover:text-white/70 transition-colors">
+                                  {s.label}
+                                </span>
+                              </button>
+                            ) : (
+                              <div className="flex flex-col items-center gap-1 flex-shrink-0">
+                                <div
+                                  className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center transition-all duration-300 ${
+                                    isActive
+                                      ? 'bg-ar-red text-white'
+                                      : 'bg-ar-anthracite text-white/30 border border-ar-border'
+                                  }`}
+                                >
                                   <Icon size={13} />
-                                )}
+                                </div>
+                                <span
+                                  className={`hidden sm:block text-[9px] sm:text-[10px] uppercase tracking-wide sm:tracking-widest whitespace-nowrap ${
+                                    isActive ? 'text-white' : 'text-white/20'
+                                  }`}
+                                >
+                                  {s.label}
+                                </span>
                               </div>
-                              <span
-                                className={`hidden sm:block text-[9px] sm:text-[10px] uppercase tracking-wide sm:tracking-widest whitespace-nowrap ${
-                                  isActive ? 'text-white' : isDone ? 'text-ar-red/70' : 'text-white/20'
-                                }`}
-                              >
-                                {s.label}
-                              </span>
-                            </div>
+                            )}
                             {i < dynamicSteps.length - 1 && (
                               <div
                                 className={`flex-1 h-px mx-1 sm:mx-2 sm:mb-5 transition-colors duration-500 ${
@@ -710,6 +738,17 @@ export default function BookingForm() {
                                       <span className="text-white/40">Véhicule vidé :</span>
                                       <span className="text-white/70">{vehicleEmptiedLabel[formData.vehicleEmptied]}</span>
                                     </div>
+                                  )}
+                                  {interiorEstimate.extras.length > 0 && (
+                                    <>
+                                      <p className="text-white/25 text-[10px] uppercase tracking-widest pt-2">Options supplémentaires</p>
+                                      {interiorEstimate.extras.map((extra) => (
+                                        <div key={extra.label} className="flex gap-2 text-xs">
+                                          <span className="text-white/40">{extra.label} :</span>
+                                          <span className="text-white/70">+{extra.price}€</span>
+                                        </div>
+                                      ))}
+                                    </>
                                   )}
                                   <div className="flex items-center justify-between gap-3 pt-2 mt-2 border-t border-ar-border/50">
                                     <span className="text-white/45 text-xs uppercase tracking-widest">Tarif estimé</span>
@@ -955,33 +994,26 @@ export default function BookingForm() {
                                     {current.options.map((opt) => (
                                       <label
                                         key={opt.value}
-                                        className={`flex items-center justify-between gap-3 p-3.5 border cursor-pointer transition-all duration-200 ${
+                                        className={`flex items-center gap-3 p-3.5 border cursor-pointer transition-all duration-200 ${
                                           formData[current.key] === opt.value
                                             ? 'border-ar-red bg-ar-red/10'
                                             : 'border-ar-border hover:border-white/20'
                                         }`}
                                       >
-                                        <div className="flex items-center gap-3 min-w-0">
-                                          <input
-                                            type="radio"
-                                            name={current.key}
-                                            value={opt.value}
-                                            className="sr-only"
-                                            onChange={() => {
-                                              setFormData((f) => ({ ...f, [current.key]: opt.value }))
-                                              setTimeout(handleNext, 200)
-                                            }}
-                                          />
-                                          <div className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 ${formData[current.key] === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
-                                            {formData[current.key] === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
-                                          </div>
-                                          <span className="text-white/80 text-sm leading-tight">{opt.label}</span>
+                                        <input
+                                          type="radio"
+                                          name={current.key}
+                                          value={opt.value}
+                                          className="sr-only"
+                                          onChange={() => {
+                                            setFormData((f) => ({ ...f, [current.key]: opt.value }))
+                                            setTimeout(handleNext, 200)
+                                          }}
+                                        />
+                                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 ${formData[current.key] === opt.value ? 'border-ar-red' : 'border-white/30'}`}>
+                                          {formData[current.key] === opt.value && <div className="w-2 h-2 rounded-full bg-ar-red" />}
                                         </div>
-                                        <span className={`text-xs font-semibold flex-shrink-0 ${
-                                          opt.price > 0 ? 'text-ar-red' : 'text-white/35'
-                                        }`}>
-                                          {getPriceLabel(opt.price)}
-                                        </span>
+                                        <span className="text-white/80 text-sm leading-tight">{opt.label}</span>
                                       </label>
                                     ))}
                                   </div>
@@ -1026,30 +1058,140 @@ export default function BookingForm() {
                                   </div>
                                 </div>
 
-                                <div className="space-y-2">
-                                  <div className="flex items-center justify-between gap-3 border border-ar-border p-3">
-                                    <div className="min-w-0">
-                                      <p className="text-white/80 text-sm">Base nettoyage intérieur</p>
-                                      <p className="text-white/35 text-xs">Prestation à partir de</p>
-                                    </div>
-                                    <span className="text-white text-sm font-semibold flex-shrink-0">
-                                      {interiorEstimate.basePrice}€
-                                    </span>
-                                  </div>
-
-                                  {interiorEstimate.options.map((item) => (
-                                    <div key={`${item.label}-${item.value}`} className="flex items-center justify-between gap-3 border border-ar-border p-3">
-                                      <div className="min-w-0">
-                                        <p className="text-white/80 text-sm leading-tight">{item.label}</p>
-                                        <p className="text-white/35 text-xs mt-0.5">{item.value}</p>
+                                {/* Collapsible options detail */}
+                                <button
+                                  type="button"
+                                  onClick={() => setShowOptionsDetail((v) => !v)}
+                                  className="w-full flex items-center justify-between px-3 py-2.5 border border-ar-border hover:border-white/30 transition-colors duration-200 mb-1"
+                                >
+                                  <span className="text-white/50 text-[10px] uppercase tracking-widest">
+                                    Détail des options ({interiorEstimate.options.length})
+                                  </span>
+                                  <ChevronDown
+                                    size={14}
+                                    className={`text-white/40 transition-transform duration-200 ${showOptionsDetail ? 'rotate-180' : ''}`}
+                                  />
+                                </button>
+                                <AnimatePresence>
+                                  {showOptionsDetail && (
+                                    <motion.div
+                                      key="options-detail"
+                                      initial={{ opacity: 0, height: 0 }}
+                                      animate={{ opacity: 1, height: 'auto' }}
+                                      exit={{ opacity: 0, height: 0 }}
+                                      transition={{ duration: 0.2 }}
+                                      className="overflow-hidden"
+                                    >
+                                      <div className="space-y-px mb-3">
+                                        {interiorEstimate.options.map((item) => (
+                                          <div key={`${item.label}-${item.value}`} className="flex items-center justify-between gap-3 border border-ar-border p-3">
+                                            <span className="text-white/50 text-xs">{item.label}</span>
+                                            <span className="text-white/80 text-xs font-medium">{item.value}</span>
+                                          </div>
+                                        ))}
                                       </div>
-                                      <span className={`text-sm font-semibold flex-shrink-0 ${
-                                        item.price > 0 ? 'text-ar-red' : 'text-white/35'
-                                      }`}>
-                                        {getPriceLabel(item.price)}
-                                      </span>
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+
+                                {/* Options supplémentaires */}
+                                <div className="mt-5">
+                                  <p className="text-white/40 text-[10px] uppercase tracking-widest mb-3">
+                                    Options supplémentaires
+                                  </p>
+                                  <div className="space-y-2">
+                                    {/* Poils d'animaux */}
+                                    <label className={`flex items-center justify-between gap-3 p-3 border cursor-pointer transition-all duration-200 ${formData.extraAnimalHair === 'oui' ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
+                                      <div className="flex items-center gap-3">
+                                        <input
+                                          type="checkbox"
+                                          className="sr-only"
+                                          checked={formData.extraAnimalHair === 'oui'}
+                                          onChange={() => setFormData((f) => ({ ...f, extraAnimalHair: f.extraAnimalHair === 'oui' ? '' : 'oui' }))}
+                                        />
+                                        <div className={`w-4 h-4 border flex items-center justify-center flex-shrink-0 transition-all ${formData.extraAnimalHair === 'oui' ? 'border-ar-red bg-ar-red' : 'border-white/30'}`}>
+                                          {formData.extraAnimalHair === 'oui' && (
+                                            <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                                          )}
+                                        </div>
+                                        <span className="text-white/80 text-xs leading-tight">Poils d&apos;animaux dans l&apos;habitacle</span>
+                                      </div>
+                                      <span className="text-ar-red text-xs font-semibold flex-shrink-0">+20€</span>
+                                    </label>
+
+                                    {/* Sable */}
+                                    <label className={`flex items-center justify-between gap-3 p-3 border cursor-pointer transition-all duration-200 ${formData.extraSand === 'oui' ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
+                                      <div className="flex items-center gap-3">
+                                        <input
+                                          type="checkbox"
+                                          className="sr-only"
+                                          checked={formData.extraSand === 'oui'}
+                                          onChange={() => setFormData((f) => ({ ...f, extraSand: f.extraSand === 'oui' ? '' : 'oui' }))}
+                                        />
+                                        <div className={`w-4 h-4 border flex items-center justify-center flex-shrink-0 transition-all ${formData.extraSand === 'oui' ? 'border-ar-red bg-ar-red' : 'border-white/30'}`}>
+                                          {formData.extraSand === 'oui' && (
+                                            <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                                          )}
+                                        </div>
+                                        <span className="text-white/80 text-xs leading-tight">Sable dans l&apos;habitacle</span>
+                                      </div>
+                                      <span className="text-ar-red text-xs font-semibold flex-shrink-0">+20€</span>
+                                    </label>
+
+                                    {/* Traitement ozone */}
+                                    <label className={`flex items-center justify-between gap-3 p-3 border cursor-pointer transition-all duration-200 ${formData.extraOzone === 'oui' ? 'border-ar-red bg-ar-red/10' : 'border-ar-border hover:border-white/20'}`}>
+                                      <div className="flex items-center gap-3">
+                                        <input
+                                          type="checkbox"
+                                          className="sr-only"
+                                          checked={formData.extraOzone === 'oui'}
+                                          onChange={() => setFormData((f) => ({ ...f, extraOzone: f.extraOzone === 'oui' ? '' : 'oui' }))}
+                                        />
+                                        <div className={`w-4 h-4 border flex items-center justify-center flex-shrink-0 transition-all ${formData.extraOzone === 'oui' ? 'border-ar-red bg-ar-red' : 'border-white/30'}`}>
+                                          {formData.extraOzone === 'oui' && (
+                                            <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                                          )}
+                                        </div>
+                                        <span className="text-white/80 text-xs leading-tight">Traitement ozone</span>
+                                      </div>
+                                      <span className="text-ar-red text-xs font-semibold flex-shrink-0">+40€</span>
+                                    </label>
+
+                                    {/* Shampoing siège auto enfant */}
+                                    <div className={`p-3 border transition-all duration-200 ${parseInt(formData.extraChildSeatCount || '0') > 0 ? 'border-ar-red bg-ar-red/10' : 'border-ar-border'}`}>
+                                      <div className="flex items-center justify-between gap-3 mb-2">
+                                        <span className="text-white/80 text-xs leading-tight">Shampoing siège auto enfant</span>
+                                        <span className="text-ar-red text-xs font-semibold flex-shrink-0">+10€/siège</span>
+                                      </div>
+                                      <div className="flex items-center gap-3">
+                                        <button
+                                          type="button"
+                                          onClick={() => {
+                                            const count = Math.max(0, parseInt(formData.extraChildSeatCount || '0') - 1)
+                                            setFormData((f) => ({ ...f, extraChildSeatCount: count > 0 ? String(count) : '' }))
+                                          }}
+                                          className="w-7 h-7 border border-ar-border hover:border-white/30 flex items-center justify-center text-white/60 hover:text-white transition-colors text-base leading-none"
+                                        >
+                                          −
+                                        </button>
+                                        <span className="text-white/70 text-xs min-w-[64px] text-center">
+                                          {parseInt(formData.extraChildSeatCount || '0') === 0
+                                            ? 'Aucun'
+                                            : `${formData.extraChildSeatCount} siège${parseInt(formData.extraChildSeatCount) > 1 ? 's' : ''}`}
+                                        </span>
+                                        <button
+                                          type="button"
+                                          onClick={() => {
+                                            const count = Math.min(4, parseInt(formData.extraChildSeatCount || '0') + 1)
+                                            setFormData((f) => ({ ...f, extraChildSeatCount: String(count) }))
+                                          }}
+                                          className="w-7 h-7 border border-ar-border hover:border-white/30 flex items-center justify-center text-white/60 hover:text-white transition-colors text-base leading-none"
+                                        >
+                                          +
+                                        </button>
+                                      </div>
                                     </div>
-                                  ))}
+                                  </div>
                                 </div>
                               </motion.div>
                             )}
@@ -1134,7 +1276,7 @@ export default function BookingForm() {
                                 </div>
                                 <div>
                                   <label className="text-white/50 text-xs uppercase tracking-widest block mb-1.5">
-                                    Lieu du rendez-vous *
+                                    Adresse du rendez-vous *
                                   </label>
                                   <input
                                     type="text"
@@ -1144,8 +1286,11 @@ export default function BookingForm() {
                                       setFormData((f) => ({ ...f, appointmentLocation: e.target.value }))
                                     }
                                     className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-ar-red transition-colors duration-200"
-                                    placeholder="Adresse ou ville du rendez-vous"
+                                    placeholder="Ex : 12 rue de la Paix, 77000 Melun"
                                   />
+                                  <p className="text-white/30 text-xs mt-1.5">
+                                    Indiquez l&apos;adresse complète où vous souhaitez que nous intervenions (domicile, lieu de travail, parking…)
+                                  </p>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                   <div>
@@ -1159,9 +1304,18 @@ export default function BookingForm() {
                                       title="Date souhaitée"
                                       min={minBookingDate}
                                       value={formData.date}
-                                      onChange={(e) =>
-                                        setFormData((f) => ({ ...f, date: e.target.value }))
-                                      }
+                                      onChange={(e) => {
+                                        const val = e.target.value
+                                        if (val) {
+                                          const d = new Date(`${val}T12:00:00`)
+                                          if (d.getDay() === 0) {
+                                            d.setDate(d.getDate() + 1)
+                                            setFormData((f) => ({ ...f, date: toDateInputValue(d) }))
+                                            return
+                                          }
+                                        }
+                                        setFormData((f) => ({ ...f, date: val }))
+                                      }}
                                       className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm focus:outline-none focus:border-ar-red transition-colors duration-200 [color-scheme:dark]"
                                     />
                                   </div>
@@ -1169,20 +1323,22 @@ export default function BookingForm() {
                                     <label htmlFor="booking-time" className="text-white/50 text-xs uppercase tracking-widest block mb-1.5">
                                       Heure souhaitée *
                                     </label>
-                                    <input
+                                    <select
                                       id="booking-time"
-                                      type="time"
                                       required
-                                      min="09:00"
-                                      max="18:00"
-                                      step={1800}
-                                      title="Heure souhaitée"
                                       value={formData.time}
                                       onChange={(e) =>
                                         setFormData((f) => ({ ...f, time: e.target.value }))
                                       }
-                                      className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm focus:outline-none focus:border-ar-red transition-colors duration-200 [color-scheme:dark]"
-                                    />
+                                      className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm focus:outline-none focus:border-ar-red transition-colors duration-200 appearance-none cursor-pointer"
+                                    >
+                                      <option value="" disabled className="text-white/30">Choisir un créneau</option>
+                                      {timeSlots.map((slot) => (
+                                        <option key={slot} value={slot} className="bg-ar-anthracite text-white">
+                                          {slot}
+                                        </option>
+                                      ))}
+                                    </select>
                                   </div>
                                 </div>
                                 <p className={`text-xs leading-relaxed ${appointmentValidationError ? 'text-red-400' : 'text-white/35'}`}>
