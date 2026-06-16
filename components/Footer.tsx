@@ -32,9 +32,9 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <div className="relative w-14 h-14">
+              <div className="relative w-20 h-20">
                 <Image
-                  src="/arprotect_logo.jpg"
+                  src="/logo-ar-blanc.png"
                   alt="AR Protect"
                   fill
                   className="object-contain"

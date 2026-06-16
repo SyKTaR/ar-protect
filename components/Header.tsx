@@ -71,7 +71,7 @@ export default function Header() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <a href={resolveHref('#')} className="flex items-center gap-3 group">
-              <div className="relative w-12 h-12 transition-transform duration-300 group-hover:scale-105">
+              <div className="relative w-20 h-20 transition-transform duration-300 group-hover:scale-105">
                 <Image
                   src="/logo-ar-blanc.png"
                   alt="AR Protect Logo"
