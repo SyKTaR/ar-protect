@@ -27,7 +27,7 @@ const nextConfig = {
               "img-src 'self' data: blob:",
               "font-src 'self'",
               "media-src 'self'",
-              "connect-src 'self'",
+              "connect-src 'self' https://usebasin.com",
               "frame-ancestors 'none'",
             ].join('; '),
           },

@@ -18,7 +18,7 @@ const serviceOptions = [
   { id: 'full', label: 'Full Detail (Int + Ext.)', price: 'Dès 149€ TTC' },
   { id: 'shampoing', label: 'Shampoing des sièges', price: 'Dès 69€ TTC' },
   { id: 'cuirs', label: 'Soin des cuirs', price: '179€ TTC' },
-  { id: 'optiques', label: 'Renovations des optiques', price: 'Dès 49€ TTC' },
+  { id: 'optiques', label: 'Rénovation des optiques', price: 'Dès 49€ TTC' },
   { id: 'lustrage', label: 'Lustrage', price: 'Sur devis' },
   { id: 'devis', label: 'Demande de devis personnalisé' },
 ]
@@ -98,9 +98,9 @@ const interiorQuestions = [
     summaryLabel: 'Shampoing sièges',
     question: "Avez-vous besoin d'un shampoing des sièges ?",
     options: [
-      { value: 'non', label: 'Non, pas de tâches', price: 0 },
-      { value: 'quelques', label: 'Oui, quelques tâches', price: 20 },
-      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 30 },
+      { value: 'non', label: 'Non, pas de taches', price: 0 },
+      { value: 'quelques', label: 'Oui, quelques taches', price: 20 },
+      { value: 'encrassees', label: 'Oui, taches encrassées', price: 30 },
     ],
   },
   {
@@ -108,9 +108,9 @@ const interiorQuestions = [
     summaryLabel: 'Shampoing tapis et moquettes',
     question: "Avez-vous besoin d'un shampoing des tapis et moquettes ?",
     options: [
-      { value: 'non', label: 'Non, pas de tâches', price: 0 },
-      { value: 'quelques', label: 'Oui, quelques tâches', price: 20 },
-      { value: 'encrassees', label: 'Oui, tâches encrassées', price: 30 },
+      { value: 'non', label: 'Non, pas de taches', price: 0 },
+      { value: 'quelques', label: 'Oui, quelques taches', price: 20 },
+      { value: 'encrassees', label: 'Oui, taches encrassées', price: 30 },
     ],
   },
   {
@@ -265,6 +265,49 @@ const getInteriorEstimate = (data: FormData) => {
   }
 }
 
+const formatSubmissionDate = (value: string) => {
+  const [year, month, day] = value.split('-')
+  return year && month && day ? `${day}/${month}/${year}` : value
+}
+
+const getInteriorAnswerLabel = (key: keyof FormData, value: string) =>
+  interiorQuestions
+    .find((question) => question.key === key)
+    ?.options.find((option) => option.value === value)?.label ?? value
+
+const getSubmissionEntries = (data: FormData): Array<[string, string]> => {
+  const entries: Array<[string, string]> = [
+    ['Type de véhicule', vehicleTypes.find((vehicle) => vehicle.id === data.vehicle)?.label ?? data.vehicle],
+    ['Prestation souhaitée', serviceOptions.find((service) => service.id === data.service)?.label ?? data.service],
+    ['Nom et prénom', data.name],
+    // Basin utilise ce nom de champ pour identifier l’adresse de réponse.
+    ['email', data.email],
+    ['Numéro de téléphone', data.phone],
+    ['Marque et modèle du véhicule', data.vehicleMakeModel],
+    ['Lieu du rendez-vous', data.appointmentLocation],
+    ['Date souhaitée', formatSubmissionDate(data.date)],
+    ['Heure souhaitée', data.time.replace(':', ' h ')],
+  ]
+
+  if (data.message) entries.push(['Message', data.message])
+
+  if (data.service === 'interieur') {
+    interiorQuestions.forEach((question) => {
+      const value = data[question.key]
+      if (value) entries.push([question.summaryLabel, getInteriorAnswerLabel(question.key, value)])
+    })
+
+    entries.push(
+      ["Présence de poils d’animaux", data.extraAnimalHair === 'oui' ? 'Oui' : 'Non'],
+      ['Présence de sable', data.extraSand === 'oui' ? 'Oui' : 'Non'],
+      ['Traitement à l’ozone', data.extraOzone === 'oui' ? 'Oui' : 'Non'],
+      ['Nombre de sièges auto à nettoyer', data.extraChildSeatCount || '0'],
+    )
+  }
+
+  return entries.filter(([, value]) => value !== '')
+}
+
 export default function BookingForm() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
@@ -325,15 +368,15 @@ export default function BookingForm() {
     setError('')
     try {
       const payload = new globalThis.FormData()
-      Object.entries(formData).forEach(([key, value]) => {
-        payload.append(key, value)
+      getSubmissionEntries(formData).forEach(([label, value]) => {
+        payload.append(label, value)
       })
       attachments.forEach((file) => {
         payload.append('attachments[]', file)
       })
-      payload.append('request_id', requestId)
-      payload.append('source', 'arprotect.fr')
-      payload.append('submitted_at', new Date().toISOString())
+      payload.append('Référence de la demande', requestId)
+      payload.append('Site d’origine', 'arprotect.fr')
+      payload.append('Date d’envoi', new Date().toLocaleString('fr-FR'))
 
       const res = await fetch(BASIN_FORM_ENDPOINT, {
         method: 'POST',
@@ -347,7 +390,13 @@ export default function BookingForm() {
       setSubmitted(true)
       setShowSummary(false)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'La demande n’a pas été transmise. Veuillez réessayer.')
+      setError(
+        err instanceof TypeError
+          ? `Connexion au service d’envoi impossible. Référence : ${requestId}.`
+          : err instanceof Error
+            ? err.message
+            : `La demande n’a pas été transmise. Référence : ${requestId}.`,
+      )
     } finally {
       setSending(false)
     }
@@ -427,7 +476,7 @@ export default function BookingForm() {
     propre: 'Propre', sale: 'Sale', tres_sale: 'Très sale',
   }
   const seatShampoinglabel: Record<string, string> = {
-    non: 'Non, pas de tâches', quelques: 'Oui, quelques tâches', encrassees: 'Oui, tâches encrassées',
+    non: 'Non, pas de taches', quelques: 'Oui, quelques taches', encrassees: 'Oui, taches encrassées',
   }
   const yesNoLabel: Record<string, string> = {
     oui: 'Oui', non: 'Non',
@@ -832,7 +881,7 @@ export default function BookingForm() {
                           {/* Actions */}
                           {error && (
                             <p className="text-red-400 text-xs mt-3 text-center">
-                              {error} Veuillez réessayer ou nous appeler au 06 52 05 89 56.
+                              {error} Veuillez réessayer ou nous appeler au 06 36 23 08 07.
                             </p>
                           )}
                           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-5 pt-4 border-t border-ar-border">
