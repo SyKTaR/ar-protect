@@ -137,3 +137,36 @@ body {
 .hero-radial-glow {
   background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(220,38,38,0.08) 0%, transparent 70%);
 }
+
+/* Bandeau partenaires en boucle continue */
+.partners-marquee {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+.partners-marquee-track {
+  animation: partners-marquee 72s linear infinite;
+  will-change: transform;
+}
+
+@keyframes partners-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners-marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .partners-marquee-track {
+    animation: none;
+  }
+
+  .partners-marquee-track > div[aria-hidden='true'] {
+    display: none;
+  }
+}

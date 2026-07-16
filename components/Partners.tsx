@@ -8,6 +8,7 @@ type Partner = {
   id: number
   name: string
   logo: string | null
+  logoDisplay?: 'volkswagen' | 'skoda'
   url?: string
 }
 
@@ -27,33 +28,47 @@ const partners: Partner[] = [
     name: 'Hygie Meca',
     logo: '/partners/hygie-meca.png',
   },
+  {
+    id: 4,
+    name: 'Volkswagen',
+    logo: '/partners/vw.PNG',
+    logoDisplay: 'volkswagen',
+  },
+  {
+    id: 5,
+    name: 'Škoda',
+    logo: '/partners/skoda.PNG',
+    logoDisplay: 'skoda',
+  },
+  {
+    id: 6,
+    name: 'Jallu-Berthier',
+    logo: '/partners/jallu_berthier.PNG',
+  },
 ]
 
-function PartnerCard({
-  partner,
-  index,
-  isInView,
-}: {
-  partner: Partner
-  index: number
-  isInView: boolean
-}) {
+// Une séquence doit rester plus large que les grands écrans pour éviter tout vide dans la boucle.
+const marqueePartners = Array.from({ length: 3 }, () => partners).flat()
+
+function PartnerCard({ partner }: { partner: Partner }) {
+  const logoClassName =
+    partner.logoDisplay === 'volkswagen'
+      ? 'object-contain w-24 h-24 sm:w-28 sm:h-28 max-w-none max-h-none opacity-80 group-hover:opacity-100 transition-opacity duration-300'
+      : partner.logoDisplay === 'skoda'
+        ? 'object-contain w-48 h-48 sm:w-56 sm:h-56 max-w-none max-h-none opacity-80 group-hover:opacity-100 transition-opacity duration-300'
+        : 'object-contain max-h-full max-w-full w-auto h-auto opacity-80 group-hover:opacity-100 transition-opacity duration-300'
+
   const inner = (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: 0.3 + index * 0.12 }}
-      className="group border border-ar-border hover:border-ar-red/40 transition-all duration-300 bg-ar-dark hover:bg-ar-anthracite rounded-md p-px overflow-hidden"
-    >
+    <div className="group shrink-0 border border-ar-border hover:border-ar-red/40 transition-all duration-300 bg-ar-dark hover:bg-ar-anthracite rounded-md p-px overflow-hidden">
       {/* Zone logo sur fond blanc — accommode les logos avec fond blanc */}
-      <div className="flex items-center justify-center w-56 h-24 bg-white/90 group-hover:bg-white transition-colors duration-300 px-6 py-4 rounded-md">
+      <div className="flex items-center justify-center w-44 h-20 sm:w-56 sm:h-24 bg-white/90 group-hover:bg-white transition-colors duration-300 px-5 py-3 sm:px-6 sm:py-4 rounded-md">
         {partner.logo ? (
           <Image
             src={partner.logo}
             alt={partner.name}
-            width={300}
-            height={120}
-            className="object-contain max-h-full max-w-full w-auto h-auto opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+            width={partner.logoDisplay ? 224 : 300}
+            height={partner.logoDisplay ? 224 : 120}
+            className={logoClassName}
           />
         ) : (
           <span className="font-display font-black text-sm uppercase tracking-widest text-black/40 group-hover:text-black/70 transition-colors duration-300 text-center leading-tight">
@@ -61,7 +76,7 @@ function PartnerCard({
           </span>
         )}
       </div>
-    </motion.div>
+    </div>
   )
 
   return partner.url ? (
@@ -94,10 +109,21 @@ export default function Partners() {
           </h2>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-6">
-          {partners.map((partner, i) => (
-            <PartnerCard key={partner.id} partner={partner} index={i} isInView={isInView} />
-          ))}
+      </div>
+
+      <div className="partners-marquee overflow-hidden" aria-label="Nos partenaires">
+        <div className="partners-marquee-track flex w-max">
+          <div className="flex shrink-0 gap-4 pr-4 sm:gap-6 sm:pr-6">
+            {marqueePartners.map((partner, index) => (
+              <PartnerCard key={`${index}-${partner.id}`} partner={partner} />
+            ))}
+          </div>
+
+          <div className="flex shrink-0 gap-4 pr-4 sm:gap-6 sm:pr-6" aria-hidden="true">
+            {marqueePartners.map((partner, index) => (
+              <PartnerCard key={`duplicate-${index}-${partner.id}`} partner={partner} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
