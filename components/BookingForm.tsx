@@ -153,7 +153,9 @@ const interiorQuestions = [
 
 
 const MAX_ATTACHMENT_FILES = 5
-const MAX_ATTACHMENT_SIZE = 15 * 1024 * 1024
+const MAX_ATTACHMENT_SIZE = 10 * 1024 * 1024
+const MAX_ATTACHMENTS_TOTAL_SIZE = 25 * 1024 * 1024
+const BASIN_FORM_ENDPOINT = 'https://usebasin.com/f/cea15de369b4'
 const MIN_BOOKING_HOUR = 9
 const MAX_BOOKING_HOUR = 18
 
@@ -219,7 +221,12 @@ const validateAttachments = (files: File[]) => {
 
   const oversizedFile = files.find((file) => file.size > MAX_ATTACHMENT_SIZE)
   if (oversizedFile) {
-    return 'Chaque fichier doit faire moins de 15 Mo.'
+    return 'Chaque fichier doit faire moins de 10 Mo.'
+  }
+
+  const totalSize = files.reduce((total, file) => total + file.size, 0)
+  if (totalSize > MAX_ATTACHMENTS_TOTAL_SIZE) {
+    return 'Le poids total des fichiers doit être inférieur à 25 Mo.'
   }
 
   return ''
@@ -266,7 +273,7 @@ export default function BookingForm() {
   const [showWhatsAppModal, setShowWhatsAppModal] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState('')
   const [formData, setFormData] = useState<FormData>(emptyForm)
   const [interiorSubStep, setInteriorSubStep] = useState(0)
   const [attachments, setAttachments] = useState<File[]>([])
@@ -313,26 +320,34 @@ export default function BookingForm() {
 
   const handleSubmit = async () => {
     if (!canGoToSummary) return
+    const requestId = crypto.randomUUID()
     setSending(true)
-    setError(false)
+    setError('')
     try {
       const payload = new globalThis.FormData()
       Object.entries(formData).forEach(([key, value]) => {
         payload.append(key, value)
       })
       attachments.forEach((file) => {
-        payload.append('attachments', file)
+        payload.append('attachments[]', file)
       })
+      payload.append('request_id', requestId)
+      payload.append('source', 'arprotect.fr')
+      payload.append('submitted_at', new Date().toISOString())
 
-      const res = await fetch('/api/contact', {
+      const res = await fetch(BASIN_FORM_ENDPOINT, {
         method: 'POST',
+        headers: { Accept: 'application/json' },
         body: payload,
       })
-      if (!res.ok) throw new Error()
+      const result = await res.json().catch(() => null)
+      if (!res.ok || !result?.success) {
+        throw new Error(`La demande n’a pas été transmise. Référence : ${requestId}.`)
+      }
       setSubmitted(true)
       setShowSummary(false)
-    } catch {
-      setError(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'La demande n’a pas été transmise. Veuillez réessayer.')
     } finally {
       setSending(false)
     }
@@ -345,7 +360,7 @@ export default function BookingForm() {
     setStep(1)
     setInteriorSubStep(0)
     setShowSummary(false)
-    setError(false)
+    setError('')
     setShowWhatsAppModal(true)
   }
 
@@ -817,7 +832,7 @@ export default function BookingForm() {
                           {/* Actions */}
                           {error && (
                             <p className="text-red-400 text-xs mt-3 text-center">
-                              Erreur lors de l&apos;envoi. Veuillez réessayer.
+                              {error} Veuillez réessayer ou nous appeler au 06 52 05 89 56.
                             </p>
                           )}
                           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-5 pt-4 border-t border-ar-border">
@@ -1370,7 +1385,7 @@ export default function BookingForm() {
                                     className="w-full bg-ar-anthracite border border-ar-border px-4 py-3 text-white text-sm file:mr-4 file:border-0 file:bg-ar-red file:px-3 file:py-2 file:text-xs file:font-semibold file:uppercase file:tracking-wider file:text-white focus:outline-none focus:border-ar-red transition-colors duration-200"
                                   />
                                   <p className={`text-xs mt-1.5 ${attachmentError ? 'text-red-400' : 'text-white/35'}`}>
-                                    {attachmentError || `${MAX_ATTACHMENT_FILES} fichiers maximum, photos ou vidéos, 15 Mo par fichier.`}
+                                    {attachmentError || `${MAX_ATTACHMENT_FILES} fichiers maximum, 10 Mo par fichier et 25 Mo au total.`}
                                   </p>
                                 </div>
                               </motion.div>
