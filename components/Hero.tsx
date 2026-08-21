@@ -1,7 +1,9 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowDown, Play } from 'lucide-react'
+import Image from 'next/image'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -17,19 +19,40 @@ interface HeroProps {
 }
 
 export default function Hero({ videoSrc }: HeroProps = {}) {
+  const [videoFailed, setVideoFailed] = useState(false)
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 z-0">
         {videoSrc ? (
-          <video
-            src={videoSrc}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-          />
+          <>
+            {/* Static fallback: shown behind the video, and stays visible if the
+               video fails to load or the user prefers reduced motion. */}
+            <Image
+              src="/avant_ext.png"
+              alt="Véhicule préparé pour un detailing automobile AR Protect"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+            {!videoFailed && (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                poster="/avant_ext.png"
+                aria-hidden="true"
+                onError={() => setVideoFailed(true)}
+                className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
+              >
+                <source src={videoSrc} type="video/mp4" />
+              </video>
+            )}
+          </>
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-neutral-900 via-ar-black to-neutral-950 flex items-center justify-center">
             {/* Decorative geometric lines */}
@@ -72,35 +95,23 @@ export default function Hero({ videoSrc }: HeroProps = {}) {
         >
           <span className="w-1.5 h-1.5 rounded-full bg-ar-red animate-pulse" />
           <span className="text-ar-red text-xs font-semibold uppercase tracking-[0.2em]">
-            DÉPLACEMENT EN ÎLE DE FRANCE
+            DÉPLACEMENT EN ÎLE-DE-FRANCE ET SEINE-ET-MARNE
           </span>
         </motion.div>
 
         {/* Main title */}
-        <motion.h1
-          custom={1}
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-          className="font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] uppercase tracking-tight mb-6"
-        >
-          <span className="block text-white">L&apos;excellence</span>
-          <span className="block text-gradient-red">esthétique</span>
-          <span className="block text-white">pour votre</span>
-          <span className="block text-white/80">véhicule</span>
-        </motion.h1>
+        <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] uppercase tracking-tight mb-6">
+          <span className="block text-white">Detailing automobile</span>
+          <span className="block text-gradient-red">à domicile</span>
+          <span className="block text-white/80">en Île-de-France</span>
+        </h1>
 
         {/* Subtitle */}
-        <motion.p
-          custom={2}
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-          className="max-w-xl mx-auto text-white/60 text-base sm:text-lg font-light leading-relaxed mb-10"
-        >
-          Nettoyage intérieur comme extérieur, soin des cuirs, lustrage éclatant et rénovation de phare miroir. 
-          Un travail de haute précision pour un résultat irréprochable.
-        </motion.p>
+        <p className="max-w-xl mx-auto text-white/60 text-base sm:text-lg font-light leading-relaxed mb-10">
+          Préparation esthétique complète, soin des surfaces, lustrage, traitement céramique et
+          hydrophobe pour une protection idéale. Un savoir-faire précis au service d&apos;un résultat
+          irréprochable.
+        </p>
 
         {/* CTAs */}
         <motion.div
@@ -132,6 +143,7 @@ export default function Hero({ videoSrc }: HeroProps = {}) {
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+          className="text-ar-red"
         >
           <ArrowDown size={16} />
         </motion.div>

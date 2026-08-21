@@ -11,10 +11,9 @@ const WhatsAppIcon = () => (
 )
 
 const perks = [
-  'Tarifs dégressifs',
   'Facturation professionnelle sur devis',
   'Prise en charge dédiée & prioritaire',
-  'Déplacement en Île-de-France inclus',
+  'Plannings flexibles',
 ]
 
 export default function ProSection() {
@@ -22,7 +21,7 @@ export default function ProSection() {
   const isInView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <section ref={ref} className="section-padding bg-ar-black border-t border-ar-border relative overflow-hidden">
+    <section id="pro" ref={ref} className="section-padding bg-ar-black border-t border-ar-border relative overflow-hidden">
       {/* Background grid */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -55,13 +54,10 @@ export default function ProSection() {
               Professionnels
             </span>
             <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tight text-white leading-none mb-6">
-              Garagiste, concessionnaire{' '}
+              <span className="text-gradient-red">Concessionnaire</span>{' '}
               <br className="hidden sm:block" />
               ou flotte de véhicules ?
             </h2>
-            <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-md">
-              Tarifs préférentiels et prise en charge dédiée pour les professionnels de l&apos;automobile.
-            </p>
 
             <ul className="space-y-3.5">
               {perks.map((perk, i) => (
@@ -131,7 +127,7 @@ export default function ProSection() {
               <div className="flex items-start gap-3">
                 <span className="w-1 h-1 rounded-full bg-ar-red flex-shrink-0 mt-2" />
                 <p className="text-white/30 text-xs leading-relaxed">
-                  Garagistes, concessionnaires, loueurs et gestionnaires de flotte, tarifs sur mesure.
+                  Intervention à votre adresse professionnelle du lundi au samedi.
                 </p>
               </div>
             </div>

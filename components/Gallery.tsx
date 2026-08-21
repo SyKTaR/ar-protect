@@ -210,13 +210,6 @@ const galleryItems: GalleryItem[] = [
   },
 ]
 
-const categories = [
-  { id: 'all', label: 'Tout voir' },
-  { id: 'lustrage', label: 'Lustrage' },
-  { id: 'full', label: 'Full Detail' },
-  { id: 'interieur', label: 'Intérieur' },
-]
-
 function GalleryCard({
   item,
   onClick,
@@ -257,7 +250,6 @@ function GalleryCard({
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            priority={index < INITIAL_VISIBLE}
           />
         )}
 
@@ -459,17 +451,12 @@ function Lightbox({
 export default function Gallery() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
-  const [activeCategory, setActiveCategory] = useState('all')
   const [lightbox, setLightbox] = useState<GalleryItem | null>(null)
   const [expanded, setExpanded] = useState(false)
 
-  const filtered =
-    activeCategory === 'all'
-      ? galleryItems
-      : galleryItems.filter((i) => i.category === activeCategory)
+  const filtered = galleryItems
 
   const visibleItems = expanded ? filtered : filtered.slice(0, INITIAL_VISIBLE)
-  const hasMore = !expanded && filtered.length > INITIAL_VISIBLE
   const hiddenCount = filtered.length - INITIAL_VISIBLE
 
   return (
@@ -492,32 +479,6 @@ export default function Gallery() {
             Chaque véhicule raconte une histoire de transformation. Voici quelques-unes de nos
             réalisations récentes.
           </p>
-        </motion.div>
-
-        {/* Category filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex flex-wrap justify-center gap-2 mb-6"
-        >
-          {categories.map((cat) => (
-            <button
-              type="button"
-              key={cat.id}
-              onClick={() => {
-                setActiveCategory(cat.id)
-                setExpanded(false)
-              }}
-              className={`px-5 py-2 text-xs uppercase tracking-widest font-semibold transition-all duration-300 ${
-                activeCategory === cat.id
-                  ? 'bg-ar-red text-white'
-                  : 'border border-ar-border text-white/50 hover:border-ar-red/50 hover:text-white'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
         </motion.div>
 
         {/* Masonry grid */}

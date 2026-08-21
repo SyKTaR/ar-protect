@@ -4,8 +4,15 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Politique de Confidentialité — AR Protect',
+  title: 'Politique de confidentialité',
   description: 'Politique de confidentialité et de traitement des données personnelles du site AR Protect.',
+  alternates: {
+    canonical: 'https://www.arprotect.fr/politique-de-confidentialite',
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
 }
 
 const retentionData = [
@@ -28,7 +35,7 @@ const sections = [
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Siège social</span> 1 rue Georges Méliès, Chevry-Cossigny 77173 — France</li>
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">SIRET</span> 92891664200020</li>
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Responsable</span> Thomas FOURNIER</li>
-          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">E-mail</span> <a href="mailto:arprotect77@gmail.com" className="text-ar-red hover:underline">arprotect77@gmail.com</a></li>
+          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">E-mail</span> <a href="mailto:contact@arprotect.fr" className="text-ar-red hover:underline">contact@arprotect.fr</a></li>
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Téléphone</span> <a href="tel:+33636230807" className="hover:text-white transition-colors">06.36.23.08.07</a></li>
         </ul>
       </div>
@@ -197,7 +204,7 @@ const sections = [
         </ul>
         <div className="mt-4 p-4 border border-ar-border bg-ar-anthracite/50">
           <p className="text-white/80 font-semibold text-xs uppercase tracking-widest mb-2">Pour exercer vos droits</p>
-          <p>Par e-mail : <a href="mailto:arprotect77@gmail.com" className="text-ar-red hover:underline">arprotect77@gmail.com</a></p>
+          <p>Par e-mail : <a href="mailto:contact@arprotect.fr" className="text-ar-red hover:underline">contact@arprotect.fr</a></p>
           <p>Par courrier : AR PROTECT — 1 rue Georges Méliès, Chevry-Cossigny 77173 - France</p>
           <p className="mt-2 text-white/40 text-xs">Une réponse sera apportée dans un délai maximum de 30 jours.</p>
         </div>
@@ -283,7 +290,7 @@ const sections = [
     title: 'Réclamations',
     content: (
       <div className="text-white/65 text-sm leading-relaxed space-y-3">
-        <p>Si l&apos;utilisateur estime que ses droits ne sont pas respectés, il peut adresser une réclamation directement à AR PROTECT via <a href="mailto:arprotect77@gmail.com" className="text-ar-red hover:underline">arprotect77@gmail.com</a>.</p>
+        <p>Si l&apos;utilisateur estime que ses droits ne sont pas respectés, il peut adresser une réclamation directement à AR PROTECT via <a href="mailto:contact@arprotect.fr" className="text-ar-red hover:underline">contact@arprotect.fr</a>.</p>
         <p>En cas de désaccord persistant, il dispose également du droit d&apos;introduire une réclamation auprès de l&apos;autorité de contrôle compétente :</p>
         <div className="p-4 border border-ar-border bg-ar-anthracite/50">
           <p className="text-white/80 font-semibold">CNIL — Commission Nationale de l&apos;Informatique et des Libertés</p>
@@ -312,7 +319,7 @@ const sections = [
         <ul className="space-y-1.5">
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Adresse</span> 1 rue Georges Méliès, Chevry-Cossigny 77173 — France</li>
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Téléphone</span> <a href="tel:+33636230807" className="hover:text-white transition-colors">06.36.23.08.07</a></li>
-          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">E-mail</span> <a href="mailto:arprotect77@gmail.com" className="text-ar-red hover:underline">arprotect77@gmail.com</a></li>
+          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">E-mail</span> <a href="mailto:contact@arprotect.fr" className="text-ar-red hover:underline">contact@arprotect.fr</a></li>
         </ul>
       </div>
     ),

@@ -6,6 +6,16 @@ const nextConfig = {
   images: {
     domains: [],
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'arprotect.fr' }],
+        destination: 'https://www.arprotect.fr/:path*',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {

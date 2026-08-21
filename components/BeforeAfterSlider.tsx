@@ -124,7 +124,6 @@ export default function BeforeAfterSlider() {
                 fill
                 className="object-cover pointer-events-none"
                 draggable={false}
-                priority
               />
               {/* After label */}
               <div
@@ -149,7 +148,6 @@ export default function BeforeAfterSlider() {
                   fill
                   className="object-cover pointer-events-none"
                   draggable={false}
-                  priority
                 />
                 {/* Before label */}
                 <div className="absolute bottom-4 left-4 bg-white/10 border border-white/20 px-3 py-1.5 text-white text-xs font-bold uppercase tracking-widest z-10">
@@ -177,11 +175,6 @@ export default function BeforeAfterSlider() {
               </motion.div>
             </div>
           </div>
-
-          {/* Hint text */}
-          <p className="text-center text-white/30 text-xs uppercase tracking-widest mt-6">
-            Faites glisser le curseur pour comparer
-          </p>
 
           {/* View selector */}
           <div className="flex justify-center gap-3 mt-6">

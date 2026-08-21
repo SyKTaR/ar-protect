@@ -3,38 +3,49 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { Menu, X, Phone, ChevronDown } from 'lucide-react'
+import { Menu, X, Phone, ChevronDown, User, Briefcase } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
 const navLinks = [
-  { label: 'Notre ADN', href: '#notre-adn' },
   { label: 'Services', href: '#services' },
   { label: 'Réalisations', href: '#galerie' },
   { label: 'Avis clients', href: '#avis' },
-  { label: 'Contact', href: '#contact' },
+]
+
+const contactOptions = [
+  { label: 'Particulier', desc: 'Réserver ma prestation', href: '#contact', icon: User },
+  { label: 'Professionnel', desc: 'Garage, concession, flotte', href: '#pro', icon: Briefcase },
 ]
 
 const servicesMenu = [
   {
     category: 'Intérieur',
     items: [
-      { label: 'Habitacle & soin' },
-      { label: 'Shampoing des sièges' },
-      { label: 'Soin des cuirs' },
+      { label: 'Nettoyage intérieur', href: '/services/nettoyage-interieur-voiture' },
+      { label: 'Shampoing des sièges', href: '/services/shampoing-sieges-voiture' },
+      { label: 'Soin des cuirs', href: '/services/soin-cuir-voiture' },
     ],
   },
   {
     category: 'Extérieur',
     items: [
-      { label: 'Éclat extérieur' },
+      { label: 'Nettoyage extérieur', href: '/services/nettoyage-exterieur-voiture' },
+      { label: 'Nettoyage moteur', href: '/services/nettoyage-moteur-voiture' },
+      { label: 'Déstickage', href: '/services/destickage-voiture' },
+      { label: 'Désiglage', href: '/services/desiglage-voiture' },
     ],
   },
   {
-    category: 'Soins & protection',
+    category: 'Correction & protection',
     items: [
-      { label: 'Lustrage' },
-      { label: 'Céramique' },
-      { label: 'Optiques de phares' },
+      { label: 'Lustrage', href: '/services/polissage-lustrage-voiture' },
+      { label: 'Traitement céramique', href: '/services/protection-ceramique-voiture' },
+      { label: 'Traitement hydrophobe', href: '/services/traitement-hydrophobe-voiture' },
+      { label: 'Revernissage à froid', href: '/services/revernissage-a-froid-voiture' },
+      { label: 'Retouche peinture carrosserie', href: '/services/retouche-peinture-carrosserie-voiture' },
+      { label: 'Retouche peinture plastique', href: '/services/retouche-peinture-plastique-voiture' },
+      { label: 'Réparation jante', href: '/services/reparation-jantes-voiture' },
+      { label: 'Correction optique de phare', href: '/services/renovation-phares-voiture' },
     ],
   },
 ]
@@ -44,10 +55,12 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [servicesHover, setServicesHover] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [contactHover, setContactHover] = useState(false)
+  const [contactOpenMobile, setContactOpenMobile] = useState(false)
   const pathname = usePathname()
   const isSubPage = pathname !== '/'
 
-  const resolveHref = (anchor: string) => isSubPage ? `/${anchor}` : anchor
+  const resolveHref = (href: string) => href.startsWith('#') && isSubPage ? `/${href}` : href
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -68,14 +81,15 @@ export default function Header() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-24">
             {/* Logo */}
             <a href={resolveHref('#')} className="flex items-center gap-3 group">
-              <div className="relative w-20 h-20 transition-transform duration-300 group-hover:scale-105">
+              <div className="relative w-28 h-28 transition-transform duration-300 group-hover:scale-105">
                 <Image
                   src="/logo-ar-blanc.png"
-                  alt="AR Protect Logo"
+                  alt="AR Protect Detailing Logo"
                   fill
+                  sizes="112px"
                   className="object-contain"
                   priority
                 />
@@ -83,7 +97,7 @@ export default function Header() {
             </a>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
               {navLinks.map((link) => {
                 if (link.label === 'Services') {
                   return (
@@ -112,9 +126,9 @@ export default function Header() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -8 }}
                             transition={{ duration: 0.18, ease: 'easeOut' }}
-                            className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[520px] bg-ar-dark border border-ar-border rounded-lg shadow-2xl overflow-hidden z-50"
+                            className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[560px] bg-ar-dark border border-ar-border rounded-lg shadow-2xl overflow-hidden z-50"
                           >
-                            <div className="grid grid-cols-3 gap-0 p-5">
+                            <div className="grid grid-cols-3 gap-4 p-5">
                               {servicesMenu.map((group) => (
                                 <div key={group.category}>
                                   <p className="text-xs font-semibold text-ar-red uppercase tracking-widest mb-3">
@@ -124,7 +138,7 @@ export default function Header() {
                                     {group.items.map((item) => (
                                       <li key={item.label}>
                                         <a
-                                          href={resolveHref('#services')}
+                                          href={resolveHref(item.href)}
                                           className="text-sm text-white/60 hover:text-white transition-colors duration-150"
                                         >
                                           {item.label}
@@ -160,12 +174,60 @@ export default function Header() {
                   </a>
                 )
               })}
+
+              {/* Contact dropdown */}
+              <div
+                className="relative"
+                onMouseEnter={() => setContactHover(true)}
+                onMouseLeave={() => setContactHover(false)}
+              >
+                <button
+                  type="button"
+                  className="flex items-center gap-1 text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 uppercase tracking-widest relative group"
+                >
+                  Contact
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform duration-200 ${contactHover ? 'rotate-180' : ''}`}
+                  />
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-ar-red group-hover:w-full transition-all duration-300" />
+                </button>
+
+                <AnimatePresence>
+                  {contactHover && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.18, ease: 'easeOut' }}
+                      className="absolute top-full right-0 mt-4 w-64 bg-ar-dark border border-ar-border rounded-lg shadow-2xl overflow-hidden z-50"
+                    >
+                      {contactOptions.map((option) => {
+                        const Icon = option.icon
+                        return (
+                          <a
+                            key={option.label}
+                            href={resolveHref(option.href)}
+                            className="flex items-start gap-3 p-4 hover:bg-ar-red/10 transition-colors duration-150 border-b border-ar-border last:border-0"
+                          >
+                            <Icon size={16} className="text-ar-red flex-shrink-0 mt-0.5" />
+                            <div>
+                              <div className="text-sm font-semibold text-white">{option.label}</div>
+                              <div className="text-xs text-white/40 mt-0.5">{option.desc}</div>
+                            </div>
+                          </a>
+                        )
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </nav>
 
             {/* CTA Desktop */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-4">
               <a
-                href="tel:+33600000000"
+                href="tel:+33636230807"
                 className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-200"
               >
                 <Phone size={14} />
@@ -181,7 +243,7 @@ export default function Header() {
 
             {/* Mobile burger */}
             <button
-              className="md:hidden text-white p-2"
+              className="lg:hidden min-h-11 min-w-11 text-white p-2"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
             >
@@ -199,7 +261,7 @@ export default function Header() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="fixed inset-0 z-40 bg-ar-black flex flex-col pt-24 px-8"
+            className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-ar-black px-8 pt-24"
           >
             <nav className="flex flex-col gap-6">
               {navLinks.map((link, i) => {
@@ -243,7 +305,7 @@ export default function Header() {
                                     {group.items.map((item) => (
                                       <li key={item.label}>
                                         <a
-                                          href={resolveHref('#services')}
+                                          href={resolveHref(item.href)}
                                           onClick={() => { setMobileOpen(false); setServicesOpen(false) }}
                                           className="text-base text-white/60 hover:text-white transition-colors duration-150"
                                         >
@@ -283,6 +345,57 @@ export default function Header() {
                   </motion.a>
                 )
               })}
+
+              {/* Contact dropdown — mobile */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.08 }}
+                className="border-b border-ar-border pb-4"
+              >
+                <button
+                  type="button"
+                  onClick={() => setContactOpenMobile(!contactOpenMobile)}
+                  className="flex items-center justify-between w-full text-2xl font-display font-bold text-white hover:text-ar-red transition-colors duration-200 uppercase tracking-widest"
+                >
+                  Contact
+                  <ChevronDown
+                    size={22}
+                    className={`transition-transform duration-300 ${contactOpenMobile ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                <AnimatePresence>
+                  {contactOpenMobile && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mt-4 flex flex-col gap-4">
+                        {contactOptions.map((option) => {
+                          const Icon = option.icon
+                          return (
+                            <a
+                              key={option.label}
+                              href={resolveHref(option.href)}
+                              onClick={() => { setMobileOpen(false); setContactOpenMobile(false) }}
+                              className="flex items-start gap-3 text-white/60 hover:text-white transition-colors duration-150"
+                            >
+                              <Icon size={18} className="text-ar-red flex-shrink-0 mt-0.5" />
+                              <div>
+                                <div className="text-base font-semibold">{option.label}</div>
+                                <div className="text-xs text-white/40 mt-0.5">{option.desc}</div>
+                              </div>
+                            </a>
+                          )
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </nav>
             <motion.div
               initial={{ opacity: 0 }}

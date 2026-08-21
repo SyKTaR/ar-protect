@@ -1,16 +1,19 @@
 import type { Metadata } from 'next'
+import { Inter, Montserrat } from 'next/font/google'
 import './globals.css'
 
 const siteUrl = 'https://www.arprotect.fr'
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
+const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat', display: 'swap' })
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'AR PROTECT | Detailing Automobile Île-de-France — Nettoyage & Protection',
+    default: 'Detailing auto en Île-de-France et Seine-et-Marne | AR Protect',
     template: '%s | AR Protect',
   },
   description:
-    'AR Protect, expert en detailing automobile en Île-de-France (77). Nettoyage intérieur/extérieur, protection céramique, polissage, rénovation de phares et soin des cuirs. Devis gratuit.',
+    'Nettoyage et detailing auto à domicile en Seine-et-Marne : intérieur, extérieur, polissage, céramique et phares. Demandez votre devis gratuit.',
   keywords: [
     'detailing automobile',
     'nettoyage voiture',
@@ -77,13 +80,13 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  '@id': siteUrl,
+  '@id': `${siteUrl}#localbusiness`,
   name: 'AR Protect',
   description:
     'Expert en detailing automobile en Île-de-France. Nettoyage intérieur/extérieur, protection céramique, polissage, rénovation de phares et soin des cuirs.',
   url: siteUrl,
   telephone: '+33636230807',
-  email: 'arprotect77@gmail.com',
+  email: 'contact@arprotect.fr',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '1 rue Georges Méliès',
@@ -135,7 +138,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" className="scroll-smooth">
+    <html lang="fr" className={`${inter.variable} ${montserrat.variable} scroll-smooth`}>
       <head>
         <script
           type="application/ld+json"

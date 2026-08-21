@@ -6,18 +6,27 @@ import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react'
 
 const links = {
   services: [
-    { label: 'Nettoyage Intérieur', href: '#services' },
-    { label: 'Nettoyage Extérieur', href: '#services' },
-    { label: 'Lustrage', href: '#services' },
-    { label: 'Rénovation phares', href: '#services' },
-    { label: 'Soin des cuirs', href: '#services' },
-    { label: 'Shampoing sièges', href: '#services' },
+    { label: 'Nettoyage intérieur', href: '/services/nettoyage-interieur-voiture' },
+    { label: 'Shampoing des sièges', href: '/services/shampoing-sieges-voiture' },
+    { label: 'Soin des cuirs', href: '/services/soin-cuir-voiture' },
+    { label: 'Nettoyage extérieur', href: '/services/nettoyage-exterieur-voiture' },
+    { label: 'Nettoyage moteur', href: '/services/nettoyage-moteur-voiture' },
+    { label: 'Déstickage', href: '/services/destickage-voiture' },
+    { label: 'Désiglage', href: '/services/desiglage-voiture' },
+    { label: 'Lustrage', href: '/services/polissage-lustrage-voiture' },
+    { label: 'Traitement céramique', href: '/services/protection-ceramique-voiture' },
+    { label: 'Traitement hydrophobe', href: '/services/traitement-hydrophobe-voiture' },
+    { label: 'Revernissage à froid', href: '/services/revernissage-a-froid-voiture' },
+    { label: 'Retouche peinture carrosserie', href: '/services/retouche-peinture-carrosserie-voiture' },
+    { label: 'Retouche peinture plastique', href: '/services/retouche-peinture-plastique-voiture' },
+    { label: 'Réparation jantes', href: '/services/reparation-jantes-voiture' },
+    { label: 'Correction optique de phare', href: '/services/renovation-phares-voiture' },
   ],
   navigation: [
-    { label: 'Avant / Après', href: '#avant-apres' },
-    { label: 'Réalisations', href: '#galerie' },
-    { label: 'Avis Clients', href: '#avis' },
-    { label: 'Réserver', href: '#contact' },
+    { label: 'Avant / Après', href: '/#avant-apres' },
+    { label: 'Réalisations', href: '/#galerie' },
+    { label: 'Avis Clients', href: '/#avis' },
+    { label: 'Réserver', href: '/#contact' },
   ],
 }
 
@@ -28,23 +37,27 @@ export default function Footer() {
     <footer className="bg-ar-black border-t border-ar-border">
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <div className="relative w-20 h-20">
+              <div className="relative w-28 h-28">
                 <Image
                   src="/logo-ar-blanc.png"
-                  alt="AR Protect"
+                  alt="AR Protect Detailing"
                   fill
+                  sizes="112px"
                   className="object-contain"
                 />
               </div>
             </div>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs mb-6">
-              L&apos;excellence du detailing automobile à domicile. Chaque véhicule mérite un
-              traitement d&apos;exception, nous sommes là pour ça.
+              Car chaque véhicule mérite un traitement d&apos;exception.
             </p>
+            <Link href="/zones/seine-et-marne" className="mb-6 inline-flex min-h-11 items-center text-sm font-semibold text-ar-red hover:text-white">
+              Nettoyage automobile en Seine-et-Marne
+              <ArrowUpRight size={13} className="ml-1" />
+            </Link>
 
             {/* Social */}
             <div className="flex items-center gap-3">
@@ -76,11 +89,11 @@ export default function Footer() {
           </div>
 
           {/* Services */}
-          <div>
+          <div className="lg:col-span-2">
             <h4 className="text-white text-xs uppercase tracking-widest font-bold mb-5">
               Services
             </h4>
-            <ul className="space-y-3">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
               {links.services.map((link) => (
                 <li key={link.label}>
                   <a
@@ -103,7 +116,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:+33600000000"
+                  href="tel:+33636230807"
                   className="flex items-start gap-3 text-white/50 hover:text-white transition-colors duration-200 group"
                 >
                   <Phone size={14} className="mt-0.5 text-ar-red flex-shrink-0" />
@@ -113,21 +126,21 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:contact@arprotect.fr"
-                  className="flex items-start gap-3 text-white/50 hover:text-white transition-colors duration-200"
+                  className="relative z-10 flex items-start gap-3 text-white/50 hover:text-white transition-colors duration-200"
                 >
                   <Mail size={14} className="mt-0.5 text-ar-red flex-shrink-0" />
-                  <span className="text-sm">contact@arprotect.fr</span>
+                  <span className="text-sm break-all">contact@arprotect.fr</span>
                 </a>
               </li>
               <li className="flex items-start gap-3 text-white/50 hover:text-white transition-colors duration-200">
                 <MapPin size={14} className="mt-0.5 text-ar-red flex-shrink-0" />
-                <span className="text-sm">Chervry Cossigny (77173)</span>
+                <span className="text-sm">Chevry-Cossigny (77173)</span>
               </li>
             </ul>
 
             <div className="mt-6">
               <a
-                href="#contact"
+                href="/#contact"
                 className="inline-flex items-center gap-2 text-ar-red text-xs uppercase tracking-widest font-semibold hover:gap-3 transition-all duration-300"
               >
                 Prendre RDV

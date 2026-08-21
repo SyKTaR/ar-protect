@@ -305,7 +305,7 @@ export default function Testimonials() {
               href="https://www.google.com/search?hl=fr-FR&gl=fr&q=AR+PROTECT&ludocid=2814090523952500646&lsig=AB86z5UWweasKggHlxyl0s4oPbJM&source=g.page.m._&laa=merchant-review-solicitation&pli=1#lrd=0xa24a85d79d490341:0x270da86bfdfb4fa6,3"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 border border-white/20 hover:border-ar-red text-white/50 hover:text-white text-xs uppercase tracking-[0.2em] font-semibold px-6 py-3.5 transition-all duration-300"
+              className="inline-flex items-center gap-2.5 bg-ar-red hover:bg-ar-red-hover text-white text-xs uppercase tracking-[0.2em] font-semibold px-6 py-3.5 transition-all duration-300"
             >
               <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
                 <path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm6.116 7.006l-1.767 8.34c-.13.58-.48.72-.974.448l-2.688-1.98-1.297 1.25c-.143.143-.264.264-.54.264l.192-2.727 4.96-4.478c.216-.192-.047-.298-.334-.106L6.73 12.553 4.076 11.74c-.567-.177-.578-.567.118-.84l10.978-4.232c.47-.177.883.106.944.338z"/>

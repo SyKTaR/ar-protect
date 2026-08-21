@@ -4,8 +4,15 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Mentions Légales — AR Protect',
+  title: 'Mentions légales',
   description: 'Mentions légales du site AR Protect.',
+  alternates: {
+    canonical: 'https://www.arprotect.fr/mentions-legales',
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
 }
 
 const sections = [
@@ -19,9 +26,9 @@ const sections = [
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Forme juridique</span> Auto-entrepreneur</li>
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Siège social</span> 1 rue Georges Méliès, Chevry-Cossigny 77173 — France</li>
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">SIRET</span> 92891664200020</li>
-          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">TVA</span> Non applicable — article 293 B du Code Général des Impôts (CGI)</li>
+          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">TVA intracommunautaire</span> FR78928916642</li>
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Responsable</span> Thomas FOURNIER</li>
-          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">E-mail</span> <a href="mailto:arprotect77@gmail.com" className="text-ar-red hover:underline">arprotect77@gmail.com</a></li>
+          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">E-mail</span> <a href="mailto:contact@arprotect.fr" className="text-ar-red hover:underline">contact@arprotect.fr</a></li>
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Téléphone</span> <a href="tel:+33636230807" className="hover:text-white transition-colors">06.36.23.08.07</a></li>
         </ul>
       </div>
@@ -49,10 +56,8 @@ const sections = [
     title: 'Conception et réalisation du site',
     content: (
       <div className="space-y-2 text-white/65 text-sm leading-relaxed">
-        <p>Site conçu et développé par <strong className="text-white/90">AR PROTECT</strong>.</p>
+        <p>Site conçu et développé par <strong className="text-white/90">KLIV Agency</strong>.</p>
         <ul className="mt-3 space-y-1.5">
-          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">E-mail</span> <a href="mailto:arprotect77@gmail.com" className="text-ar-red hover:underline">arprotect77@gmail.com</a></li>
-          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Site</span> www.arprotect.fr</li>
         </ul>
       </div>
     ),
@@ -65,10 +70,21 @@ const sections = [
         <p className="mb-3">AR PROTECT exerce les activités suivantes :</p>
         <ul className="space-y-2">
           {[
-            'Nettoyage automobile intérieur / extérieur',
-            'Rénovation de phares',
-            'Lustrage et protection carrosserie',
-            'Pose de pièces et accessoires',
+            'Nettoyage intérieur',
+            'Shampoing des sièges',
+            'Soin des cuirs',
+            'Nettoyage extérieur',
+            'Nettoyage moteur',
+            'Déstickage',
+            'Désiglage',
+            'Lustrage',
+            'Traitement céramique',
+            'Traitement hydrophobe',
+            'Revernissage à froid',
+            'Retouche peinture carrosserie',
+            'Retouche peinture plastique',
+            'Réparation jante',
+            'Correction optique de phare',
             'Vente de produits d\'entretien et accessoires via la boutique en ligne',
           ].map((item) => (
             <li key={item} className="flex items-start gap-2">
@@ -162,7 +178,7 @@ const sections = [
       <div className="text-white/65 text-sm leading-relaxed space-y-3">
         <p>AR PROTECT respecte la réglementation française et européenne en matière de protection des données personnelles (RGPD).</p>
         <p>Les données collectées via le site sont destinées uniquement à AR PROTECT pour : traiter les demandes et devis, assurer la facturation et le suivi des commandes, et envoyer des informations commerciales si le client l&apos;a accepté. Elles ne sont ni revendues ni transmises à des tiers non autorisés.</p>
-        <p>Chaque utilisateur dispose d&apos;un droit d&apos;accès, de rectification, d&apos;effacement, d&apos;opposition et de portabilité exercé par e-mail à : <a href="mailto:arprotect77@gmail.com" className="text-ar-red hover:underline">arprotect77@gmail.com</a></p>
+        <p>Chaque utilisateur dispose d&apos;un droit d&apos;accès, de rectification, d&apos;effacement, d&apos;opposition et de portabilité exercé par e-mail à : <a href="mailto:contact@arprotect.fr" className="text-ar-red hover:underline">contact@arprotect.fr</a></p>
         <p>Pour plus de détails, consultez notre <Link href="/politique-de-confidentialite" className="text-ar-red hover:underline">Politique de Confidentialité</Link>.</p>
       </div>
     ),
@@ -210,7 +226,7 @@ const sections = [
         <ul className="space-y-1.5">
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Adresse</span> 1 rue Georges Méliès, Chevry-Cossigny 77173 — France</li>
           <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">Téléphone</span> <a href="tel:+33636230807" className="hover:text-white transition-colors">06.36.23.08.07</a></li>
-          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">E-mail</span> <a href="mailto:arprotect77@gmail.com" className="text-ar-red hover:underline">arprotect77@gmail.com</a></li>
+          <li><span className="text-white/40 uppercase text-xs tracking-widest mr-2">E-mail</span> <a href="mailto:contact@arprotect.fr" className="text-ar-red hover:underline">contact@arprotect.fr</a></li>
         </ul>
       </div>
     ),

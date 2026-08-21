@@ -8,7 +8,7 @@ const pillars = [
   {
     icon: Sparkles,
     title: 'Déplacement à domicile',
-    desc: 'Partout en en Ile-de-France.',
+    desc: 'Partout en Île-de-France, avec une présence locale en Seine-et-Marne.',
   },
   { 
     icon: ShieldCheck,
@@ -96,8 +96,8 @@ export default function Brand() {
                 qu&apos;on aime voir briller.
               </p>
               <p>
-                Chez <span className="text-ar-red font-semibold">AR Protect</span>, on est avant tout des{' '}
-                <span className="text-white font-semibold">passionnés de belles mécaniques</span>.
+                Chez <span className="text-ar-red font-semibold">AR PROTECT</span>, on est avant tout des{' '}
+                <span className="text-white">passionnés de belles mécaniques</span>.
                 Notre but ? Redonner ce petit coup de jeune qui fait plaisir à chaque fois que
                 vous ouvrez votre portière.
               </p>
