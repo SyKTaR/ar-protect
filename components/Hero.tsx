@@ -27,15 +27,21 @@ export default function Hero({ videoSrc }: HeroProps = {}) {
       <div className="absolute inset-0 z-0">
         {videoSrc ? (
           <>
-            {/* Static fallback: shown behind the video, and stays visible if the
-               video fails to load or the user prefers reduced motion. */}
+            {/* Base layer: solid dark background instead of a static photo, so
+               that on a slow connection the user sees the brand background
+               fading into the video once it's ready, never a competing photo. */}
+            <div className="absolute inset-0 bg-ar-black" />
+
+            {/* Static fallback: only shown if the video truly fails to load,
+               or for users who prefer reduced motion (video is hidden via
+               motion-reduce below, so this image takes over in that case). */}
             <Image
               src="/avant_ext.png"
               alt="Véhicule préparé pour un detailing automobile AR Protect"
               fill
               priority
               sizes="100vw"
-              className="object-cover"
+              className={`object-cover ${videoFailed ? 'block' : 'hidden motion-reduce:block'}`}
             />
             {!videoFailed && (
               <video
@@ -44,7 +50,6 @@ export default function Hero({ videoSrc }: HeroProps = {}) {
                 loop
                 playsInline
                 preload="auto"
-                poster="/avant_ext.png"
                 aria-hidden="true"
                 onError={() => setVideoFailed(true)}
                 className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
