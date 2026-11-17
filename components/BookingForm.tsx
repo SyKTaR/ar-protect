@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import { trackEvent } from '@/lib/analytics'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Car, Wrench, User, CheckCircle, ChevronRight, ChevronLeft, ChevronDown, FileText, X, Edit2, ClipboardList, Phone } from 'lucide-react'
 
@@ -404,6 +405,7 @@ export default function BookingForm() {
       }
       setSubmitted(true)
       setShowSummary(false)
+      trackEvent('generate_lead')
     } catch (err) {
       setError(
         err instanceof TypeError

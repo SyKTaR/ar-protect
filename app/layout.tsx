@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter, Montserrat } from 'next/font/google'
 import './globals.css'
+import CookieConsent from '@/components/CookieConsent'
+import { CONSENT_DEFAULT_SNIPPET } from '@/lib/analytics'
 
 const siteUrl = 'https://www.arprotect.fr'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
@@ -144,8 +146,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script dangerouslySetInnerHTML={{ __html: CONSENT_DEFAULT_SNIPPET }} />
       </head>
       <body className="bg-ar-black text-white antialiased grain">
+        <CookieConsent />
         {children}
       </body>
     </html>

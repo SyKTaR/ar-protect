@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react'
+import { openConsentPreferences } from '@/lib/analytics'
 
 const links = {
   services: [
@@ -167,6 +168,13 @@ export default function Footer() {
             <Link href="/conditions-generales-utilisation" className="text-white/30 text-xs hover:text-white/60 transition-colors">
               CGU / CGV
             </Link>
+            <button
+              type="button"
+              onClick={openConsentPreferences}
+              className="text-white/30 text-xs hover:text-white/60 transition-colors"
+            >
+              Gérer les cookies
+            </button>
           </div>
         </div>
       </div>

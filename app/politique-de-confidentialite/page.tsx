@@ -19,7 +19,9 @@ const retentionData = [
   { type: 'Données de contact / devis', duration: '3 ans après le dernier contact' },
   { type: 'Données de commande', duration: '10 ans (obligation légale comptable)' },
   { type: 'Données de facturation', duration: '10 ans' },
-  { type: 'Données de navigation (cookies)', duration: '13 mois maximum' },
+  { type: 'Cookies de mesure d\'audience (Google Analytics)', duration: '13 mois maximum' },
+  { type: 'Données statistiques Google Analytics 4', duration: '14 mois' },
+  { type: 'Choix de consentement aux cookies', duration: '6 mois' },
   { type: 'Données newsletter', duration: "Jusqu'à désinscription de l'utilisateur" },
 ]
 
@@ -239,13 +241,11 @@ const sections = [
     title: 'Cookies et traceurs',
     content: (
       <div className="text-white/65 text-sm leading-relaxed space-y-3">
-        <p>Le site <strong className="text-white/90">www.arprotect.fr</strong> utilise des cookies afin d&apos;améliorer la navigation et d&apos;analyser la fréquentation du site.</p>
-        <p>Les cookies peuvent servir à :</p>
+        <p>Le site <strong className="text-white/90">www.arprotect.fr</strong> n&apos;utilise aucun cookie de suivi sans votre accord. À votre première visite, un bandeau vous permet d&apos;accepter, de refuser ou de personnaliser vos choix. Refuser est aussi simple qu&apos;accepter.</p>
+        <p>Une seule catégorie de traceurs est proposée :</p>
         <ul className="space-y-2 mb-3">
           {[
-            'Mémoriser les préférences utilisateur',
-            'Établir des statistiques anonymes de visite (via Google Analytics ou outils similaires)',
-            'Permettre le bon fonctionnement du panier et de la boutique en ligne',
+            'Mesure d\'audience avec Google Analytics 4 (Google Ireland Limited) : pages consultées, provenance des visites, clics sur le téléphone, l\'e-mail et WhatsApp, envoi d\'une demande de devis. Les informations saisies dans le formulaire ne sont jamais transmises à Google Analytics.',
           ].map((item) => (
             <li key={item} className="flex items-start gap-2">
               <span className="w-1 h-1 bg-ar-red rounded-full mt-2 flex-shrink-0" />
@@ -253,8 +253,8 @@ const sections = [
             </li>
           ))}
         </ul>
-        <p>L&apos;utilisateur peut à tout moment accepter ou refuser les cookies via la bannière de consentement affichée lors de sa première visite, paramétrer son navigateur pour les refuser, ou les supprimer depuis les paramètres du navigateur.</p>
-        <p className="text-white/40 text-xs">Le refus de certains cookies peut limiter certaines fonctionnalités du site (ex. : panier, compte client).</p>
+        <p>Tant que vous n&apos;avez pas accepté, aucune requête n&apos;est envoyée vers Google et aucun cookie Google Analytics n&apos;est déposé. Les cookies Google Analytics (_ga, _ga_*) ont une durée de vie de 13 mois maximum ; les données statistiques sont conservées 14 mois. Les données peuvent être traitées par Google hors de l&apos;Union européenne, dans les conditions décrites à la section « Transfert des données ».</p>
+        <p>Votre choix est mémorisé 6 mois dans votre navigateur (stockage local, sans cookie). Vous pouvez le modifier ou retirer votre consentement à tout moment via le lien « Gérer les cookies » en bas de chaque page, paramétrer votre navigateur ou supprimer les cookies depuis ses paramètres.</p>
       </div>
     ),
   },
@@ -339,14 +339,14 @@ export default function PolitiqueConfidentialitePage() {
             <p className="mt-4 text-white/40 text-sm max-w-2xl">
               Cette politique a pour objectif de vous informer sur la manière dont AR PROTECT collecte, traite et protège vos données personnelles, conformément au RGPD.
             </p>
-            <p className="mt-2 text-white/30 text-sm">Dernière mise à jour : mars 2026</p>
+            <p className="mt-2 text-white/30 text-sm">Dernière mise à jour : novembre 2026</p>
           </div>
         </div>
 
         {/* Sections */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 space-y-0 divide-y divide-ar-border">
           {sections.map((section) => (
-            <div key={section.id} className="py-8 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6">
+            <div key={section.id} id={section.id === 9 ? 'cookies' : undefined} className="py-8 scroll-mt-28 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-6">
               <div className="flex items-start gap-3">
                 <span className="text-ar-red font-mono text-xs font-bold mt-0.5 tabular-nums w-5 flex-shrink-0">
                   {String(section.id).padStart(2, '0')}
