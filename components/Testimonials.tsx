@@ -197,7 +197,7 @@ export default function Testimonials() {
           className="flex flex-wrap items-center justify-center gap-8 mb-10"
         >
           {[
-            { value: '5', label: 'Note de satisfaction', sub: '22 avis' },
+            { value: '5', label: 'Note de satisfaction', sub: 'Note 5/5 sur Google' },
             { value: '100%', label: 'Clients satisfaits', sub: 'Taux de satisfaction' },
             { value: '+350', label: 'Véhicules', sub: 'Traités depuis 2026' },
           ].map((stat) => (

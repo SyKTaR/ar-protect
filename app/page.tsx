@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     absolute: 'Detailing auto en Île-de-France et Seine-et-Marne | AR Protect',
   },
   description:
-    'Nettoyage et detailing auto à domicile en Seine-et-Marne : intérieur, extérieur, polissage, céramique et phares. Demandez votre devis gratuit.',
+    'Nettoyage et detailing auto à domicile en Seine-et-Marne : intérieur, extérieur, polissage et phares. Demandez votre devis gratuit.',
   alternates: {
     canonical: 'https://www.arprotect.fr',
   },

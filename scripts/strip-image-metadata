@@ -1,0 +1,170 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+shopt -s nocasematch
+
+if ! command -v exiftool >/dev/null 2>&1; then
+  echo "Erreur : exiftool est requis (macOS : brew install exiftool)." >&2
+  exit 1
+fi
+
+if ! command -v jpegtran >/dev/null 2>&1; then
+  echo "Erreur : jpegtran est requis (macOS : brew install jpeg)." >&2
+  exit 1
+fi
+
+targets=("${@:-public}")
+file_list="$(mktemp "${TMPDIR:-/tmp}/strip-image-metadata-files.XXXXXX")"
+work_file=""
+
+set_transform() {
+  case "$1" in
+    2) transform=(-flip horizontal) ;;
+    3) transform=(-rotate 180) ;;
+    4) transform=(-flip vertical) ;;
+    5) transform=(-transpose) ;;
+    6) transform=(-rotate 90) ;;
+    7) transform=(-transverse) ;;
+    8) transform=(-rotate 270) ;;
+    *) echo "Erreur : orientation EXIF inconnue ($1)." >&2; exit 1 ;;
+  esac
+}
+
+cleanup() {
+  rm -f "$file_list"
+  if [[ -n "$work_file" ]]; then
+    rm -f "$work_file"
+  fi
+}
+trap cleanup EXIT
+
+for target in "${targets[@]}"; do
+  if [[ -d "$target" ]]; then
+    find "$target" -type f \( \
+      -iname '*.jpg' -o \
+      -iname '*.jpeg' -o \
+      -iname '*.png' -o \
+      -iname '*.webp' -o \
+      -iname '*.heic' \
+    \) -print0 >> "$file_list"
+  elif [[ -f "$target" ]]; then
+    case "$target" in
+      *.jpg|*.jpeg|*.png|*.webp|*.heic) printf '%s\0' "$target" >> "$file_list" ;;
+      *) echo "Erreur : format non pris en charge : $target" >&2; exit 1 ;;
+    esac
+  else
+    echo "Erreur : chemin introuvable : $target" >&2
+    exit 1
+  fi
+done
+
+# Vérifie avant toute modification les orientations et la disponibilité de
+# Sharp lorsqu'une transformation JPEG parfaitement lossless est impossible.
+needs_sharp=0
+while IFS= read -r -d '' file; do
+  orientation="$(exiftool -s3 -n -Orientation "$file")"
+  file_type="$(exiftool -s3 -FileType "$file")"
+  if [[ -n "$orientation" && "$orientation" != "1" && "$file_type" != "JPEG" ]]; then
+    echo "Erreur : orientation EXIF $orientation non gérée sans réencodage pour $file_type : $file" >&2
+    exit 1
+  fi
+  if [[ -n "$orientation" && "$orientation" != "1" ]]; then
+    set_transform "$orientation"
+    if ! jpegtran -copy none -perfect "${transform[@]}" -outfile /dev/null "$file" 2>/dev/null; then
+      needs_sharp=1
+    fi
+  fi
+done < "$file_list"
+
+if [[ "$needs_sharp" == "1" ]]; then
+  if ! command -v node >/dev/null 2>&1 || ! node -e "require('sharp')" >/dev/null 2>&1; then
+    echo "Erreur : Sharp est requis pour appliquer sans décalage une orientation JPEG non parfaite. Lance npm install." >&2
+    exit 1
+  fi
+fi
+
+processed=0
+rotated=0
+reencoded=0
+
+while IFS= read -r -d '' file; do
+  orientation="$(exiftool -s3 -n -Orientation "$file")"
+  file_type="$(exiftool -s3 -FileType "$file")"
+
+  if [[ -n "$orientation" && "$orientation" != "1" ]]; then
+    set_transform "$orientation"
+
+    work_file="$(mktemp "${TMPDIR:-/tmp}/strip-image-metadata-image.XXXXXX")"
+    if ! jpegtran -copy all -perfect "${transform[@]}" -outfile "$work_file" "$file" 2>/dev/null; then
+      node - "$file" "$work_file" <<'NODE'
+const sharp = require('sharp')
+const [source, output] = process.argv.slice(2)
+
+sharp(source)
+  .rotate()
+  .keepIccProfile()
+  .jpeg({ quality: 95, chromaSubsampling: '4:4:4' })
+  .toFile(output)
+  .catch((error) => {
+    console.error(error)
+    process.exit(1)
+  })
+NODE
+      reencoded=$((reencoded + 1))
+    fi
+
+    if mode="$(stat -f '%Lp' "$file" 2>/dev/null)"; then
+      :
+    else
+      mode="$(stat -c '%a' "$file")"
+    fi
+
+    mv "$work_file" "$file"
+    work_file=""
+    chmod "$mode" "$file"
+    rotated=$((rotated + 1))
+  fi
+
+  # Travaille sur une copie dont le suffixe correspond au format réel : le
+  # dépôt contient notamment des PNG historiques nommés .jpg ou .jpeg.
+  case "$file_type" in
+    JPEG) real_extension="jpg" ;;
+    PNG) real_extension="png" ;;
+    WEBP) real_extension="webp" ;;
+    HEIC) real_extension="heic" ;;
+    *) echo "Erreur : format réel non pris en charge ($file_type) : $file" >&2; exit 1 ;;
+  esac
+
+  base_work_file="$(mktemp "${TMPDIR:-/tmp}/strip-image-metadata-image.XXXXXX")"
+  work_file="${base_work_file}.${real_extension}"
+  mv "$base_work_file" "$work_file"
+  cp "$file" "$work_file"
+
+  # Supprime toutes les métadonnées, à l'exception du profil ICC nécessaire à
+  # une restitution fidèle des couleurs.
+  exiftool -overwrite_original -all= --icc_profile:all "$work_file" >/dev/null
+
+  if [[ -n "$(exiftool -s -EXIF:all -XMP:all -IPTC:all "$work_file")" ]]; then
+    echo "Erreur : des métadonnées EXIF/XMP/IPTC subsistent : $file" >&2
+    exit 1
+  fi
+
+  if exiftool -if 'defined $gpslatitude or defined $gpslongitude or defined $gpsposition' -p '$FilePath' "$work_file" 2>/dev/null | grep -q .; then
+    echo "Erreur : des coordonnées GPS subsistent : $file" >&2
+    exit 1
+  fi
+
+  if mode="$(stat -f '%Lp' "$file" 2>/dev/null)"; then
+    :
+  else
+    mode="$(stat -c '%a' "$file")"
+  fi
+
+  mv "$work_file" "$file"
+  work_file=""
+  chmod "$mode" "$file"
+
+  processed=$((processed + 1))
+done < "$file_list"
+
+printf '%s image(s) nettoyée(s), dont %s orientation(s) appliquée(s) aux pixels et %s JPEG réencodé(s).\n' "$processed" "$rotated" "$reencoded"

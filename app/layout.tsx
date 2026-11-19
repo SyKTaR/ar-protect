@@ -15,11 +15,10 @@ export const metadata: Metadata = {
     template: '%s | AR Protect',
   },
   description:
-    'Nettoyage et detailing auto à domicile en Seine-et-Marne : intérieur, extérieur, polissage, céramique et phares. Demandez votre devis gratuit.',
+    'Nettoyage et detailing auto à domicile en Seine-et-Marne : intérieur, extérieur, polissage et phares. Demandez votre devis gratuit.',
   keywords: [
     'detailing automobile',
     'nettoyage voiture',
-    'protection céramique',
     'polissage carrosserie',
     'rénovation phares',
     'soin cuir voiture',
@@ -56,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AR Protect | Detailing Automobile Île-de-France',
     description:
-      'Expert en detailing automobile en Île-de-France. Nettoyage intérieur/extérieur, protection céramique, polissage et rénovation de phares. Résultats professionnels garantis.',
+      'Expert en detailing automobile en Île-de-France. Nettoyage intérieur/extérieur, polissage et rénovation de phares. Résultats professionnels garantis.',
     url: siteUrl,
     siteName: 'AR Protect',
     locale: 'fr_FR',
@@ -74,7 +73,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'AR Protect | Detailing Automobile Île-de-France',
     description:
-      'Expert en detailing automobile en Île-de-France. Nettoyage, polissage, protection céramique. Devis gratuit.',
+      'Expert en detailing automobile en Île-de-France. Nettoyage, polissage et rénovation de phares. Devis gratuit.',
     images: ['/arprotect_logo.jpg'],
   },
 }
@@ -85,7 +84,7 @@ const jsonLd = {
   '@id': `${siteUrl}#localbusiness`,
   name: 'AR Protect',
   description:
-    'Expert en detailing automobile en Île-de-France. Nettoyage intérieur/extérieur, protection céramique, polissage, rénovation de phares et soin des cuirs.',
+    'Expert en detailing automobile en Île-de-France. Nettoyage intérieur/extérieur, polissage, rénovation de phares et soin des cuirs.',
   url: siteUrl,
   telephone: '+33636230807',
   email: 'contact@arprotect.fr',
@@ -108,13 +107,14 @@ const jsonLd = {
   sameAs: [
     'https://www.instagram.com/arprotect/',
     'https://www.tiktok.com/@ar.protect',
+    'https://www.google.com/search?hl=fr-FR&gl=fr&q=AR+PROTECT&ludocid=2814090523952500646&lsig=AB86z5UWweasKggHlxyl0s4oPbJM&source=g.page.m._&laa=merchant-review-solicitation&pli=1#lrd=0xa24a85d79d490341:0x270da86bfdfb4fa6,3',
   ],
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      opens: '08:00',
-      closes: '19:00',
+      opens: '09:00',
+      closes: '18:00',
     },
   ],
   priceRange: '€€',
@@ -125,7 +125,6 @@ const jsonLd = {
     itemListElement: [
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Nettoyage intérieur automobile' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Nettoyage extérieur automobile' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Protection céramique' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Polissage carrosserie' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Rénovation de phares' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Soin des cuirs' } },

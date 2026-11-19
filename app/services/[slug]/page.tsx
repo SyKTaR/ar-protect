@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   return {
     title: { absolute: service.metaTitle },
     description: service.metaDescription,
+    robots: service.unavailable ? { index: false, follow: true } : undefined,
     alternates: { canonical },
     openGraph: {
       title: service.metaTitle,
